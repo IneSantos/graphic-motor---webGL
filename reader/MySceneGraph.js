@@ -84,13 +84,18 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "number of rotation elements wrong. Number was " + rotList.length;
 
 	this.rotation[];
-	var rotnodes = rotList.length;
-	for (var i=0; i< rotnodes; i++){
-		// store the several rotations in arrays containing both the axis and angle
-		this.rotation[e]=e.attributes.getNamedItem("axis").value;
-		console.log("Read rotations "+ e.id+" with value "+this.list[e.id]);
-	};
+	for(var k = 0; k < rotList.length; k++){
+		for (var i = 0; i < 2; i++){
+			// store the several rotations in arrays containing both the axis and angle
+			var r = rotList[k];
+			if(i == 0)
+				this.rotation[i] = this.reader.getItem(r, 'axis', ["x","y","z"]);
+			else
+				this.rotation[i] = this.reader.getFloat(r, 'angle');
+		};
 
+	};
+/*
 	var r1 = rotation[0];
 	this.rotation[];
 	this.rotation[0] = this.reader.getItem(r1, 'axis', ["x","y","z"]);
@@ -103,7 +108,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.rotation3[];
 	this.rotation3[0] = this.reader.getItem(r3, 'axis', ["x","y","z"]);
 	this.rotation3[1] = this.reader.getFloat(r3, 'angle', ["x","y","z"]);
-
+*/
 	// SCALE
 	var scale = rootElement.getElementsByTagName('scale');
 	if (scale == null)
