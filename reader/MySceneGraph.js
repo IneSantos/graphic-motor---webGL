@@ -115,39 +115,34 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	// REFERENCE
 	var reference = rootElement.getElementsByTagName('reference');
 	if (reference == null)
-		return "scale element missing.";
+		return "reference element missing.";
 	if (reference.length != 1)
-		return "number of scale elements wrong. Number was " + reference.length;
+		return "number of reference elements wrong. Number was " + reference.length;
 
 	var rf = reference[0];
 	this.reference_length = this.reader.getFloat(rf, 'length');
 
-	// various examples of different types of access
-	/*var globals = elems[0];
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
+	// ILUMINATION
+	var ambient = rootElement.getElementsByTagName('ambient');
+	if (ambient == null)
+		return "ambient element missing.";
+	if (ambient.length != 1)
+		return "number of ambient elements wrong. Number was " + ambient.length;
 
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
+	var amb = ambient[0];
+	this.ambient = this.reader.getRGBA(amb, 'ambient');
 
-	var tempList=rootElement.getElementsByTagName('list');
+	var doubleside = rootElement.getElementsByTagName('doubleside');
+	if (doubleside == null)
+		return "doubleside element missing.";
+	if (doubleside.length != 1)
+		return "number of doubleside elements wrong. Number was " + doubleside.length;
 
-	if (tempList == null) {
-		return "list element is missing.";
-	}
-	
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
+	var ds = doubleside[0];
+	this.doubleside = this.reader.getBoolean(ds, 'value');
 
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};*/
+	var b = rootElement.getElementsByTagName('background');
+
 
 };
 	
