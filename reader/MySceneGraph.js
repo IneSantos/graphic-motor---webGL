@@ -64,34 +64,37 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (frustum.length != 1)
 		return "number of frustum planes wrong. Number was " + frustum.length;
 
-	var n = frustum[0];
-	this.near = this.reader.GetFloat(n, 'near');
-	var f = frustum[1];
-	this.far = this.reader.GetFloat(f, 'far');
+	var frst = frustum[0];
+	this.near = this.reader.getFloat(frst, 'near');
+	this.far = this.reader.getFloat(frst, 'far');
 
 	// TRANSLATION
 	var translate = rootElement.getElementsByTagName('translate');
 	if (translate == null)
 		return "translate element missing";
-	if (translate.length != 3)
-		return "translate axis missing";
+	if (translate.length != 1)
+		return "number of translate elements wrong. Number was " + translate.length;
 
-	var translate_x = translate[0];
-	this.x = this.reader.GetFloat(translate_x, 'x');
-	var translate_y = translate[1];
-	this.y = this.reader.GetFloat(translate_y, 'y');
-	var translate_z = translate[2];
-	this.z = this.reader.GetFloat(translate_z, 'z');
+	var trnslt = translate[0];
+	this.x = this.reader.getFloat(trnslt, 'x');
+	this.y = this.reader.getFloat(trnslt, 'y');
+	this.z = this.reader.getFloat(trnslt, 'z');
 
 	// ROTATION
 	var rotation = rootElement.getElementsByTagName('rotation');
 	if (rotation == null)
 		return "rotation element missing.";
-	if (rotation.length != 6)
-		return "number of rotation elements wrong.";
+	if (rotation.length != 3)
+		return "number of rotation elements wrong. Number was " + rotation.length;
 
 	var r1 = rotation[0];
-	this.rotation_x = this.reader.getItem(r1, 'axis', ["x","y","z"]);
+	this.rotation[];
+	this.rotation[0] = this.reader.getItem(r1, 'axis', ["x","y","z"]);
+	this.rotation[1] = this.reader.getFloat(r1, 'angle');
+	var r2 = rotation[1];
+	this.rotation2[];
+	this.rotation2[0] = this.reader.getItem(r2, 'axis', ["x","y","z"]);
+	this.rotation2[1] = this.reader.getFloat(r2, 'angle');
 
 
 
