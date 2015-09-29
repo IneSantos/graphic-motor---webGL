@@ -83,7 +83,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (rotList.length != 3)
 		return "number of rotation elements wrong. Number was " + rotList.length;
 
-	this.rotation[];
+	this.rotation[rotList.length*2];
 	for(var k = 0; k < rotList.length; k++){
 		for (var i = 0; i < 2; i++){
 			// store the several rotations in arrays containing both the axis and angle
