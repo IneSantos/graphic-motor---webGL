@@ -41,22 +41,22 @@ MySceneGraph.prototype.onXMLReady=function()
 	this.scene.onGraphLoaded();
 };
 
+MySceneGraph.prototype.rotation = function(){
 
+}
 
 /*
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
-	
-	/*var elems =  rootElement.getElementsByTagName('globals');
-	if (elems == null) {
-		return "globals element is missing.";
-	}
 
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-*/
+	// INITIALS
+	var init = rootElement.getElementsByTagName('INITIALS');
+	if (init == null)
+		return "initials element missing";
+	if (init.length != 1)
+		return "number of initials elements wrong. Number was " + init.length;
+
 	// FRUSTUM PLANES
 	var frustum = rootElement.getElementsByTagName('frustum');
 	if (frustum == null)
@@ -122,11 +122,18 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var rf = reference[0];
 	this.reference_length = this.reader.getFloat(rf, 'length');
 
+	// INITIALS
+	var ilum = rootElement.getElementsByTagName('ILUMINATION');
+	if (ilum == null)
+		return "ilumination element missing";
+	if (ilum.length != 1)
+		return "number of ilumination elements wrong. Number was " + ilum.length;
+
 	// ILUMINATION
 	var ambient = rootElement.getElementsByTagName('ambient');
 	if (ambient == null)
 		return "ambient element missing.";
-	if (ambient.length != 1)
+	if (ambient.length != 7)
 		return "number of ambient elements wrong. Number was " + ambient.length;
 
 	var amb = ambient[0];
@@ -142,6 +149,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.doubleside = this.reader.getBoolean(ds, 'value');
 
 	var b = rootElement.getElementsByTagName('background');
+	if (b == null)
+		return "b element missing.";
+	if (b.length != 1)
+		return "number of b elements wrong. Number was " + b.length;
+
+	var bck = b[0];
+	this.background = this.reader.getRGBA(bck, 'background');
+	console.log(this.background);
 
 
 };
