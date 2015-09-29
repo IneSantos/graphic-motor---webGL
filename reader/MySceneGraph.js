@@ -76,9 +76,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "number of translate elements wrong. Number was " + translate.length;
 
 	var trnslt = translate[0];
-	this.x = this.reader.getFloat(trnslt, 'x');
-	this.y = this.reader.getFloat(trnslt, 'y');
-	this.z = this.reader.getFloat(trnslt, 'z');
+	this.translate_x = this.reader.getFloat(trnslt, 'x');
+	this.translate_y = this.reader.getFloat(trnslt, 'y');
+	this.translate_z = this.reader.getFloat(trnslt, 'z');
 
 	// ROTATION
 	var rotation = rootElement.getElementsByTagName('rotation');
@@ -87,7 +87,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (rotation.length != 3)
 		return "number of rotation elements wrong. Number was " + rotation.length;
 
-	var r1 = rotation[0];
+	/*var r1 = rotation[0];
 	this.rotation[];
 	this.rotation[0] = this.reader.getItem(r1, 'axis', ["x","y","z"]);
 	this.rotation[1] = this.reader.getFloat(r1, 'angle');
@@ -95,11 +95,32 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.rotation2[];
 	this.rotation2[0] = this.reader.getItem(r2, 'axis', ["x","y","z"]);
 	this.rotation2[1] = this.reader.getFloat(r2, 'angle');
+	var r3 = rotation[2];
+	this.rotation3[];
+	this.rotation3[0] = this.reader.getItem(r3, 'axis', ["x","y","z"]);
+	this.rotation3[1] = this.reader.getFloat(r3, 'angle', ["x","y","z"]);
+*/
+	// SCALE
+	var scale = rootElement.getElementsByTagName('scale');
+	if (scale == null)
+		return "scale element missing.";
+	if (scale.length != 1)
+		return "number of scale elements wrong. Number was " + scale.length;
 
+	var sc = scale[0];
+	this.scale_x = this.reader.getFloat(sc, 'sx');
+	this.scale_y = this.reader.getFloat(sc, 'sy');
+	this.scale_z = this.reader.getFloat(sc, 'sz');
 
+	// REFERENCE
+	var reference = rootElement.getElementsByTagName('reference');
+	if (reference == null)
+		return "scale element missing.";
+	if (reference.length != 1)
+		return "number of scale elements wrong. Number was " + reference.length;
 
-
-
+	var rf = reference[0];
+	this.reference_length = this.reader.getFloat(rf, 'length');
 
 	// various examples of different types of access
 	/*var globals = elems[0];
