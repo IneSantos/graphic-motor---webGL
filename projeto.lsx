@@ -15,9 +15,9 @@
 <INITIALS>
     <frustum near="0" far="250"/>                      <!-- frustum planes-->
     <translate x="0" y="0" z="0" />                 <!-- initial translate -->
-    <rotation axis="x" angle="270" />                  <!-- initial rotation 3 -->
+    <rotation axis="x" angle="270" />                  <!-- initial rotation 1 -->
     <rotation axis="y" angle="0" />                  <!-- initial rotation 2 -->
-    <rotation axis="z" angle="0" />                  <!-- initial rotation 1 -->
+    <rotation axis="z" angle="0" />                  <!-- initial rotation 3 -->
     <scale sx="500" sy="500" sz="250" />                  <!-- initial scaling -->
     <reference length="0" />                          <!-- axis length; "0" means no axis-->
 </INITIALS>

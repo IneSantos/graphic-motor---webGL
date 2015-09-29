@@ -57,15 +57,43 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "either zero or more than one 'globals' element found.";
 	}
 
-
+	// FRUSTUM PLANES
 	var frustum = rootElement.getElementsByTagName('frustum');
 	if (frustum == null)
 		return "frustum element missing";
 	if (frustum.length != 2)
 		return "number of frustum planes wrong.";
 
-	var near = frustum[0];
-	var far = frustum[1];
+	var n = frustum[0];
+	this.near = this.reader.GetFloat(n, 'near');
+	var f = frustum[1];
+	this.far = this.reader.GetFloat(f, 'far');
+
+	// TRANSLATION
+	var translate = rootElement.getElementsByTagName('translate');
+	if (translate == null)
+		return "translate element missing";
+	if (translate.length != 3)
+		return "translate axis missing";
+
+	var translate_x = translate[0];
+	this.x = this.reader.GetFloat(translate_x, 'x');
+	var translate_y = translate[1];
+	this.y = this.reader.GetFloat(translate_y, 'y');
+	var translate_z = translate[2];
+	this.z = this.reader.GetFloat(translate_z, 'z');
+
+	var rotation = rootElement.getElementsByTagName('rotation');
+	if (rotation == null)
+		return "rotation element missing.";
+	if (rotation.length != 6)
+		return "number of rotation elements wrong.";
+
+
+
+
+
+
 
 
 	// various examples of different types of access
