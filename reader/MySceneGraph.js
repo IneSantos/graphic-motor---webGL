@@ -15,7 +15,8 @@ function MySceneGraph(filename, scene) {
 	 * If any error occurs, the reader calls onXMLError on this object, with an error message
 	 */
 	 
-	this.reader.open('scenes/'+filename, this);  
+	this.reader.open('scenes/'+filename, this);
+
 }
 
 /*
@@ -56,8 +57,19 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "either zero or more than one 'globals' element found.";
 	}
 
+
+	var frustum = rootElement.getElementsByTagName('frustum');
+	if (frustum == null)
+		return "frustum element missing";
+	if (frustum.length != 2)
+		return "number of frustum planes wrong.";
+
+	var near = frustum[0];
+	var far = frustum[1];
+
+
 	// various examples of different types of access
-	var globals = elems[0];
+	/*var globals = elems[0];
 	this.background = this.reader.getRGBA(globals, 'background');
 	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
@@ -81,7 +93,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		// process each element and store its information
 		this.list[e.id]=e.attributes.getNamedItem("coords").value;
 		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};
+	};*/
 
 };
 	
