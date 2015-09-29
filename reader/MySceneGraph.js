@@ -48,7 +48,7 @@ MySceneGraph.prototype.onXMLReady=function()
  */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	
-	var elems =  rootElement.getElementsByTagName('globals');
+	/*var elems =  rootElement.getElementsByTagName('globals');
 	if (elems == null) {
 		return "globals element is missing.";
 	}
@@ -56,13 +56,13 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (elems.length != 1) {
 		return "either zero or more than one 'globals' element found.";
 	}
-
+*/
 	// FRUSTUM PLANES
 	var frustum = rootElement.getElementsByTagName('frustum');
 	if (frustum == null)
 		return "frustum element missing";
-	if (frustum.length != 2)
-		return "number of frustum planes wrong.";
+	if (frustum.length != 1)
+		return "number of frustum planes wrong. Number was " + frustum.length;
 
 	var n = frustum[0];
 	this.near = this.reader.GetFloat(n, 'near');
@@ -83,13 +83,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var translate_z = translate[2];
 	this.z = this.reader.GetFloat(translate_z, 'z');
 
+	// ROTATION
 	var rotation = rootElement.getElementsByTagName('rotation');
 	if (rotation == null)
 		return "rotation element missing.";
 	if (rotation.length != 6)
 		return "number of rotation elements wrong.";
 
-
+	var r1 = rotation[0];
+	this.rotation_x = this.reader.getItem(r1, 'axis', ["x","y","z"]);
 
 
 
