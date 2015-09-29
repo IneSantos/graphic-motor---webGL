@@ -77,7 +77,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.translate_z = this.reader.getFloat(trnslt, 'z');
 
 	// ROTATION
-	var rotList = rootElement.getElementsByTagName('rotation');
+	/*var rotList = rootElement.getElementsByTagName('rotation');
 	if (rotList == null || rotList.length == 0)
 		return "rotation element missing.";
 	if (rotList.length != 3)
@@ -139,14 +139,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "number of ilumination elements wrong. Number was " + ilum.length;
 
 	// ILUMINATION
-	var elems =  rootElement.getElementsByTagName('ILUMINATION');
-	if (elems == null) {
-		return "globals element is missing.";
-	}
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-	
 	var ambient = rootElement.getElementsByTagName('ambient');
 	if (ambient == null)
 		return "ambient element missing.";
