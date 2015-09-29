@@ -130,6 +130,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "number of ilumination elements wrong. Number was " + ilum.length;
 
 	// ILUMINATION
+	var elems =  rootElement.getElementsByTagName('ILUMINATION');
+	if (elems == null) {
+		return "globals element is missing.";
+	}
+	if (elems.length != 1) {
+		return "either zero or more than one 'globals' element found.";
+	}
+	
 	var ambient = rootElement.getElementsByTagName('ambient');
 	if (ambient == null)
 		return "ambient element missing.";
@@ -157,7 +165,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var bck = b[0];
 	this.background = this.reader.getRGBA(bck, 'background');
 	console.log(this.background);
-
 
 };
 	
