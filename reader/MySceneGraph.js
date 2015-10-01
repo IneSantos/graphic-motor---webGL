@@ -41,131 +41,63 @@ MySceneGraph.prototype.onXMLReady=function()
 	this.scene.onGraphLoaded();
 };
 
+
+
 /*
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
+	
+	var elems =  rootElement.getElementsByTagName('INITIALS');
+	if (elems == null) {
+		return "INITIALS element is missing.";
+	}
 
-	// INITIALS
-	var init = rootElement.getElementsByTagName('INITIALS');
-	if (init == null)
-		return "initials element missing";
-	if (init.length != 1)
-		return "number of initials elements wrong. Number was " + init.length;
+	if (elems.length != 1) {
+		return "either zero or more than one 'INITIALS' element found.";
+	}
 
-	// FRUSTUM PLANES
+
 	var frustum = rootElement.getElementsByTagName('frustum');
 	if (frustum == null)
 		return "frustum element missing";
-	if (frustum.length != 1)
-		return "number of frustum planes wrong. Number was " + frustum.length;
+	if (frustum.length != 2)
+		return "number of frustum planes wrong.";
 
-	var frst = frustum[0];
-	this.near = this.reader.getFloat(frst, 'near');
-	this.far = this.reader.getFloat(frst, 'far');
+	var near = frustum[0].attributes.getNamedItem("near").value;
+	var far = frustum[1].attributes.getNamedItem("near").value;
+	
+	
 
-	// TRANSLATION
-	var translate = rootElement.getElementsByTagName('translate');
-	if (translate == null)
-		return "translate element missing";
-	if (translate.length != 1)
-		return "number of translate elements wrong. Number was " + translate.length;
+	
 
-	var trnslt = translate[0];
-	this.translate_x = this.reader.getFloat(trnslt, 'x');
-	this.translate_y = this.reader.getFloat(trnslt, 'y');
-	this.translate_z = this.reader.getFloat(trnslt, 'z');
 
-	// ROTATION
-	/*var rotList = rootElement.getElementsByTagName('rotation');
-	if (rotList == null || rotList.length == 0)
-		return "rotation element missing.";
-	if (rotList.length != 3)
-		return "number of rotation elements wrong. Number was " + rotList.length;
+	// various examples of different types of access
+	/*var globals = elems[0];
+	this.background = this.reader.getRGBA(globals, 'background');
+	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
+	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
+	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 
-	this.rotation[rotList.length*2];
-	for(var k = 0; k < rotList.length; k++){
-		for (var i = 0; i < 2; i++){
-			// store the several rotations in arrays containing both the axis and angle
-			var r = rotList[k];
-			if(i == 0)
-				this.rotation[i] = this.reader.getItem(r, 'axis', ["x","y","z"]);
-			else
-				this.rotation[i] = this.reader.getFloat(r, 'angle');
-		};
+	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
-	};
-/*
-	var r1 = rotation[0];
-	this.rotation[];
-	this.rotation[0] = this.reader.getItem(r1, 'axis', ["x","y","z"]);
-	this.rotation[1] = this.reader.getFloat(r1, 'angle');
-	var r2 = rotation[1];
-	this.rotation2[];
-	this.rotation2[0] = this.reader.getItem(r2, 'axis', ["x","y","z"]);
-	this.rotation2[1] = this.reader.getFloat(r2, 'angle');
-	var r3 = rotation[2];
-	this.rotation3[];
-	this.rotation3[0] = this.reader.getItem(r3, 'axis', ["x","y","z"]);
-	this.rotation3[1] = this.reader.getFloat(r3, 'angle', ["x","y","z"]);
-*/
-	// SCALE
-	var scale = rootElement.getElementsByTagName('scale');
-	if (scale == null)
-		return "scale element missing.";
-	if (scale.length != 1)
-		return "number of scale elements wrong. Number was " + scale.length;
+	var tempList=rootElement.getElementsByTagName('list');
 
-	var sc = scale[0];
-	this.scale_x = this.reader.getFloat(sc, 'sx');
-	this.scale_y = this.reader.getFloat(sc, 'sy');
-	this.scale_z = this.reader.getFloat(sc, 'sz');
+	if (tempList == null) {
+		return "list element is missing.";
+	}
+	
+	this.list=[];
+	// iterate over every element
+	var nnodes=tempList[0].children.length;
+	for (var i=0; i< nnodes; i++)
+	{
+		var e=tempList[0].children[i];
 
-	// REFERENCE
-	var reference = rootElement.getElementsByTagName('reference');
-	if (reference == null)
-		return "reference element missing.";
-	if (reference.length != 1)
-		return "number of reference elements wrong. Number was " + reference.length;
-
-	var rf = reference[0];
-	this.reference_length = this.reader.getFloat(rf, 'length');
-
-	// INITIALS
-	var ilum = rootElement.getElementsByTagName('ILUMINATION');
-	if (ilum == null)
-		return "ilumination element missing";
-	if (ilum.length != 1)
-		return "number of ilumination elements wrong. Number was " + ilum.length;
-
-	// ILUMINATION
-	var ambient = rootElement.getElementsByTagName('ambient');
-	if (ambient == null)
-		return "ambient element missing.";
-	if (ambient.length != 7)
-		return "number of ambient elements wrong. Number was " + ambient.length;
-
-	var amb = ambient[0];
-	this.ambient = this.reader.getRGBA(amb, 'ambient');
-
-	var doubleside = rootElement.getElementsByTagName('doubleside');
-	if (doubleside == null)
-		return "doubleside element missing.";
-	if (doubleside.length != 1)
-		return "number of doubleside elements wrong. Number was " + doubleside.length;
-
-	var ds = doubleside[0];
-	this.doubleside = this.reader.getBoolean(ds, 'value');
-
-	var b = rootElement.getElementsByTagName('background');
-	if (b == null)
-		return "b element missing.";
-	if (b.length != 1)
-		return "number of b elements wrong. Number was " + b.length;
-
-	var bck = b[0];
-	this.background = this.reader.getRGBA(bck, 'background');
-	console.log(this.background);
+		// process each element and store its information
+		this.list[e.id]=e.attributes.getNamedItem("coords").value;
+		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
+	};*/
 
 };
 	
@@ -174,7 +106,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
  */
  
 MySceneGraph.prototype.onXMLError=function (message) {
-	console.error("XML Loading Error: "+message);	
+	console.error("XML Loading Error: "+ message);	
 	this.loadedOk=false;
 };
 
