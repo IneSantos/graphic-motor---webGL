@@ -127,8 +127,19 @@
 
 <NODES>
 
-    <ROOT id="mesa" />     <!-- identifier of root node of the scene graph; this node     -->
+    <ROOT id="sala" />     <!-- identifier of root node of the scene graph; this node     -->
                          <!--   must be defined in one of the following NODE declarations -->
+
+    <NODE id="sala">      
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" />      
+        <TRANSLATION x="5" y="0" z="8" />
+        <DESCENDANTS>
+            <DESCENDANT id="mesa" />    
+            <DESCENDANT id="cadeira" />
+            </DESCENDANTS>
+
+    </NODE>
 
     <NODE id="mesa">       <!--   defines one intermediate node; may be repeated as necessary -->
 
@@ -319,7 +330,7 @@
     <NODE id="cadperna1">  
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
-        <TRANSLATION x="ff" y="ff" z="ff" />
+        <TRANSLATION x="0.5" y="1" z="-0.5" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -329,7 +340,7 @@
     <NODE id="cadperna2">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="ff" y="ff" z="ff" />
+        <TRANSLATION x="-0.5" y="1" z="-0.5" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -339,7 +350,7 @@
     <NODE id="cadperna3">   
         <MATERIAL id="null" />   
         <TEXTURE id="null" />   
-        <TRANSLATION x="ff" y="ff" z="ff" />
+        <TRANSLATION x="-0.5" y="1" z="0.5" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -349,7 +360,7 @@
     <NODE id="cadperna4">     
         <MATERIAL id="null" />  
         <TEXTURE id="null" />  
-        <TRANSLATION x="1" y="0" z="1" />
+        <TRANSLATION x="0.5" y="1" z="0.5" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -358,7 +369,7 @@
     <NODE id="cadperna">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" />
-        <SCALE sx="0.5" sy="2" sz="0.5" />
+        <SCALE sx="0.25" sy="1" sz="0.25" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
@@ -368,7 +379,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
         <TRANSLATION x="0" y="2.4" z="-0.2" />
-        <SCALE sx="1" sy="3" sz="0.2" />
+        <SCALE sx="1" sy="2" sz="0.2" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
@@ -377,7 +388,7 @@
     <NODE id="banco">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="0" y="2.2" z="0" />
+        <TRANSLATION x="0" y="1.4" z="0" />
         <SCALE sx="1" sy="0.2" sz="1" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
