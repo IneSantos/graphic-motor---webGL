@@ -157,7 +157,7 @@
 
     </NODE>
 
-        <NODE id="perna1">  
+    <NODE id="perna1">  
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
         <TRANSLATION x="2" y="1.75" z="1" />
@@ -167,7 +167,7 @@
     </NODE>
 
 
-        <NODE id="perna2">      
+    <NODE id="perna2">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
         <TRANSLATION x="2" y="1.75" z="-1" />
@@ -177,7 +177,7 @@
     </NODE>
 
 
-        <NODE id="perna3">   
+    <NODE id="perna3">   
         <MATERIAL id="null" />   
         <TEXTURE id="null" />   
         <TRANSLATION x="-2" y="1.75" z="1" />
@@ -187,7 +187,7 @@
     </NODE>
 
 
-        <NODE id="perna4">     
+    <NODE id="perna4">     
         <MATERIAL id="null" />  
         <TEXTURE id="null" />  
         <TRANSLATION x="-2" y="1.75" z="-1" />
@@ -196,22 +196,22 @@
             </DESCENDANTS>
     </NODE>
 
-        <NODE id="perna">   
+    <NODE id="perna">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
         <SCALE sx="0.3" sy="3.5" sz="0.3" />
         <DESCENDANTS>
-            <DESCENDANT id="cubo" /> 
+            <DESCENDANT id="cube" /> 
             </DESCENDANTS>
     </NODE>
 
-      <NODE id="tampo">  
+    <NODE id="tampo">  
         <MATERIAL id="null" />     
         <TEXTURE id="null" />    
         <TRANSLATION x="0" y="3.5" z="0" /> 
         <SCALE sx="5" sy="0.3" sz="3" />
         <DESCENDANTS>
-            <DESCENDANT id="cubo" /> 
+            <DESCENDANT id="cube" /> 
             </DESCENDANTS>
     </NODE>
 
@@ -227,8 +227,9 @@
              <DESCENDANT id="cubeside5"/> 
              <DESCENDANT id="cubeside6"/> 
          </DESCENDANTS>
-     </NODE>
-      <NODE id="cubeside1">      
+    </NODE>
+
+    <NODE id="cubeside1">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -237,8 +238,9 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
-     <NODE id="cubeside2">      
+    </NODE>
+
+    <NODE id="cubeside2">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -248,8 +250,9 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
-     <NODE id="cubeside3">      
+    </NODE>
+
+    <NODE id="cubeside3">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -259,8 +262,9 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
-     <NODE id="cubeside4">      
+    </NODE>
+
+    <NODE id="cubeside4">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -270,8 +274,9 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
-     <NODE id="cubeside5">      
+    </NODE>
+
+    <NODE id="cubeside5">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -281,8 +286,9 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
-     <NODE id="cubeside6">      
+    </NODE>
+
+    <NODE id="cubeside6">      
          <MATERIAL id="null" /> 
          <TEXTURE id="null" />
 
@@ -292,7 +298,92 @@
          <DESCENDANTS>
              <DESCENDANT id="rect"/>
          </DESCENDANTS>
-     </NODE>
+    </NODE>
+
+
+    <NODE id="cadeira">       
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" />   
+        <TRANSLATION x="5" y="0" z="8" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadperna1" />   
+            <DESCENDANT id="cadperna2" />
+            <DESCENDANT id="cadperna3" />
+            <DESCENDANT id="cadperna4" />
+            <DESCENDANT id="banco" />
+            <DESCENDANT id="costas" />
+            </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="cadperna1">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="ff" y="ff" z="ff" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadperna" /> 
+            </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="cadperna2">      
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" /> 
+        <TRANSLATION x="ff" y="ff" z="ff" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadperna" /> 
+            </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="cadperna3">   
+        <MATERIAL id="null" />   
+        <TEXTURE id="null" />   
+        <TRANSLATION x="ff" y="ff" z="ff" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadperna" /> 
+            </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="cadperna4">     
+        <MATERIAL id="null" />  
+        <TEXTURE id="null" />  
+        <TRANSLATION x="1" y="0" z="1" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadperna" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="cadperna">   
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" />
+        <SCALE sx="0.5" sy="2" sz="0.5" />
+        <DESCENDANTS>
+            <DESCENDANT id="cube" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="costas">   
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" /> 
+        <TRANSLATION x="0" y="2.4" z="-0.2" />
+        <SCALE sx="1" sy="3" sz="0.2" />
+        <DESCENDANTS>
+            <DESCENDANT id="cube" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="banco">   
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" /> 
+        <TRANSLATION x="0" y="2.2" z="0" />
+        <SCALE sx="1" sy="0.2" sz="1" />
+        <DESCENDANTS>
+            <DESCENDANT id="cube" /> 
+            </DESCENDANTS>
+    </NODE>
+
 
 </NODES>
 
