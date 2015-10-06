@@ -136,6 +136,7 @@
             <DESCENDANT id="paredeDireita" /> 
             <DESCENDANT id="paredeEsquerda" /> 
             <DESCENDANT id="chao" />
+            <DESCENDANT id="arvore" />
             </DESCENDANTS>
 
     </NODE>
