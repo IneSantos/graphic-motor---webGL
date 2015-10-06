@@ -169,7 +169,7 @@
     <NODE id="perna1">  
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
-        <TRANSLATION x="2" y="1.25" z="1" />
+        <TRANSLATION x="4" y="1.25" z="1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -179,7 +179,7 @@
     <NODE id="perna2">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="2" y="1.25" z="-1" />
+        <TRANSLATION x="4" y="1.25" z="-1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -218,7 +218,7 @@
         <MATERIAL id="null" />     
         <TEXTURE id="tableAppearance" />    
         <TRANSLATION x="0" y="2.5" z="0" /> 
-        <SCALE sx="5" sy="0.3" sz="3" />
+        <SCALE sx="10" sy="0.3" sz="3" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
