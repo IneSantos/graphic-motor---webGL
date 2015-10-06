@@ -67,7 +67,92 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var near = frustum[0].attributes.getNamedItem("near").value;
 	var far = frustum[1].attributes.getNamedItem("near").value;
 	
+	// TRANSLATION
+	var translate = rootElement.getElementsByTagName('translate');
+	if (translate == null)
+		return "translate element missing";
+	if (translate.length != 1)
+		return "number of translate elements wrong. Number was " + translate.length;
+
+	var trnslt = translate[0];
+	this.translate_x = this.reader.getFloat(trnslt, 'x');
+	this.translate_y = this.reader.getFloat(trnslt, 'y');
+	this.translate_z = this.reader.getFloat(trnslt, 'z');
+
+	// ROTATION
+	var rotList = rootElement.getElementsByTagName('rotation');
+	if (rotList == null || rotList.length == 0)
+		return "rotation element missing.";
+	if (rotList.length != 3)
+		return "number of rotation elements wrong. Number was " + rotList.length;
+
+	// FALTA GUARDAR A ROTAÇÃO!!
+
+	// SCALE
+	var scale = rootElement.getElementsByTagName('scale');
+	if (scale == null)
+		return "scale element missing.";
+	if (scale.length != 1)
+		return "number of scale elements wrong. Number was " + scale.length;
+
+	var sc = scale[0];
+	this.scale_x = this.reader.getFloat(sc, 'sx');
+	this.scale_y = this.reader.getFloat(sc, 'sy');
+	this.scale_z = this.reader.getFloat(sc, 'sz');
+
+	// REFERENCE
+	var reference = rootElement.getElementsByTagName('reference');
+	if (reference == null)
+		return "reference element missing.";
+	if (reference.length != 1)
+		return "number of reference elements wrong. Number was " + reference.length;
+
+	var rf = reference[0];
+	this.reference_length = this.reader.getFloat(rf, 'length');
+
+	// INITIALS
+	var ilum = rootElement.getElementsByTagName('ILUMINATION');
+	if (ilum == null)
+		return "ilumination element missing";
+	if (ilum.length != 1)
+		return "number of ilumination elements wrong. Number was " + ilum.length;
+
+	// ILUMINATION
+	var elems =  rootElement.getElementsByTagName('ILUMINATION');
+	if (elems == null) {
+		return "globals element is missing.";
+	}
+	if (elems.length != 1) {
+		return "either zero or more than one 'globals' element found.";
+	}
 	
+	var ambient = rootElement.getElementsByTagName('ambient');
+	if (ambient == null)
+		return "ambient element missing.";
+	if (ambient.length != 7)
+		return "number of ambient elements wrong. Number was " + ambient.length;
+
+	var amb = ambient[0];
+	this.ambient = this.reader.getRGBA(amb, 'ambient');
+
+	var doubleside = rootElement.getElementsByTagName('doubleside');
+	if (doubleside == null)
+		return "doubleside element missing.";
+	if (doubleside.length != 1)
+		return "number of doubleside elements wrong. Number was " + doubleside.length;
+
+	var ds = doubleside[0];
+	this.doubleside = this.reader.getBoolean(ds, 'value');
+
+	var b = rootElement.getElementsByTagName('background');
+	if (b == null)
+		return "b element missing.";
+	if (b.length != 1)
+		return "number of b elements wrong. Number was " + b.length;
+
+	var bck = b[0];
+	this.background = this.reader.getRGBA(bck, 'background');
+	console.log(this.background);
 
 	
 
