@@ -74,12 +74,7 @@
 
 <TEXTURES>
     <TEXTURE id="floorAppearance">
-        <file path="path1" />                             <!-- path to file -->
-        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
-    </TEXTURE>
-
-      <TEXTURE id="windowAppearance">
-        <file path="path2" />                             <!-- path to file -->
+        <file path="texture/wood.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>
 
@@ -133,10 +128,11 @@
     <NODE id="sala">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" />      
-        <TRANSLATION x="5" y="0" z="8" />
+        <!--<TRANSLATION x="5" y="0" z="8" />-->
         <DESCENDANTS>
             <DESCENDANT id="mesa" />    
-            <DESCENDANT id="cadeira" />
+            <DESCENDANT id="cadeira" />  
+            <DESCENDANT id="chao" />
             </DESCENDANTS>
 
     </NODE>
@@ -171,7 +167,7 @@
     <NODE id="perna1">  
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
-        <TRANSLATION x="2" y="1.75" z="1" />
+        <TRANSLATION x="2" y="1.25" z="1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -181,7 +177,7 @@
     <NODE id="perna2">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="2" y="1.75" z="-1" />
+        <TRANSLATION x="2" y="1.25" z="-1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -191,7 +187,7 @@
     <NODE id="perna3">   
         <MATERIAL id="null" />   
         <TEXTURE id="null" />   
-        <TRANSLATION x="-2" y="1.75" z="1" />
+        <TRANSLATION x="-2" y="1.25" z="1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -201,7 +197,7 @@
     <NODE id="perna4">     
         <MATERIAL id="null" />  
         <TEXTURE id="null" />  
-        <TRANSLATION x="-2" y="1.75" z="-1" />
+        <TRANSLATION x="-2" y="1.25" z="-1" />
         <DESCENDANTS>
             <DESCENDANT id="perna" /> 
             </DESCENDANTS>
@@ -210,7 +206,7 @@
     <NODE id="perna">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <SCALE sx="0.3" sy="3.5" sz="0.3" />
+        <SCALE sx="0.3" sy="2.5" sz="0.3" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
@@ -219,7 +215,7 @@
     <NODE id="tampo">  
         <MATERIAL id="null" />     
         <TEXTURE id="null" />    
-        <TRANSLATION x="0" y="3.5" z="0" /> 
+        <TRANSLATION x="0" y="2.5" z="0" /> 
         <SCALE sx="5" sy="0.3" sz="3" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
@@ -315,7 +311,8 @@
     <NODE id="cadeira">       
         <MATERIAL id="null" />    
         <TEXTURE id="null" />   
-        <TRANSLATION x="5" y="0" z="8" />
+        <TRANSLATION x="8" y="0" z="4" />
+        <SCALE sx="1.25" sy="1.25" sz="1.125" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna1" />   
             <DESCENDANT id="cadperna2" />
@@ -330,7 +327,7 @@
     <NODE id="cadperna1">  
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
-        <TRANSLATION x="0.5" y="1" z="-0.5" />
+        <TRANSLATION x="0.35" y="0.75" z="-0.35" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -340,7 +337,7 @@
     <NODE id="cadperna2">      
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="-0.5" y="1" z="-0.5" />
+        <TRANSLATION x="-0.35" y="0.75" z="-0.35" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -350,7 +347,7 @@
     <NODE id="cadperna3">   
         <MATERIAL id="null" />   
         <TEXTURE id="null" />   
-        <TRANSLATION x="-0.5" y="1" z="0.5" />
+        <TRANSLATION x="-0.35" y="0.75" z="0.3" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -360,7 +357,7 @@
     <NODE id="cadperna4">     
         <MATERIAL id="null" />  
         <TEXTURE id="null" />  
-        <TRANSLATION x="0.5" y="1" z="0.5" />
+        <TRANSLATION x="0.35" y="0.75" z="0.35" />
         <DESCENDANTS>
             <DESCENDANT id="cadperna" /> 
             </DESCENDANTS>
@@ -369,7 +366,8 @@
     <NODE id="cadperna">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" />
-        <SCALE sx="0.25" sy="1" sz="0.25" />
+        <TRANSLATION x="0" y="-.25" z="0" />
+        <SCALE sx="0.125" sy="1" sz="0.125" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
@@ -378,8 +376,8 @@
     <NODE id="costas">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="0" y="2.4" z="-0.2" />
-        <SCALE sx="1" sy="2" sz="0.2" />
+        <TRANSLATION x="0" y="1.5" z="-0.4" />
+        <SCALE sx="1" sy="1" sz="0.2" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
@@ -388,13 +386,23 @@
     <NODE id="banco">   
         <MATERIAL id="null" />    
         <TEXTURE id="null" /> 
-        <TRANSLATION x="0" y="1.4" z="0" />
+        <TRANSLATION x="0" y="1.1" z="0" />
         <SCALE sx="1" sy="0.2" sz="1" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
             </DESCENDANTS>
     </NODE>
 
+    <NODE id="chao">  
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />         
+        <SCALE sx="15" sy="1" sz="15" /> 
+        <TRANSLATION x="0.5" y="0" z=".5" />        
+        <ROTATION axis="x" angle="-90" /> 
+        <DESCENDANTS>
+            <DESCENDANT id="rect" /> 
+            </DESCENDANTS>
+    </NODE>
 
 </NODES>
 
