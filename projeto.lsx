@@ -73,13 +73,13 @@
     <!-- set an id for the texture, append the file path to the texture, set factor -->
 
 <TEXTURES>
-    <TEXTURE id="floorAppearance">
+    <TEXTURE id="tableAppearance">
         <file path="texture/wood.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>
 
-    <TEXTURE id="boardAppearance">
-        <file path="path3" />                             <!-- path to file -->
+    <TEXTURE id="floorAppearance">
+        <file path="texture/floor.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>
     
@@ -132,6 +132,8 @@
         <DESCENDANTS>
             <DESCENDANT id="mesa" />    
             <DESCENDANT id="cadeira" />  
+            <DESCENDANT id="paredeDireita" /> 
+            <DESCENDANT id="paredeEsquerda" /> 
             <DESCENDANT id="chao" />
             </DESCENDANTS>
 
@@ -214,7 +216,7 @@
 
     <NODE id="tampo">  
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />    
+        <TEXTURE id="tableAppearance" />    
         <TRANSLATION x="0" y="2.5" z="0" /> 
         <SCALE sx="5" sy="0.3" sz="3" />
         <DESCENDANTS>
@@ -394,6 +396,28 @@
     </NODE>
 
     <NODE id="chao">  
+        <MATERIAL id="null" />     
+        <TEXTURE id="floorAppearance" />         
+        <SCALE sx="15" sy="1" sz="15" /> 
+        <TRANSLATION x="0.5" y="0" z=".5" />        
+        <ROTATION axis="x" angle="-90" /> 
+        <DESCENDANTS>
+            <DESCENDANT id="rect" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="paredeDireita">  
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />         
+        <SCALE sx="15" sy="1" sz="15" /> 
+        <TRANSLATION x="0.5" y="0" z=".5" />        
+        <ROTATION axis="x" angle="-90" /> 
+        <DESCENDANTS>
+            <DESCENDANT id="rect" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="paredeEsquerda">  
         <MATERIAL id="null" />     
         <TEXTURE id="null" />         
         <SCALE sx="15" sy="1" sz="15" /> 
