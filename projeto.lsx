@@ -131,7 +131,8 @@
         <!--<TRANSLATION x="5" y="0" z="8" />-->
         <DESCENDANTS>
             <DESCENDANT id="mesa" />    
-            <DESCENDANT id="cadeira" />  
+            <DESCENDANT id="cadeira1" />
+            <DESCENDANT id="cadeira2" />
             <DESCENDANT id="paredeDireita" /> 
             <DESCENDANT id="paredeEsquerda" /> 
             <DESCENDANT id="chao" />
@@ -149,7 +150,7 @@
                                   <!-- id="clear" clears texture declaration received from parent node      -->
 
         <!-- geom. transf. are optional and may be repeated, in any order, as necessary -->
-        <TRANSLATION x="5" y="0" z="8" />
+        <TRANSLATION x="10" y="0" z="8" />
        <!-- <ROTATION axis="cc" angle="ff" /> -->
        <!-- <SCALE sx="ff" sy="ff" sz="ff" /> -->
 
@@ -309,6 +310,23 @@
          </DESCENDANTS>
     </NODE>
 
+    <NODE id="cadeira1">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="17" y="0" z="10" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadeira" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="cadeira2">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="3" y="0" z="10" />
+        <DESCENDANTS>
+            <DESCENDANT id="cadeira" /> 
+            </DESCENDANTS>
+    </NODE>
 
     <NODE id="cadeira">       
         <MATERIAL id="null" />    
