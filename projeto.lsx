@@ -83,6 +83,15 @@
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>
     
+    <TEXTURE id="bancoAppearance">
+        <file path="texture/floor.jpg" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>
+
+    <TEXTURE id="costasAppearance">
+        <file path="texture/wood.jpg" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>    
 </TEXTURES>
 
 <!-- INITIALIZE THE MATERIALS -->
@@ -359,6 +368,7 @@
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
         <TRANSLATION x="17" y="0" z="10" />
+        <ROTATION axis="y" angle="-90" />
         <DESCENDANTS>
             <DESCENDANT id="cadeira" /> 
             </DESCENDANTS>
@@ -368,6 +378,7 @@
         <MATERIAL id="null" />      
         <TEXTURE id="null" />  
         <TRANSLATION x="3" y="0" z="10" />
+        <ROTATION axis="y" angle="90" />
         <DESCENDANTS>
             <DESCENDANT id="cadeira" /> 
             </DESCENDANTS>
@@ -440,7 +451,7 @@
 
     <NODE id="costas">   
         <MATERIAL id="null" />    
-        <TEXTURE id="null" /> 
+        <TEXTURE id="costasApperance" /> 
         <TRANSLATION x="0" y="1.5" z="-0.4" />
         <SCALE sx="1" sy="1" sz="0.2" />
         <DESCENDANTS>
@@ -450,7 +461,7 @@
 
     <NODE id="banco">   
         <MATERIAL id="null" />    
-        <TEXTURE id="null" /> 
+        <TEXTURE id="bancoApperance" /> 
         <TRANSLATION x="0" y="1.1" z="0" />
         <SCALE sx="1" sy="0.2" sz="1" />
         <DESCENDANTS>
