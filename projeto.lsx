@@ -163,6 +163,10 @@
             <DESCENDANT id="perna3" />
             <DESCENDANT id="perna4" />
             <DESCENDANT id="tampo" />
+            <DESCENDANT id="guardanapo1" />
+            <DESCENDANT id="guardanapo2" />
+            <DESCENDANT id="prato1" />
+            <DESCENDANT id="prato2" />
             </DESCENDANTS>
 
     </NODE>
@@ -222,6 +226,46 @@
         <SCALE sx="10" sy="0.3" sz="3" />
         <DESCENDANTS>
             <DESCENDANT id="cube" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="guardanapo1">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="4" y="2.85" z="1" />
+        <SCALE sx="0.5" sy="0.5" sz="0" />
+        <DESCENDANTS>
+        	<DESCENDANT id="tri" />
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="guardanapo2">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="-2" y="2.85" z="-1" />
+        <SCALE sx="0.5" sy="0.5" sz="0" />
+        <DESCENDANTS>
+        	<DESCENDANT id="tri" />
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="prato1">  
+        <MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="4" y="2.85" z="2" />
+        <SCALE sx="0" sy="0.9" sz="0" />
+        <DESCENDANTS>
+            <DESCENDANT id="cyl" /> 
+            </DESCENDANTS>
+    </NODE>
+
+    <NODE id="prato1">  
+       	<MATERIAL id="null" />      
+        <TEXTURE id="null" />  
+        <TRANSLATION x="-2" y="2.85" z="-2" />
+        <SCALE sx="0" sy="0.9" sz="0" />
+        <DESCENDANTS>
+            <DESCENDANT id="cyl" /> 
             </DESCENDANTS>
     </NODE>
 
