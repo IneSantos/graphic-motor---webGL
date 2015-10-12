@@ -103,16 +103,6 @@
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE> 
 
-    <TEXTURE id="trunkAppearance">
-        <file path="texture/trunk.jpg" />                             <!-- path to file -->
-        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
-    </TEXTURE>
-
-    <TEXTURE id="treeAppearance">
-        <file path="texture/tree.jpg" />                             <!-- path to file -->
-        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
-    </TEXTURE>
-
 </TEXTURES>
 
 <!-- INITIALIZE THE MATERIALS -->
@@ -608,7 +598,7 @@
 
     <NODE id="tronco">  
         <MATERIAL id="null" />     
-        <TEXTURE id="trunkAppearance" />         
+        <TEXTURE id="null" />         
          
         <SCALE sx=".5" sy="2" sz=".5" />
          <ROTATION axis="x" angle="-90" />
@@ -618,7 +608,7 @@
     </NODE>
      <NODE id="ramo1">  
         <MATERIAL id="null" />     
-        <TEXTURE id="treeAppearance" />         
+        <TEXTURE id="null" />         
          
         <TRANSLATION x="0" y="1" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -630,7 +620,7 @@
     </NODE>
     <NODE id="ramo2">  
         <MATERIAL id="null" />     
-        <TEXTURE id="treeAppearance" />         
+        <TEXTURE id="null" />         
          
         <TRANSLATION x="0" y="2" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -642,7 +632,7 @@
     </NODE>
     <NODE id="ramo3">  
         <MATERIAL id="null" />     
-        <TEXTURE id="treeAppearance" />         
+        <TEXTURE id="null" />         
          
          <TRANSLATION x="0" y="3" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -654,7 +644,7 @@
     </NODE>
     <NODE id="ramo4">  
         <MATERIAL id="null" />     
-        <TEXTURE id="treeAppearance" />         
+        <TEXTURE id="null" />         
          
         <TRANSLATION x="0" y="4" z="0" /> 
         <SCALE sx="2" sy="2" sz="2" />
