@@ -1,4 +1,4 @@
-function Myscale(x,y,z) {
+function MyScale(x,y,z) {
  	 
     this.x = x;
     this.y =y;
@@ -6,7 +6,7 @@ function Myscale(x,y,z) {
 
  };
 
-Myscale.prototype.apply = function(scene) {
+MyScale.prototype.apply = function(scene) {
     
     scene.scale(this.x,this.y,this.z);
 

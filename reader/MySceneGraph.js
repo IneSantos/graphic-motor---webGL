@@ -59,25 +59,32 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 
 	var frustum = rootElement.getElementsByTagName('frustum');
+	console.log("Frustum: " + frustum);
 	if (frustum == null)
 		return "frustum element missing";
-	if (frustum.length != 2)
+	if (frustum.length != 1)
 		return "number of frustum planes wrong.";
 
 	var near = frustum[0].attributes.getNamedItem("near").value;
-	var far = frustum[1].attributes.getNamedItem("near").value;
+	var far = frustum[0].attributes.getNamedItem("far").value;
 	
 	// TRANSLATION
-	var translate = rootElement.getElementsByTagName('translate');
-	if (translate == null)
-		return "translate element missing";
-	if (translate.length != 1)
-		return "number of translate elements wrong. Number was " + translate.length;
+	var translation = rootElement.getElementsByTagName('translation');
+	if (translation == null)
+		return "translation element missing";
+	if (translation.length != 1)
+		return "number of translation elements wrong. Number was " + translation.length;
 
-	var trnslt = translate[0];
-	this.translate_x = this.reader.getFloat(trnslt, 'x');
-	this.translate_y = this.reader.getFloat(trnslt, 'y');
-	this.translate_z = this.reader.getFloat(trnslt, 'z');
+	var trnslt = translation[0];
+	this.initialTrans = new MyTranslation(this.reader.getFloat(trnslt, 'x'), 
+										  this.reader.getFloat(trnslt, 'y'),  
+										  this.reader.getFloat(trnslt, 'z'));
+
+	console.log(this.reader.getFloat(trnslt, 'x')+ ' '+ this.reader.getFloat(trnslt, 'y') + ' '+ this.reader.getFloat(trnslt, 'z'));
+	
+
+	//FALTA APLICAR 
+
 
 	// ROTATION
 	var rotList = rootElement.getElementsByTagName('rotation');
@@ -86,7 +93,12 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (rotList.length != 3)
 		return "number of rotation elements wrong. Number was " + rotList.length;
 
-	// FALTA GUARDAR A ROTAÇÃO!!
+	
+	this.initialRot = new MyRotation(this.reader.getInteger(rotList[0], 'x'), 
+									 this.reader.getInteger(rotList[1], 'y'),
+									 this.reader.getInteger(rotList[2], 'z'));
+
+	//FALTA APLICAR 
 
 	// SCALE
 	var scale = rootElement.getElementsByTagName('scale');
@@ -95,10 +107,12 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (scale.length != 1)
 		return "number of scale elements wrong. Number was " + scale.length;
 
-	var sc = scale[0];
-	this.scale_x = this.reader.getFloat(sc, 'sx');
-	this.scale_y = this.reader.getFloat(sc, 'sy');
-	this.scale_z = this.reader.getFloat(sc, 'sz');
+
+	this.initialScale = new MyScale(this.reader.getInteger(scale[0], 'sx'), 
+									 this.reader.getInteger(scale[0], 'sy'),
+									 this.reader.getInteger(scale[0], 'sz'));
+	
+	//FALTA APLICAR 
 
 	// REFERENCE
 	var reference = rootElement.getElementsByTagName('reference');
@@ -110,30 +124,23 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var rf = reference[0];
 	this.reference_length = this.reader.getFloat(rf, 'length');
 
-	// INITIALS
-	var ilum = rootElement.getElementsByTagName('ILUMINATION');
+	// ILLUMINATION
+	var ilum = rootElement.getElementsByTagName('ILLUMINATION');
 	if (ilum == null)
-		return "ilumination element missing";
-	if (ilum.length != 1)
-		return "number of ilumination elements wrong. Number was " + ilum.length;
-
-	// ILUMINATION
-	var elems =  rootElement.getElementsByTagName('ILUMINATION');
-	if (elems == null) {
-		return "globals element is missing.";
-	}
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
+		return "illumination element missing";
+	if (ilum.length != 3)
+		return "number of illumination elements wrong. Number was " + ilum.length;
 	
 	var ambient = rootElement.getElementsByTagName('ambient');
 	if (ambient == null)
 		return "ambient element missing.";
-	if (ambient.length != 7)
+	if (ambient.length != 4)
 		return "number of ambient elements wrong. Number was " + ambient.length;
 
 	var amb = ambient[0];
 	this.ambient = this.reader.getRGBA(amb, 'ambient');
+	//falta aplicar
+
 
 	var doubleside = rootElement.getElementsByTagName('doubleside');
 	if (doubleside == null)
@@ -147,14 +154,49 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var b = rootElement.getElementsByTagName('background');
 	if (b == null)
 		return "b element missing.";
-	if (b.length != 1)
+	if (b.length != 4)
 		return "number of b elements wrong. Number was " + b.length;
 
 	var bck = b[0];
 	this.background = this.reader.getRGBA(bck, 'background');
 	console.log(this.background);
 
+	var lights =  rootElement.getElementsByTagName('LIGHTS');
+	if (lights == null) {
+		return "INITIALS element is missing.";
+	}
+
+	if (lights.length != 1) {
+		return "either zero or more than one 'INITIALS' element found.";
+	}
 	
+	var tempListLight=rootElement.getElementsByTagName('LIGHT');
+
+	if (tempListLight == null) {
+		return "list element is missing.";
+	}
+	
+	this.lights=[];
+	// iterate over every element
+	for(var j=0; j < lights.length; j++){
+
+	var nnodes=tempListLight[j].children.length;
+
+	if(nnodes != 5){
+		return "light elements missing."
+	}
+
+		for (var i=0; i < nnodes; i++)
+		{
+			var e=tempListLight[j].children[i];
+			
+				// process each element and store its information
+				this.light = new MyLight();
+				
+				this.lights[j]=e.attributes.getNamedItem("").value;
+		}
+	};
+
 
 
 	// various examples of different types of access
