@@ -92,11 +92,25 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "rotation element missing.";
 	if (rotList.length != 3)
 		return "number of rotation elements wrong. Number was " + rotList.length;
-
 	
-	this.initialRot = new MyRotation(this.reader.getInteger(rotList[0], 'x'), 
-									 this.reader.getInteger(rotList[1], 'y'),
-									 this.reader.getInteger(rotList[2], 'z'));
+	if(this.reader.getString(rotList[0], 'axis') != "x")
+		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[0], 'axis') + " it must be x";
+
+	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[0], 'angle'), 
+									 1,0,0);
+
+	if(this.reader.getString(rotList[1], 'axis') != "y")
+		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[1], 'axis') + " it must be y";
+
+	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[1], 'angle'), 
+									 0,1,0);
+	
+	if(this.reader.getString(rotList[2], 'axis') != "z")
+		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[2], 'axis') + " it must be z";
+
+	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[2], 'angle'), 
+									 0,0,1);
+
 
 	//FALTA APLICAR 
 
@@ -108,9 +122,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "number of scale elements wrong. Number was " + scale.length;
 
 
-	this.initialScale = new MyScale(this.reader.getInteger(scale[0], 'sx'), 
-									 this.reader.getInteger(scale[0], 'sy'),
-									 this.reader.getInteger(scale[0], 'sz'));
+	this.initialScale = new MyScale(this.reader.getFloat(scale[0], 'sx'), 
+									 this.reader.getFloat(scale[0], 'sy'),
+									 this.reader.getFloat(scale[0], 'sz'));
 	
 	//FALTA APLICAR 
 
@@ -128,7 +142,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var ilum = rootElement.getElementsByTagName('ILLUMINATION');
 	if (ilum == null)
 		return "illumination element missing";
-	if (ilum.length != 3)
+	if (ilum.length != 1)
 		return "number of illumination elements wrong. Number was " + ilum.length;
 	
 	var ambient = rootElement.getElementsByTagName('ambient');
