@@ -256,13 +256,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		if (n != 2)
 			return "elements in textures missing.";
 
-		for(int l = 0; l < n; l++){
+		//for(int l = 0; l < n; l++){
 
-		var id = tempListTextures[k].children[l];
+		var id = tempListTextures[k].;
 
-		
 
-		};
+		//};
+
+		var texture = new MyTexture(id, path, factor);
 
 	};
 
