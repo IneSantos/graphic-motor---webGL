@@ -249,9 +249,22 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "list element is missing.";
 	}
 
-	this.textures = [];
+	for(var k = 0; k < tempListTextures.length; k++){
 
-	for(var k = 0; k < )
+		var n = tempListTextures[k].children.length;
+
+		if (n != 2)
+			return "elements in textures missing.";
+
+		for(int l = 0; l < n; l++){
+
+		var id = tempListTextures[k].children[l];
+
+		
+
+		};
+
+	};
 
 
 	// various examples of different types of access
