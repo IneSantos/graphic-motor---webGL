@@ -279,26 +279,21 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		this.id = new CGFappearance(this);
 		var shininess = tempListMaterials[m].children[1].getElementsByTagName('shininess');
 		this.id.setShininess(shininess);
-		var specular = tempListMaterials[m].children[2].getElementsByTagName('specular');
-		this.id.setSpecular(); //como é que obtenho os valores??
-		var diffuse = tempListMaterials[m].children[3].getElementsByTagName('diffuse');
-		this.id.setDiffuse();//como é que obtenho os valores??
-		var ambient = tempListMaterials[m].children[4].getElementsByTagName('ambient');
-		this.id.setAmbient();//como é que obtenho os valores??
-		var emission = tempListMaterials[m].children[5].getElementsByTagName('emission');
-		
-
+		this.id.setSpecular(this.reader.getFloat(specular[0], 'r'),
+							this.reader.getFloat(specular[0], 'g'),
+							this.reader.getFloat(specular[0], 'b'),
+							this.reader.getFloat(specular[0], 'a')); 
+		this.id.setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
+						    this.reader.getFloat(diffuse[0], 'g'),
+						    this.reader.getFloat(diffuse[0], 'b'),
+						    this.reader.getFloat(diffuse[0], 'a'));
+		this.id.setAmbient(this.reader.getFloat(ambient[0], 'r'),
+							this.reader.getFloat(ambient[0], 'g'),
+							this.reader.getFloat(ambient[0], 'b'),
+							this.reader.getFloat(ambient[0], 'a'));
 	};
 
-/*
-this.materialA = new CGFappearance(this);
-	this.materialA.setAmbient(0.3,0.3,0.3,1);
-	//this.materialA.setDiffuse(0.6,0.6,0.6,1);
-	this.materialA.setDiffuse(1,1,1,1);
-	this.materialA.setSpecular(0,0,0.8,1);
-	this.materialA.setShininess(120);
-	*/
-
+	
 
 	// various examples of different types of access
 	/*var globals = elems[0];
