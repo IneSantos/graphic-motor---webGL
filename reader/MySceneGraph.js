@@ -238,7 +238,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 									   this.reader.getFloat(position[0], 'w'));
 		};
 
-var texture = rootElement.getElementsByTagName('TEXTURES');
+	var texture = rootElement.getElementsByTagName('TEXTURES');
 	if (texture = null) {
 		return "Textures element is missing.";
 	}
@@ -263,6 +263,37 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 
 		this.textures[k] = new MyTexture(id, path, factor);
 	};
+
+	var material = rootElement.getElementsByTagName('MATERIALS');
+
+	if (material = null)
+		return "Materials element is missing.";
+	if (material.length != 1)
+		return "either zero or more than one Textures element found.";
+
+	var tempListMaterials = rootElement.getElementsByTagName('MATERIAL');
+
+	for (int m = 0; m < tempListMaterials.length; m++){
+
+		var id = tempListMaterials[m].children[0].getElementsByTagName('id');
+		this.id = new CGFappearance(this);
+		var shininess = tempListMaterials[m].children[1].getElementsByTagName('shininess');
+		this.id.setShininess(shininess);
+		var specular = tempListMaterials[m].children[2].getElementsByTagName('specular');
+		this.id.setSpecular();
+		var diffuse = tempListMaterials[m].children[3].getElementsByTagName('diffuse');
+
+	};
+
+/*
+this.materialA = new CGFappearance(this);
+	this.materialA.setAmbient(0.3,0.3,0.3,1);
+	//this.materialA.setDiffuse(0.6,0.6,0.6,1);
+	this.materialA.setDiffuse(1,1,1,1);
+	this.materialA.setSpecular(0,0,0.8,1);
+	this.materialA.setShininess(120);
+	*/
+
 
 	// various examples of different types of access
 	/*var globals = elems[0];
