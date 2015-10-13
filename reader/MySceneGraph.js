@@ -19,6 +19,8 @@ function MySceneGraph(filename, scene) {
 
 }
 
+
+
 /*
  * Callback to be executed after successful reading
  */
