@@ -228,7 +228,12 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			if(position.length != 4)
 				return "elements missing in position element." + position.length;
 
-<<<<<<< HEAD
+			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
+									   this.reader.getFloat(position[0], 'y'),
+									   this.reader.getFloat(position[0], 'z'), 
+									   this.reader.getFloat(position[0], 'w'));
+		};
+
 	var texture = rootElement.getElementsByTagName('TEXTURES');
 	if (texture = null) {
 		return "Textures element is missing.";
@@ -247,14 +252,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.textures = [];
 
 	for(var k = 0; k < )
-=======
-			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
-									   this.reader.getFloat(position[0], 'y'),
-									   this.reader.getFloat(position[0], 'z'), 
-									   this.reader.getFloat(position[0], 'w'));
 
-	};
->>>>>>> origin/master
 
 	// various examples of different types of access
 	/*var globals = elems[0];
