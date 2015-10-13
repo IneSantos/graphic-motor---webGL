@@ -280,8 +280,13 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		var shininess = tempListMaterials[m].children[1].getElementsByTagName('shininess');
 		this.id.setShininess(shininess);
 		var specular = tempListMaterials[m].children[2].getElementsByTagName('specular');
-		this.id.setSpecular();
+		this.id.setSpecular(); //como é que obtenho os valores??
 		var diffuse = tempListMaterials[m].children[3].getElementsByTagName('diffuse');
+		this.id.setDiffuse();//como é que obtenho os valores??
+		var ambient = tempListMaterials[m].children[4].getElementsByTagName('ambient');
+		this.id.setAmbient();//como é que obtenho os valores??
+		var emission = tempListMaterials[m].children[5].getElementsByTagName('emission');
+		
 
 	};
 
