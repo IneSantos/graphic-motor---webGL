@@ -194,7 +194,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 	if (light.length != 1) {
-		return "either zero or more than one 'INITIALS' element found.";
+		return "either zero or more than one 'LIGHTS' element found.";
 	}
 	
 	var tempListLight=rootElement.getElementsByTagName('LIGHT');
@@ -203,22 +203,20 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "list element is missing.";
 	
 	this.lights = [];
+
 	// iterate over every element
-	for(var j=0; j < light.length; j++){
+	for(var j=0; j < tempListLight.length; j++){
 
 		var nnodes=tempListLight[j].children.length;
 
 		if(nnodes != 5)
 			return "light elements missing."
-		
+	
+				var enable = tempListLight[j].children[0].getElementsByTagName('enable'); 
+				var position = tempListLight[j].children[1].getElementsByTagName('position'); 
 
-		for (var i=0; i < nnodes; i++)
-		{
-				var e=light[j].children[i];
-				var enable = e.getElementsByTagName('enable'); 
-				var position = light[j].children[1].getElementsByTagName('position'); 
 
-				this.lights[j] =  new CGFlight(this.scene, light[j].getElementsByTagName('id'));
+				this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
 				
 				if(this.reader.getBoolean(enable[0], 'value'))
 					 this.lights[j].enable();
@@ -228,7 +226,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				return "position element missing.";
 	
 			if(position.length != 4)
-				return "elements missing in position element.";
+				return "elements missing in position element." + position.length;
 
 <<<<<<< HEAD
 	var texture = rootElement.getElementsByTagName('TEXTURES');
@@ -255,7 +253,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 									   this.reader.getFloat(position[0], 'z'), 
 									   this.reader.getFloat(position[0], 'w'));
 
-		}
 	};
 >>>>>>> origin/master
 
