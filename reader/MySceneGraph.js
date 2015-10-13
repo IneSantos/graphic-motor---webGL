@@ -238,7 +238,36 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 									   this.reader.getFloat(position[0], 'w'));
 		};
 
+var texture = rootElement.getElementsByTagName('TEXTURES');
+	if (texture = null) {
+		return "Textures element is missing.";
+	}
 
+	if (texture.length != 1){
+		return "either zero or more than one Textures element found.";
+	}
+
+	var tempListTextures = rootElement.getElementsByTagName('TEXTURE');
+
+	if (tempListTextures == null){
+		return "list element is missing.";
+	}
+
+	for(var k = 0; k < tempListTextures.length; k++){
+
+		var n = tempListTextures[k].children.length;
+
+		if (n != 2)
+			return "elements in textures missing.";
+
+		//for(int l = 0; l < n; l++){
+
+		var id = tempListTextures[k].;
+
+
+		//};
+
+		var texture = new MyTexture(id, path, factor);
 	/*for(var k = 0; k < )*/
 
 
