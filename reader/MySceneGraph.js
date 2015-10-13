@@ -188,14 +188,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	console.log(this.background);
 
-	var light =  rootElement.getElementsByTagName('LIGHTS');
-	if (light == null) {
+var light =  rootElement.getElementsByTagName('LIGHTS');
+	
+	if (light == null) 
 		return "INITIALS element is missing.";
-	}
+	
 
-	if (light.length != 1) {
+	if (light.length != 1) 
 		return "either zero or more than one 'LIGHTS' element found.";
-	}
+
 	
 	var tempListLight=rootElement.getElementsByTagName('LIGHT');
 
@@ -213,12 +214,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			return "light elements missing."
 	
 				var enable = tempListLight[j].children[0].getElementsByTagName('enable'); 
-				var position = tempListLight[j].children[1].getElementsByTagName('position'); 
+				var position = tempListLight[j].children[1].getElementsByTagName('position');
+				var ambient = tempListLight[j].children[2].getElementsByTagName('ambient');
+				var diffuse = tempListLight[j].children[3].getElementsByTagName('diffuse');
+				var specular = tempListLight[j].children[4].getElementsByTagName('specular');
 
 
 				this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
 				
-				if(this.reader.getBoolean(enable[0], 'value'))
+				if(this.reader.getInteger(enable[0], 'value') == 1)
 					 this.lights[j].enable();
 				else this.lights[j].disable();
 
@@ -234,38 +238,8 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 									   this.reader.getFloat(position[0], 'w'));
 		};
 
-	var texture = rootElement.getElementsByTagName('TEXTURES');
-	if (texture = null) {
-		return "Textures element is missing.";
-	}
 
-	if (texture.length != 1){
-		return "either zero or more than one Textures element found.";
-	}
-
-	var tempListTextures = rootElement.getElementsByTagName('TEXTURE');
-
-	if (tempListTextures == null){
-		return "list element is missing.";
-	}
-
-	for(var k = 0; k < tempListTextures.length; k++){
-
-		var n = tempListTextures[k].children.length;
-
-		if (n != 2)
-			return "elements in textures missing.";
-
-		//for(int l = 0; l < n; l++){
-
-		var id = tempListTextures[k].;
-
-
-		//};
-
-		var texture = new MyTexture(id, path, factor);
-
-	};
+	/*for(var k = 0; k < )*/
 
 
 	// various examples of different types of access
