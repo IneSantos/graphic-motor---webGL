@@ -74,7 +74,7 @@
 
 <TEXTURES>
 
-  <TEXTURE id="wallAppearance">
+    <TEXTURE id="wallAppearance">
         <file path="texture/wall.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>

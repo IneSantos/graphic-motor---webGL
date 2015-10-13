@@ -224,7 +224,24 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		}
 	};
 
+	var texture = rootElement.getElementsByTagName('TEXTURES');
+	if (texture = null) {
+		return "Textures element is missing.";
+	}
 
+	if (texture.length != 1){
+		return "either zero or more than one Textures element found.";
+	}
+
+	var tempListTextures = rootElement.getElementsByTagName('TEXTURE');
+
+	if (tempListTextures == null){
+		return "list element is missing.";
+	}
+
+	this.textures = [];
+
+	for(var k = 0; k < )
 
 	// various examples of different types of access
 	/*var globals = elems[0];
