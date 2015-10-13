@@ -188,43 +188,55 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	console.log(this.background);
 
-	var lights =  rootElement.getElementsByTagName('LIGHTS');
-	if (lights == null) {
+	var light =  rootElement.getElementsByTagName('LIGHTS');
+	if (light == null) {
 		return "INITIALS element is missing.";
 	}
 
-	if (lights.length != 1) {
+	if (light.length != 1) {
 		return "either zero or more than one 'INITIALS' element found.";
 	}
 	
 	var tempListLight=rootElement.getElementsByTagName('LIGHT');
 
-	if (tempListLight == null) {
+	if (tempListLight == null) 
 		return "list element is missing.";
-	}
 	
-	this.lights=[];
+	this.lights = [];
 	// iterate over every element
-	for(var j=0; j < lights.length; j++){
+	for(var j=0; j < light.length; j++){
 
-	var nnodes=tempListLight[j].children.length;
+		var nnodes=tempListLight[j].children.length;
 
-	if(nnodes != 5){
-		return "light elements missing."
-	}
+		if(nnodes != 5)
+			return "light elements missing."
+		
 
 		for (var i=0; i < nnodes; i++)
 		{
-			var e=tempListLight[j].children[i];
-			
-				// process each element and store its information
-				this.light = new MyLight();
+				var e=light[j].children[i];
+				var enable = e.getElementsByTagName('enable'); 
+				var position = light[j].children[1].getElementsByTagName('position'); 
+
+				this.lights[j] =  new CGFlight(this.scene, light[j].getElementsByTagName('id'));
 				
-				this.lights[j]=e.attributes.getNamedItem("").value;
+				if(this.reader.getBoolean(enable[0], 'value'))
+					 this.lights[j].enable();
+				else this.lights[j].disable();
+
+			if(position == null)
+				return "position element missing.";
+	
+			if(position.length != 4)
+				return "elements missing in position element.";
+
+			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
+									   this.reader.getFloat(position[0], 'y'),
+									   this.reader.getFloat(position[0], 'z'), 
+									   this.reader.getFloat(position[0], 'w'));
+
 		}
 	};
-
-
 
 	// various examples of different types of access
 	/*var globals = elems[0];
