@@ -189,13 +189,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	console.log(this.background);
 
 	var light =  rootElement.getElementsByTagName('LIGHTS');
-	if (light == null) {
+	
+	if (light == null) 
 		return "INITIALS element is missing.";
-	}
+	
 
-	if (light.length != 1) {
+	if (light.length != 1) 
 		return "either zero or more than one 'LIGHTS' element found.";
-	}
+
 	
 	var tempListLight=rootElement.getElementsByTagName('LIGHT');
 
@@ -213,12 +214,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			return "light elements missing."
 	
 				var enable = tempListLight[j].children[0].getElementsByTagName('enable'); 
-				var position = tempListLight[j].children[1].getElementsByTagName('position'); 
+				var position = tempListLight[j].children[1].getElementsByTagName('position');
+				var ambient = tempListLight[j].children[2].getElementsByTagName('ambient');
+				var diffuse = tempListLight[j].children[3].getElementsByTagName('diffuse');
+				var specular = tempListLight[j].children[4].getElementsByTagName('specular');
 
 
 				this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
 				
-				if(this.reader.getBoolean(enable[0], 'value'))
+				if(this.reader.getInteger(enable[0], 'value') == 1)
 					 this.lights[j].enable();
 				else this.lights[j].disable();
 
@@ -251,7 +255,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.textures = [];
 
-	for(var k = 0; k < )
+	/*for(var k = 0; k < )*/
 
 
 	// various examples of different types of access
