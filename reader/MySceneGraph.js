@@ -145,17 +145,22 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (ilum.length != 1)
 		return "number of illumination elements wrong. Number was " + ilum.length;
 	
-	var ambient = rootElement.getElementsByTagName('ambient');
-	if (ambient == null)
+
+	var amb = ilum[0].getElementsByTagName('ambient');
+
+	if (amb == null)
 		return "ambient element missing.";
-	if (ambient.length != 4)
-		return "number of ambient elements wrong. Number was " + ambient.length;
+	if (amb.length != 1)
+		return "number of ambient elements wrong. Number was " + amb.length;
 
-	var amb = ambient[0];
-	this.ambient = this.reader.getRGBA(amb, 'ambient');
+
+	this.ambientRGBA = new RGBA(this.reader.getFloat(amb[0], 'r'),
+								this.reader.getFloat(amb[0], 'g'),
+								this.reader.getFloat(amb[0], 'b'),
+								this.reader.getFloat(amb[0], 'a'));
+	
 	//falta aplicar
-
-
+							
 	var doubleside = rootElement.getElementsByTagName('doubleside');
 	if (doubleside == null)
 		return "doubleside element missing.";
@@ -168,11 +173,17 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var b = rootElement.getElementsByTagName('background');
 	if (b == null)
 		return "b element missing.";
-	if (b.length != 4)
+	if (b.length != 1)
 		return "number of b elements wrong. Number was " + b.length;
 
 	var bck = b[0];
-	this.background = this.reader.getRGBA(bck, 'background');
+	
+	this.backgroundRGBA = new RGBA(this.reader.getFloat(b[0], 'r'),
+								   this.reader.getFloat(b[0], 'g'),
+								   this.reader.getFloat(b[0], 'b'),
+								   this.reader.getFloat(b[0], 'a'));
+
+
 	console.log(this.background);
 
 	var lights =  rootElement.getElementsByTagName('LIGHTS');

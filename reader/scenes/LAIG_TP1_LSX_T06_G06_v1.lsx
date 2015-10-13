@@ -13,7 +13,7 @@
     <!-- translation and rotation of the scene - defines the main plane -->
 
 <INITIALS>
-    <frustum near="0" far="250"/>                      <!-- frustum planes-->
+    <frustum near="0.1" far="500"/>                      <!-- frustum planes-->
     <translation x="0" y="0" z="0" />                 <!-- initial translate -->
     <rotation axis="x" angle="0" />                  <!-- initial rotation 1 -->
     <rotation axis="y" angle="0" />                  <!-- initial rotation 2 -->
@@ -26,9 +26,9 @@
      <!-- ambient lightning and background color (def black) -->
 
 <ILLUMINATION>
-    <ambient r="0.3" g="0.3" b="0.3" a="1.0" />            <!-- global ambient -->
+    <ambient r="0" g="0" b="0" a="0" />            <!-- global ambient -->
     <doubleside value="0" />                          <!-- double or single side illum. -->
-    <background r="0" g="0" b="204" a="0" />            <!-- background color -->
+    <background r="0" g="0" b="0" a="0" />            <!-- background color -->
 </ILLUMINATION>
 
  <!-- INITIALIZE THE LIGHTS -->
@@ -73,6 +73,13 @@
     <!-- set an id for the texture, append the file path to the texture, set factor -->
 
 <TEXTURES>
+
+  <TEXTURE id="wallAppearance">
+        <file path="texture/wall.jpg" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>
+
+
     <TEXTURE id="tableAppearance">
         <file path="texture/wood.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
@@ -103,6 +110,16 @@
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE> 
 
+    <TEXTURE id="trunkAppearance">
+        <file path="texture/trunk.jpg" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>
+
+    <TEXTURE id="treeAppearance">
+        <file path="texture/tree.jpg" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>
+
 </TEXTURES>
 
 <!-- INITIALIZE THE MATERIALS -->
@@ -115,6 +132,14 @@
         <specular r="0.8" g="0.8" b="0.8" a="1" />        <!-- specular reflection -->
         <diffuse r="1" g="1" b="1" a="1" />         <!-- diffuse reflection -->
         <ambient r="0.3" g="0.3" b="0.3" a="0.3" />         <!-- ambient reflection -->
+        <emission r="0" g="0" b="0" a="1" />        <!-- emission component -->
+     </MATERIAL>
+
+      <MATERIAL id="materialDefault">                                  
+        <shininess value="120" />
+        <specular r="0" g="0" b="0" a="1" />        <!-- specular reflection -->
+        <diffuse r="1" g="1" b="1" a="1" />         <!-- diffuse reflection -->
+        <ambient r="0" g="0" b="0" a="0" />         <!-- ambient reflection -->
         <emission r="0" g="0" b="0" a="1" />        <!-- emission component -->
      </MATERIAL>
 
@@ -137,7 +162,7 @@
     <MATERIAL id="blackMaterial">                                  
         <shininess value="120" />
         <specular r="0" g="0" b="0" a="1" />        <!-- specular reflection -->
-        <diffuse r="0" g="0" b="0" a="1" />         <!-- diffuse reflection -->
+        <diffuse r="0.8" g="0.8" b="0.8" a="1" />         <!-- diffuse reflection -->
         <ambient r="0.3" g="0.3" b="0.3" a="1" />         <!-- ambient reflection -->
         <emission r="0" g="0" b="0" a="1" />        <!-- emission component -->
      </MATERIAL> 
@@ -524,7 +549,7 @@
 
     <NODE id="paredeDireita">  
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <TEXTURE id="wallAppearance" />         
         <SCALE sx="20" sy="10" sz="1" /> 
         <TRANSLATION x="0.5" y="0.5" z="0" />       
         <DESCENDANTS>
@@ -534,7 +559,7 @@
 
     <NODE id="paredeEsquerda">  
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <TEXTURE id="wallAppearance" />         
         
         <SCALE sx="1" sy="10" sz="20" /> 
         <TRANSLATION x="0" y="0.5" z=".5" />         
@@ -598,7 +623,7 @@
 
     <NODE id="tronco">  
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <TEXTURE id="trunkAppearance" />         
          
         <SCALE sx=".5" sy="2" sz=".5" />
          <ROTATION axis="x" angle="-90" />
@@ -607,8 +632,8 @@
         </DESCENDANTS>
     </NODE>
      <NODE id="ramo1">  
-        <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <MATERIAL id="materialDefault" />     
+        <TEXTURE id="treeAppearance" />         
          
         <TRANSLATION x="0" y="1" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -619,8 +644,8 @@
         </DESCENDANTS>
     </NODE>
     <NODE id="ramo2">  
-        <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <MATERIAL id="materialDefault" />     
+        <TEXTURE id="treeAppearance" />         
          
         <TRANSLATION x="0" y="2" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -631,8 +656,8 @@
         </DESCENDANTS>
     </NODE>
     <NODE id="ramo3">  
-        <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <MATERIAL id="materialDefault" />     
+        <TEXTURE id="treeAppearance" />         
          
          <TRANSLATION x="0" y="3" z="0" /> 
         <SCALE sx="2.5" sy="3" sz="2.5" />
@@ -643,8 +668,8 @@
         </DESCENDANTS>
     </NODE>
     <NODE id="ramo4">  
-        <MATERIAL id="null" />     
-        <TEXTURE id="null" />         
+        <MATERIAL id="materialDefault" />     
+        <TEXTURE id="treeAppearance" />         
          
         <TRANSLATION x="0" y="4" z="0" /> 
         <SCALE sx="2" sy="2" sz="2" />
