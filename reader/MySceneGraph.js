@@ -253,23 +253,16 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 		return "list element is missing.";
 	}
 
+	this.textures = [];
+
 	for(var k = 0; k < tempListTextures.length; k++){
 
-		var n = tempListTextures[k].children.length;
+		var id = tempListTextures[k].children[0].getElementsByTagName('id');
+		var path = tempListTextures[k].children[1].getElementsByTagName('file path');
+		var factor = tempListTextures[k].children[2].getElementsByTagName('amplif_factor');
 
-		if (n != 2)
-			return "elements in textures missing.";
-
-		//for(int l = 0; l < n; l++){
-
-		var id = tempListTextures[k].;
-
-
-		//};
-
-		var texture = new MyTexture(id, path, factor);
-	/*for(var k = 0; k < )*/
-
+		this.textures[k] = new MyTexture(id, path, factor);
+	};
 
 	// various examples of different types of access
 	/*var globals = elems[0];
