@@ -1,4 +1,3 @@
-
 function XMLscene() {
     CGFscene.call(this);
 }

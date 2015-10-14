@@ -7,6 +7,8 @@ function MyLight() {
      this.specular;
  };
 
+MyLight.prototype.constructor = MyLight;
+
 MyLight.prototype.setPosition = function(x,y,z) {
     
 

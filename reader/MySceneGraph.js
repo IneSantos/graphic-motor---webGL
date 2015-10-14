@@ -66,7 +66,7 @@ MySceneGraph.prototype.onXMLReady=function()
 		this.onXMLError(error);
 		return;
 	}
-	
+
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -367,7 +367,32 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 						     this.reader.getFloat(ambient[0], 'a'));
 	}
 };
+
+MySceneGraph.prototype.parseLeaves= function(rootElement) {
+	var leaves = rootElement.getElementsByTagName('LEAVES');
 	
+	if (leaves == null)
+		return "Laves element is missing.";
+	if (leaves.length != 1)
+		return "either zero or more than one Leaves element found.";		
+
+	var leaf = rootElement.getElementsByTagName('LEAF');
+
+	if (leaf == null)
+		return "Leaf element is missing.";
+	
+	for(var i = 0; i<leaf.length ; i++){
+	var id = this.reader.getString(leaf[i], 'id',true);
+	var type = this.reader.getString(leaf[i], 'type',true);
+	var args = this.reader.getString(leaf[i], 'args',true);
+
+	var coordAux = [];
+		coordAux = args.split(" ");  //TODO multiplos espacos
+	
+	
+			
+	}
+};
 
 /*
  * Callback to be executed on any read error

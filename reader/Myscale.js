@@ -6,6 +6,8 @@ function MyScale(x,y,z) {
 
  };
 
+MyScale.prototype.constructor = MyScale;
+
 MyScale.prototype.apply = function(scene) {
     
     scene.scale(this.x,this.y,this.z);
