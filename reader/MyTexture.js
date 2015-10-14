@@ -1,4 +1,4 @@
-function MyTexture(id, file_path, amplif_factor) {
+function MyTexture(id) {
      this.id = id;
      this.file_path = file_path;
      this.amplif_factor = amplif_factor;

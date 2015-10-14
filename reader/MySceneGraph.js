@@ -262,10 +262,12 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 			this.lights[j].setVisible(true); 
 	
 		};
-
 		/*
 
 var texture = rootElement.getElementsByTagName('TEXTURES');
+=======
+	var texture = rootElement.getElementsByTagName('TEXTURES');
+>>>>>>> origin/master
 	if (texture = null) {
 		return "Textures element is missing.";
 	}
@@ -280,18 +282,24 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 		return "list element is missing.";
 	}
 
+	this.textures = [];
+
 	for(var k = 0; k < tempListTextures.length; k++){
 
-		var n = tempListTextures[k].children.length;
+		var id = tempListTextures[k].children[0].getElementsByTagName('id');
+		var path = tempListTextures[k].children[1].getElementsByTagName('file path');
+		var factor = tempListTextures[k].children[2].getElementsByTagName('amplif_factor');
 
-		if (n != 2)
-			return "elements in textures missing.";
-
-		//for(int l = 0; l < n; l++){
-
+<<<<<<< HEAD
 		var id = tempListTextures[k];
+=======
+		this.textures[k] = new MyTexture(id, path, factor);
+	};
+>>>>>>> origin/master
 
+	var material = rootElement.getElementsByTagName('MATERIALS');
 
+<<<<<<< HEAD
 		};
 
 		var texture = new MyTexture(id, path, factor);
@@ -299,6 +307,35 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 		*/
 	/*for(var k = 0; k < )*/
 
+	if (material = null)
+		return "Materials element is missing.";
+	if (material.length != 1)
+		return "either zero or more than one Textures element found.";
+
+	var tempListMaterials = rootElement.getElementsByTagName('MATERIAL');
+
+	for (int m = 0; m < tempListMaterials.length; m++){
+
+		var id = tempListMaterials[m].children[0].getElementsByTagName('id');
+		this.id = new CGFappearance(this);
+		var shininess = tempListMaterials[m].children[1].getElementsByTagName('shininess');
+		this.id.setShininess(shininess);
+		this.id.setSpecular(this.reader.getFloat(specular[0], 'r'),
+							this.reader.getFloat(specular[0], 'g'),
+							this.reader.getFloat(specular[0], 'b'),
+							this.reader.getFloat(specular[0], 'a')); 
+		this.id.setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
+						    this.reader.getFloat(diffuse[0], 'g'),
+						    this.reader.getFloat(diffuse[0], 'b'),
+						    this.reader.getFloat(diffuse[0], 'a'));
+		this.id.setAmbient(this.reader.getFloat(ambient[0], 'r'),
+							this.reader.getFloat(ambient[0], 'g'),
+							this.reader.getFloat(ambient[0], 'b'),
+							this.reader.getFloat(ambient[0], 'a'));
+	};
+>>>>>>> origin/master
+
+	
 
 	// various examples of different types of access
 	/*var globals = elems[0];
