@@ -437,7 +437,37 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 
 MySceneGraph.prototype.parseNodes= function(rootElement) {
 
+	var nodes = rootElement.getElementsByTagName('NODES');
 
+	if (nodes == null)
+		return "no nodes found.";
+
+	if (nodes.length != 1)
+		return "zero or more nodes element found.";
+
+	var root = rootElement.getElementsByTagName('ROOT');
+
+	if (root == null)
+		return "no root found.";
+
+	if (root.length != 1)
+		return "zero or more root element found.";
+
+	var root_id = this.reader.getString(root[0], 'id');
+
+	var node = rootElement.getElementsByTagName('NODE');
+
+	if (node == null)
+		return "no node found.";
+
+	if (node.length != 1)
+		return "zero or more node element found."; 
+
+	for(var i = 0; i < node.length; i++){
+
+		
+
+	};
 
 };
 
