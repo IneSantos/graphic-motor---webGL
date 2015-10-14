@@ -67,6 +67,15 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
+	error = this.parseLeaves(rootElement);
+
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
+
+
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -263,20 +272,33 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 				return "elements missing in position element." + position.length;
 
 
+	if(this.reader.getFloat(position[0], 'x') == null || this.reader.getFloat(position[0], 'y') == null ||   this.reader.getFloat(position[0], 'z') == null || this.reader.getFloat(position[0], 'w') == null)
+		return "One or more elements null in position."
+
+
 			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
 									   this.reader.getFloat(position[0], 'y'),
 									   this.reader.getFloat(position[0], 'z'), 
 									   this.reader.getFloat(position[0], 'w'));
+
+	if(this.reader.getFloat(ambient[0], 'r')  == null  || this.reader.getFloat(ambient[0], 'g') == null || this.reader.getFloat(ambient[0], 'b') == null|| this.reader.getFloat(ambient[0], 'a') == null )
+		return "One or more elements null in ambient property. "
 
 			this.lights[j].setAmbient(this.reader.getFloat(ambient[0], 'r'),
 									  this.reader.getFloat(ambient[0], 'g'),
 									  this.reader.getFloat(ambient[0], 'b'), 
 									  this.reader.getFloat(ambient[0], 'a'));
 
+	if(this.reader.getFloat(diffuse[0], 'r')  == null  || this.reader.getFloat(diffuse[0], 'g') == null || this.reader.getFloat(diffuse[0], 'b') == null|| this.reader.getFloat(diffuse[0], 'a') == null )
+		return "One or more elements null in diffuse property. "
+
 		   	this.lights[j].setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
 									  this.reader.getFloat(diffuse[0], 'g'),
 									  this.reader.getFloat(diffuse[0], 'b'), 
 									  this.reader.getFloat(diffuse[0], 'a'));
+
+	if(this.reader.getFloat(specular[0], 'r')  == null  || this.reader.getFloat(specular[0], 'g') == null || this.reader.getFloat(specular[0], 'b') == null|| this.reader.getFloat(specular[0], 'a') == null )
+		return "One or more elements null in specular property. "
 
 			this.lights[j].setSpecular(this.reader.getFloat(specular[0], 'r'),
 									  this.reader.getFloat(specular[0], 'g'),
@@ -341,6 +363,10 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 		this.id = new CGFappearance(this.scene);
 
 		var shininess = tempListMaterials[m].getElementsByTagName('shininess');
+		var specular = tempListMaterials[m].getElementsByTagName('specular');
+		var diffuse = tempListMaterials[m].getElementsByTagName('diffuse');
+		var ambient = tempListMaterials[m].getElementsByTagName('ambient');
+
 
 		if(shininess == null)
 			return "shininess element missing.";
@@ -382,17 +408,42 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		return "Leaf element is missing.";
 	
 	for(var i = 0; i<leaf.length ; i++){
-	var id = this.reader.getString(leaf[i], 'id',true);
-	var type = this.reader.getString(leaf[i], 'type',true);
-	var args = this.reader.getString(leaf[i], 'args',true);
 
-	var coordAux = [];
-		coordAux = args.split(" ");  //TODO multiplos espacos
-	
-	
+		
+		var id = this.reader.getString(leaf[i], 'id',true);
+		var type = this.reader.getString(leaf[i], 'type',true);
+		var args = this.reader.getString(leaf[i], 'args',true);
+
+
+		if(id == null)
+			return "id element null.";
+
+		if(type == null)
+			return "type element null.";
+
+
+		if(args == null)
+			return "args element null.";
+		
+
+		var coordAux = [];
+			coordAux = args.match(/[0-9]/g);  //TODO multiplos espacos
+		//sdfghj
+
+		
 			
 	}
 };
+
+MySceneGraph.prototype.parseNodes= function(rootElement) {
+
+
+
+};
+
+
+
+
 
 /*
  * Callback to be executed on any read error
