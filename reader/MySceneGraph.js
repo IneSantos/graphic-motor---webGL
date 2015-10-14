@@ -177,8 +177,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "b element missing.";
 	if (b.length != 1)
 		return "number of b elements wrong. Number was " + b.length;
-
-	var bck = b[0];
 	
 	this.backgroundRGBA = new RGBA(this.reader.getFloat(b[0], 'r'),
 								   this.reader.getFloat(b[0], 'g'),
@@ -198,7 +196,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		return "either zero or more than one 'LIGHTS' element found.";
 
 	
-	var tempListLight=rootElement.getElementsByTagName('LIGHT');
+	var tempListLight =rootElement.getElementsByTagName('LIGHT');
 
 	if (tempListLight == null) 
 		return "list element is missing.";
@@ -208,35 +206,64 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 	// iterate over every element
 	for(var j=0; j < tempListLight.length; j++){
 
+		console.log("ITERACAO NUMERO : " + j);
+
 		var nnodes=tempListLight[j].children.length;
 
 		if(nnodes != 5)
 			return "light elements missing."
-	
-				var enable = tempListLight[j].children[0].getElementsByTagName('enable'); 
-				var position = tempListLight[j].children[1].getElementsByTagName('position');
-				var ambient = tempListLight[j].children[2].getElementsByTagName('ambient');
-				var diffuse = tempListLight[j].children[3].getElementsByTagName('diffuse');
-				var specular = tempListLight[j].children[4].getElementsByTagName('specular');
+
+				var enable = tempListLight[j].getElementsByTagName('enable');
+				var position = tempListLight[j].getElementsByTagName('position');
+				var ambient = tempListLight[j].getElementsByTagName('ambient');
+				var diffuse = tempListLight[j].getElementsByTagName('diffuse');
+				var specular = tempListLight[j].getElementsByTagName('specular');
 
 
-				this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
-				
-				if(this.reader.getInteger(enable[0], 'value') == 1)
+			this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
+
+			if(enable == null)
+				return "enable element missing.";
+
+			if(enable.length != 1)
+				return "elements missing in enable element." + enable.length;
+
+			if(this.reader.getInteger(enable[0], 'value') == 1)
 					 this.lights[j].enable();
 				else this.lights[j].disable();
 
 			if(position == null)
 				return "position element missing.";
 	
-			if(position.length != 4)
+			if(position.length != 1)
 				return "elements missing in position element." + position.length;
+
 
 			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
 									   this.reader.getFloat(position[0], 'y'),
 									   this.reader.getFloat(position[0], 'z'), 
 									   this.reader.getFloat(position[0], 'w'));
+
+			this.lights[j].setAmbient(this.reader.getFloat(ambient[0], 'r'),
+									  this.reader.getFloat(ambient[0], 'g'),
+									  this.reader.getFloat(ambient[0], 'b'), 
+									  this.reader.getFloat(ambient[0], 'a'));
+
+		   	this.lights[j].setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
+									  this.reader.getFloat(diffuse[0], 'g'),
+									  this.reader.getFloat(diffuse[0], 'b'), 
+									  this.reader.getFloat(diffuse[0], 'a'));
+
+			this.lights[j].setSpecular(this.reader.getFloat(specular[0], 'r'),
+									  this.reader.getFloat(specular[0], 'g'),
+									  this.reader.getFloat(specular[0], 'b'), 
+									  this.reader.getFloat(specular[0], 'a'));
+
+			this.lights[j].setVisible(true); 
+	
 		};
+
+		/*
 
 var texture = rootElement.getElementsByTagName('TEXTURES');
 	if (texture = null) {
@@ -262,12 +289,14 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 
 		//for(int l = 0; l < n; l++){
 
-		var id = tempListTextures[k].;
+		var id = tempListTextures[k];
 
 
-		//};
+		};
 
 		var texture = new MyTexture(id, path, factor);
+
+		*/
 	/*for(var k = 0; k < )*/
 
 
