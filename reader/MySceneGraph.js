@@ -455,7 +455,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 	var root_id = this.reader.getString(root[0], 'id');
 
-	var node = rootElement.getElementsByTagName('NODE');
+	var node = nodes[0].getElementsByTagName('NODE');
 
 	if (node == null)
 		return "no node found.";
@@ -464,8 +464,22 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 		return "zero or more node element found."; 
 
 	for(var i = 0; i < node.length; i++){
+		var node_id = this.reader.getString(node[i], 'id');
+		var material = this.reader.getString(node[i], 'material');
+		var texture = this.reader.getString(node[i], 'texture');
+		var translation = this.reader.getString(node[i], 'translation');
+		var rotation = this.reader.getString(node[i], 'rotation');
+		var scale = this.reader.getString(node[i], 'scale');
 
+		var n = new MyNode(node_id, material, texture, translation, rotation, scale);
 		
+		var des = nodes[i].getElementsByTagName('DESCENDANTS');
+		var des_nodes = des[0].getElementsByTagName('DESCENDANT');
+		for (var k = 0; k < des_nodes.length; k++){
+			var des_id = this.reader.getString(des_nodes[k], 'id');
+			
+			n.addDescendant(des_id);	
+		};
 
 	};
 

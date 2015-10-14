@@ -5,7 +5,5 @@ function MyLeave(id) {
 
 MyLeave.prototype.constructor = MyLeave;
 
-MyLeave.prototype.setPosition = function(id){
-    
-
+MyLeave.prototype.setPosition = function(id){ 
 };

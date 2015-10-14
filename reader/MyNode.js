@@ -1,5 +1,15 @@
-function MyNode(id) {
+function MyNode(id, mat, text, rot, trans, scale) {
      this.id = id;
+     this.descendants = new Array();
+     this.material = mat;
+     this.text = text;
+     this.rotation = rot;
+     this.translation = trans;
+     this.scale = scale;
  };
 
-MyLeave.prototype.constructor = MyNode;
+MyNode.prototype.constructor = MyNode;
+
+MyNode.prototype.addDescendant = function(descendant_id){ 
+	descendants.push(descendant_id);
+};
