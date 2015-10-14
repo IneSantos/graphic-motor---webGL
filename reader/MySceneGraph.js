@@ -30,13 +30,43 @@ MySceneGraph.prototype.onXMLReady=function()
 	var rootElement = this.reader.xmlDoc.documentElement;
 	
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseGlobalsExample(rootElement);
+	var error;
+
+	error = this.parseInitials(rootElement);
 
 	if (error != null) {
 		this.onXMLError(error);
 		return;
-	}	
+	}
 
+	error = this.parseIllumination(rootElement);
+
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
+	error = this.parseLights(rootElement);
+
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
+	error = this.parseTextures(rootElement);
+
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+
+	error = this.parseMaterials(rootElement);
+
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
+	
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -48,7 +78,7 @@ MySceneGraph.prototype.onXMLReady=function()
 /*
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
-MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
+MySceneGraph.prototype.parseInitials= function(rootElement) {
 	
 	var elems =  rootElement.getElementsByTagName('INITIALS');
 	if (elems == null) {
@@ -140,6 +170,10 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	var rf = reference[0];
 	this.reference_length = this.reader.getFloat(rf, 'length');
 
+}
+
+MySceneGraph.prototype.parseIllumination= function(rootElement) {
+
 	// ILLUMINATION
 	var ilum = rootElement.getElementsByTagName('ILLUMINATION');
 	if (ilum == null)
@@ -161,16 +195,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 								this.reader.getFloat(amb[0], 'b'),
 								this.reader.getFloat(amb[0], 'a'));
 	
-	//falta aplicar
-							
-	var doubleside = rootElement.getElementsByTagName('doubleside');
-	if (doubleside == null)
-		return "doubleside element missing.";
-	if (doubleside.length != 1)
-		return "number of doubleside elements wrong. Number was " + doubleside.length;
-
-	var ds = doubleside[0];
-	this.doubleside = this.reader.getBoolean(ds, 'value');
 
 	var b = rootElement.getElementsByTagName('background');
 	if (b == null)
@@ -184,7 +208,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 								   this.reader.getFloat(b[0], 'a'));
 
 
-	console.log(this.background);
+}
+
+MySceneGraph.prototype.parseLights= function(rootElement) {
 
 var light =  rootElement.getElementsByTagName('LIGHTS');
 	
@@ -205,8 +231,6 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 
 	// iterate over every element
 	for(var j=0; j < tempListLight.length; j++){
-
-		console.log("ITERACAO NUMERO : " + j);
 
 		var nnodes=tempListLight[j].children.length;
 
@@ -261,14 +285,16 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 
 			this.lights[j].setVisible(true); 
 	
-		};
-		/*
+		}
+};
 
-var texture = rootElement.getElementsByTagName('TEXTURES');
-=======
+MySceneGraph.prototype.parseTextures= function(rootElement) {
+		
+	//TEXTURES
+
 	var texture = rootElement.getElementsByTagName('TEXTURES');
->>>>>>> origin/master
-	if (texture = null) {
+
+	if (texture === null) {
 		return "Textures element is missing.";
 	}
 
@@ -276,7 +302,7 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 		return "either zero or more than one Textures element found.";
 	}
 
-	var tempListTextures = rootElement.getElementsByTagName('TEXTURE');
+	var tempListTextures = texture[0].getElementsByTagName('TEXTURE');
 
 	if (tempListTextures == null){
 		return "list element is missing.";
@@ -286,86 +312,63 @@ var texture = rootElement.getElementsByTagName('TEXTURES');
 
 	for(var k = 0; k < tempListTextures.length; k++){
 
-		var id = tempListTextures[k].children[0].getElementsByTagName('id');
-		var path = tempListTextures[k].children[1].getElementsByTagName('file path');
-		var factor = tempListTextures[k].children[2].getElementsByTagName('amplif_factor');
-
-<<<<<<< HEAD
+		var id = this.reader.getString(tempListTextures[k],'id',true);
+		var path = this.reader.getString(tempListTextures[k].children[0],'path',true);
+		var factorS = this.reader.getFloat(tempListTextures[k].children[1],'s',true);
+		var factorT = this.reader.getFloat(tempListTextures[k].children[1],'t',true);
+		
 		var id = tempListTextures[k];
-=======
-		this.textures[k] = new MyTexture(id, path, factor);
-	};
->>>>>>> origin/master
+
+		this.textures[k] = new MyTexture(id, path, factorS, factorT);
+	}
+};
+
+MySceneGraph.prototype.parseMaterials= function(rootElement) {
 
 	var material = rootElement.getElementsByTagName('MATERIALS');
 
-<<<<<<< HEAD
-		};
-
-		var texture = new MyTexture(id, path, factor);
-
-		*/
-	/*for(var k = 0; k < )*/
-
-	if (material = null)
+	if (material == null)
 		return "Materials element is missing.";
 	if (material.length != 1)
 		return "either zero or more than one Textures element found.";
 
-	var tempListMaterials = rootElement.getElementsByTagName('MATERIAL');
+	var tempListMaterials = material[0].getElementsByTagName('MATERIAL');
 
-	for (int m = 0; m < tempListMaterials.length; m++){
+	for (var m = 0; m < tempListMaterials.length; m++){
 
-		var id = tempListMaterials[m].children[0].getElementsByTagName('id');
-		this.id = new CGFappearance(this);
-		var shininess = tempListMaterials[m].children[1].getElementsByTagName('shininess');
-		this.id.setShininess(shininess);
+		var id = tempListMaterials[m].getElementsByTagName('id');
+		
+		this.id = new CGFappearance(this.scene);
+
+		var shininess = tempListMaterials[m].getElementsByTagName('shininess');
+
+		if(shininess == null)
+			return "shininess element missing.";
+		
+		if(shininess.length != 1)
+			return "either zero or more than one shininess element found.";
+		
+
+		this.id.setShininess(this.reader.getFloat(shininess[0], 'value'));
+
 		this.id.setSpecular(this.reader.getFloat(specular[0], 'r'),
 							this.reader.getFloat(specular[0], 'g'),
 							this.reader.getFloat(specular[0], 'b'),
 							this.reader.getFloat(specular[0], 'a')); 
+
 		this.id.setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
 						    this.reader.getFloat(diffuse[0], 'g'),
 						    this.reader.getFloat(diffuse[0], 'b'),
 						    this.reader.getFloat(diffuse[0], 'a'));
-		this.id.setAmbient(this.reader.getFloat(ambient[0], 'r'),
-							this.reader.getFloat(ambient[0], 'g'),
-							this.reader.getFloat(ambient[0], 'b'),
-							this.reader.getFloat(ambient[0], 'a'));
-	};
->>>>>>> origin/master
 
-	
-
-	// various examples of different types of access
-	/*var globals = elems[0];
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
-
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-
-	var tempList=rootElement.getElementsByTagName('list');
-
-	if (tempList == null) {
-		return "list element is missing.";
+		 this.id.setAmbient(this.reader.getFloat(ambient[0], 'r'),
+							 this.reader.getFloat(ambient[0], 'g'),
+							 this.reader.getFloat(ambient[0], 'b'),
+						     this.reader.getFloat(ambient[0], 'a'));
 	}
-	
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};*/
-
 };
 	
+
 /*
  * Callback to be executed on any read error
  */

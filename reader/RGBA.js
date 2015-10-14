@@ -6,3 +6,5 @@ function RGBA(r,g,b,a) {
     this.a = a;
 
  };
+
+RGBA.prototype.constructor=RGBA;
