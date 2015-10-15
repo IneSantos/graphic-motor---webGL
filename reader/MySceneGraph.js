@@ -494,9 +494,9 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 		
 		var rot = node[i].getElementsByTagName('ROTATION');
 
-		var axis = this.reader.getString(rot[0], 'axis');
-
-		if(rot != null && rot.length == 2){			
+		if(rot != null && rot.length == 2){		
+			
+			 var axis = this.reader.getString(rot[0], 'axis');
 
 			if(axis == 'x')
 			 	var rotX = new MyRotation(this.reader.getFloat(rot[0], 'angle'), 
@@ -515,25 +515,32 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 	
 		var scl = node[i].getElementsByTagName('ROTATION');
 
-		if(rot != null && rot.length == 3){			
+		if(scl != null && scl.length == 3){			
 		
 			var scale = new MyScale(this.reader.getFloat(scl[0], 'sx'), 
-									 this.reader.getFloat(scl[0], 'sy'),
-									 this.reader.getFloat(scl[0], 'sz'));
+									this.reader.getFloat(scl[0], 'sy'),
+									this.reader.getFloat(scl[0], 'sz'));
 		}
-		
-		
-		//PAREI AQUI!!!
+	
 
-		var n = new MyNode(node_id, material, texture, translation, rotation, scl);
+		var n = new MyNode(node_id, material_id, texture_id, rot, translation, scl);
 		
-		var des = nodes[i].getElementsByTagName('DESCENDANTS');
+		var des = node[i].getElementsByTagName('DESCENDANTS');
+
+		if(des != null && des.length != 0){
+
 		var des_nodes = des[0].getElementsByTagName('DESCENDANT');
+
 		for (var k = 0; k < des_nodes.length; k++){
+
 			var des_id = this.reader.getString(des_nodes[k], 'id');
+
+			console.log("Descendentes : " + des_id);
 			
 			n.addDescendant(des_id);	
 		}
+		}
+
 
 	}
 

@@ -11,5 +11,5 @@ function MyNode(id, mat, text, rot, trans, scale) {
 MyNode.prototype.constructor = MyNode;
 
 MyNode.prototype.addDescendant = function(descendant_id){ 
-	descendants.push(descendant_id);
+	this.descendants.push(descendant_id);
 };

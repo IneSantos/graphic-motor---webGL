@@ -332,7 +332,7 @@
         <SCALE sx="1" sy="1" sz="0.05" />
         <DESCENDANTS>
             <DESCENDANT id="cyl" /> 
-            </DESCENDANTS>
+        </DESCENDANTS>
     </NODE>
 
     <NODE id="prato2">  
