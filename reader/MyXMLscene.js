@@ -1,19 +1,16 @@
-function XMLscene() {
+function MyXMLscene() {
     CGFscene.call(this);
 }
 
-XMLscene.prototype = Object.create(CGFscene.prototype);
-XMLscene.prototype.constructor = XMLscene;
+MyXMLscene.prototype = Object.create(CGFscene.prototype);
+MyXMLscene.prototype.constructor = MyXMLscene;
 
-XMLscene.prototype.init = function (application) {
+MyXMLscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
     this.initCameras();
 
     this.initLights();
-
-    this.cyl = new MyCylinder(this,1,0.5,0,9,50);
-    this.triangle = new MyTriangle(this, -0.5,0.5,0,-0.5,-0.5,0,0.5,-0.5,0);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -25,23 +22,22 @@ XMLscene.prototype.init = function (application) {
 	this.axis=new CGFaxis(this);
 };
 
-XMLscene.prototype.initLights = function () {
+MyXMLscene.prototype.initLights = function () {
 
     this.shader.bind();
 
 	this.lights[0].setPosition(2, 3, 3, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
-
-
+ 
     this.shader.unbind();
 };
 
-XMLscene.prototype.initCameras = function () {
+MyXMLscene.prototype.initCameras = function () {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 };
 
-XMLscene.prototype.setDefaultAppearance = function () {
+MyXMLscene.prototype.setDefaultAppearance = function () {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
@@ -50,14 +46,14 @@ XMLscene.prototype.setDefaultAppearance = function () {
 
 // Handler called when the graph is finally loaded. 
 // As loading is asynchronous, this may be called already after the application has started the run loop
-XMLscene.prototype.onGraphLoaded = function () 
+MyXMLscene.prototype.onGraphLoaded = function () 
 {
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
 	this.lights[0].setVisible(true);
     this.lights[0].enable();
 };
 
-XMLscene.prototype.display = function () {
+MyXMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
     this.shader.bind();
 	
@@ -74,9 +70,6 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
-
-	//this.cyl.display();
-	this.triangle.display();
 
 	this.setDefaultAppearance();
 	

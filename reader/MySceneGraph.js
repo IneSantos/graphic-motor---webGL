@@ -76,10 +76,10 @@ MySceneGraph.prototype.onXMLReady=function()
 
 	error = this.parseNodes(rootElement);
 	
-		if (error != null) {
-			this.onXMLError(error);
-			return;
-		}
+	if (error != null) {
+		this.onXMLError(error);
+		return;
+	}
 
 
 	this.loadedOk=true;
@@ -106,7 +106,9 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 
 
 	var frustum = rootElement.getElementsByTagName('frustum');
+	
 	console.log("Frustum: " + frustum);
+	
 	if (frustum == null)
 		return "frustum element missing";
 	if (frustum.length != 1)
@@ -475,53 +477,78 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 		var node_id = this.reader.getString(node[i], 'id');
 
+		console.log("NODE ID: " + node_id);
+	
+		if(node_id == null)
+			return "Node ID null."
+
 		var material = node[i].getElementsByTagName('MATERIAL');
 
 		var material_id = this.reader.getString(material[0], 'id');
+
+		console.log("Material " + material_id);
 
 		var texture = node[i].getElementsByTagName('TEXTURE');
 
 		var texture_id = this.reader.getString(texture[0], 'id');
 
+			console.log("Texture " + texture_id);
+
 		var trans = node[i].getElementsByTagName('TRANSLATION');
 
-		if(trans != null && trans.length == 3){			
+		if(trans != null){			
 
-			var translation = new MyTranslation(this.reader.getFloat(node[i], 'x'), 
-										  this.reader.getFloat(node[i], 'y'),  
-										  this.reader.getFloat(node[i], 'z'));
+		for(var k = 0 ; k < trans.length; k++){
+			var translation = new MyTranslation(this.reader.getFloat(trans[k], 'x'), 
+										  this.reader.getFloat(trans[k], 'y'),  
+										  this.reader.getFloat(trans[k], 'z'));
+
+			console.log("Translation : " + "x " + this.reader.getFloat(trans[k], 'x') + " y " +  this.reader.getFloat(trans[k], 'y') + " z " +  this.reader.getFloat(trans[k], 'z'));
 		}
+		}
+
 		
 		var rot = node[i].getElementsByTagName('ROTATION');
 
-		if(rot != null && rot.length == 2){		
+		if(rot != null){		
 			
-			 var axis = this.reader.getString(rot[0], 'axis');
+			for(var k = 0 ; k < rot.length; k++){
+
+			 var axis = this.reader.getString(rot[k], 'axis');
 
 			if(axis == 'x')
-			 	var rotX = new MyRotation(this.reader.getFloat(rot[0], 'angle'), 
+			 	var rotX = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
 									 1,0,0);
 			
 			if(axis == 'y')
-			 	var rotY = new MyRotation(this.reader.getFloat(rot[0], 'angle'), 
+			 	var rotY = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
 									 0,1,0);
 
 			if(axis == 'z')
-			 	var rotZ = new MyRotation(this.reader.getFloat(rot[0], 'angle'), 
+			 	var rotZ = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
 									 0,0,1);
+				
+	console.log("Rotation : " + "axis " + this.reader.getString(rot[k], 'axis') + " angle " + this.reader.getFloat(rot[k], 'angle'));
 
 
+
+			}
 		}
 	
-		var scl = node[i].getElementsByTagName('ROTATION');
+		var scl = node[i].getElementsByTagName('SCALE');
 
-		if(scl != null && scl.length == 3){			
+		if(scl != null){	
+
+		 for(var k = 0 ; k < scl.length; k++){		
 		
-			var scale = new MyScale(this.reader.getFloat(scl[0], 'sx'), 
-									this.reader.getFloat(scl[0], 'sy'),
-									this.reader.getFloat(scl[0], 'sz'));
+			var scale = new MyScale(this.reader.getFloat(scl[k], 'sx'), 
+									this.reader.getFloat(scl[k], 'sy'),
+									this.reader.getFloat(scl[k], 'sz'));
+
+	console.log("Scale : " + "sx " + this.reader.getFloat(scl[k], 'sx') + " sy " +  this.reader.getFloat(scl[k], 'sy') + " sz " +  this.reader.getFloat(scl[k], 'sz'));
+
+			}
 		}
-	
 
 		var n = new MyNode(node_id, material_id, texture_id, rot, translation, scl);
 		
@@ -539,7 +566,10 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			
 			n.addDescendant(des_id);	
 		}
-		}
+
+		console.log("SAIU DO ULTIMO FOR!!!");
+		
+	}
 
 
 	}
