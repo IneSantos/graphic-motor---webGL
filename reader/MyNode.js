@@ -13,3 +13,7 @@ MyNode.prototype.constructor = MyNode;
 MyNode.prototype.addDescendant = function(descendant_id){ 
 	this.descendants.push(descendant_id);
 };
+
+MyNode.prototype.getId(){
+	return id;
+}

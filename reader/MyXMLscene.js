@@ -60,8 +60,8 @@ MyXMLscene.prototype.readObjects = function(){
 
 	for (var i = 0; i < objects.length; i++){
 
-		
-		
+		var n_id = objects[i].getId();
+
 	}
 
 };
