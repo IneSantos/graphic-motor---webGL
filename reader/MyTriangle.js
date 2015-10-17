@@ -2,7 +2,7 @@
  * MyTriangle
  * @constructor
  */
- function MyTriangle(scene, topX, topY, topZ, leftX, leftY, leftZ, rightX, rightY ,rightZ) {
+ function MyTriangle(scene, leftX, leftY, leftZ, rightX, rightY,rightZ, topX, topY, topZ) {
         CGFobject.call(this,scene);
             
         this.topX = topX;
@@ -26,15 +26,18 @@
         this.vertices = [
         this.leftX,this.leftY,this.leftZ,
         this.rightX,this.rightY,this.rightZ,
-        this.topX,this.topY,this.topZ,
+        this.topX,this.topY,this.topZ
         ];
  
         this.indices = [
-        0, 1, 2,
+        0, 1, 2
         ];
  
+
+        
+
+        
       this.normals = [
-        0, 0, 1,
         0, 0, 1,
         0, 0, 1,
         0, 0, 1,

@@ -2,7 +2,7 @@
  * MyRectangle
  * @constructor
  */
- function MyRectangle(scene, minS,maxS,minT,maxT) {
+ function MyRectangle(scene, minS,maxS,minT,maxT, lTopX, lTopY, rBottomX, rBottomY) {
  	CGFobject.call(this,scene);
 
     this.minS = minS||0;
@@ -18,10 +18,10 @@
 
  MyRectangle.prototype.initBuffers = function() {
  	this.vertices = [
- 	-0.5, -0.5, 0,
- 	0.5, -0.5, 0,
- 	-0.5, 0.5, 0,
- 	0.5, 0.5, 0
+ 	lTopX, rBottomY, 0,
+ 	rBottomX, rBottomY, 0,
+ 	lTopX, lTopY, 0,
+ 	rBottomX, lTopY, 0
  	];
 
  	this.indices = [

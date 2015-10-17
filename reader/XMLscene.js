@@ -12,8 +12,8 @@ XMLscene.prototype.init = function (application) {
 
     this.initLights();
 
-    this.cyl = new MyCylinder(this,1,0.5,0,9,50);
-    this.triangle = new MyTriangle(this, -0.5,0.5,0,-0.5,-0.5,0,0.5,-0.5,0);
+    this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
+    //this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,-0.5,0.5,0);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -29,7 +29,7 @@ XMLscene.prototype.initLights = function () {
 
     this.shader.bind();
 
-	this.lights[0].setPosition(2, 3, 3, 1);
+	this.lights[0].setPosition(0, 1, 0, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
 
@@ -75,8 +75,8 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
-	//this.cyl.display();
-	this.triangle.display();
+	this.cyl.display();
+	//this.tri.display();
 
 	this.setDefaultAppearance();
 	
