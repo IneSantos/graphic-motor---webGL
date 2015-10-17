@@ -445,6 +445,8 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 
 MySceneGraph.prototype.parseNodes= function(rootElement) {
 
+	var tree = new MyTree(); 
+
 	var nodes = rootElement.getElementsByTagName('NODES');
 
 	if (nodes == null)
@@ -498,13 +500,13 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 		if(trans != null){			
 
-		for(var k = 0 ; k < trans.length; k++){
-			var translation = new MyTranslation(this.reader.getFloat(trans[k], 'x'), 
-										  this.reader.getFloat(trans[k], 'y'),  
-										  this.reader.getFloat(trans[k], 'z'));
+			for(var k = 0 ; k < trans.length; k++){
+				var translation = new MyTranslation(this.reader.getFloat(trans[k], 'x'), 
+											  this.reader.getFloat(trans[k], 'y'),  
+											  this.reader.getFloat(trans[k], 'z'));
 
-			console.log("Translation : " + "x " + this.reader.getFloat(trans[k], 'x') + " y " +  this.reader.getFloat(trans[k], 'y') + " z " +  this.reader.getFloat(trans[k], 'z'));
-		}
+				console.log("Translation : " + "x " + this.reader.getFloat(trans[k], 'x') + " y " +  this.reader.getFloat(trans[k], 'y') + " z " +  this.reader.getFloat(trans[k], 'z'));
+			}
 		}
 
 		
@@ -545,7 +547,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 									this.reader.getFloat(scl[k], 'sy'),
 									this.reader.getFloat(scl[k], 'sz'));
 
-	console.log("Scale : " + "sx " + this.reader.getFloat(scl[k], 'sx') + " sy " +  this.reader.getFloat(scl[k], 'sy') + " sz " +  this.reader.getFloat(scl[k], 'sz'));
+			console.log("Scale : " + "sx " + this.reader.getFloat(scl[k], 'sx') + " sy " +  this.reader.getFloat(scl[k], 'sy') + " sz " +  this.reader.getFloat(scl[k], 'sz'));
 
 			}
 		}
@@ -567,12 +569,16 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			n.addDescendant(des_id);	
 		}
 
+		tree.addNode(n);
+
 		console.log("SAIU DO ULTIMO FOR!!!");
 		
-	}
+		}
 
 
 	}
+
+	return tree;
 
 };
 

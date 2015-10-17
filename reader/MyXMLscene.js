@@ -53,6 +53,26 @@ MyXMLscene.prototype.onGraphLoaded = function ()
     this.lights[0].enable();
 };
 
+// reads the xml tree with the objects of the scene
+MyXMLscene.prototype.readObjects = function(){
+
+	var objects = parseNodes(); // falta passar o argumento aqui!! mas não sei qual é
+
+	for (var i = 0; i < objects.length; i++){
+
+		
+		
+	}
+
+};
+
+// creates the objects read in the XML
+MyXMLscene.prototype.createObjects = function(){
+
+
+
+};
+
 MyXMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
     this.shader.bind();
