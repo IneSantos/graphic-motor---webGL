@@ -53,6 +53,22 @@ XMLscene.prototype.onGraphLoaded = function ()
 	
 };
 
+XMLscene.prototype.loadTextures = function(){
+
+	var textures = this.scene.texture_list.getTextures();
+
+	for (var j = 0; j < textures.length; j++){
+
+		var id = textures[j].getId();
+		var path = textures[j].getPath();
+
+		this.id = new CGFappearance(this);
+		this.id.loadTexture(path);
+
+	}
+
+};
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
     this.shader.bind();
@@ -71,11 +87,8 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
-
 	//Draw objects
 	
-
-
 	this.setDefaultAppearance();
 	
 	// ---- END Background, camera and axis setup

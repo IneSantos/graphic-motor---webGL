@@ -338,6 +338,8 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		return "either zero or more than one Textures element found.";
 	}
 
+	this.texture_list = new MyTextures();
+
 	var tempListTextures = texture[0].getElementsByTagName('TEXTURE');
 
 	if (tempListTextures == null){
@@ -356,7 +358,9 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		var id = tempListTextures[k];
 
 		this.textures[k] = new MyTexture(id, path, factorS, factorT);
+		this.texture_list.addTexture(this.textures[k]);
 	}
+
 };
 
 MySceneGraph.prototype.parseMaterials= function(rootElement) {
