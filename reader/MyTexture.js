@@ -5,4 +5,20 @@ function MyTexture(id,file_path,amplif_factorS,amplif_factorT) {
      this.amplif_factorT=amplif_factorT;
  };
 
-MyTexture.prototype.constructor=MyTexture;
+MyTexture.prototype.constructor = MyTexture;
+
+MyTexture.prototype.getId = function(){
+	return id;
+};
+
+MyTexture.prototype.getPath = function(){
+	return file_path;
+};
+
+MyTexture.prototype.getAmplifFactorS = function(){
+	return amplif_factorS;
+};
+
+MyTexture.prototype.getAmplifFactorT = function(){
+	return amplif_factorT;
+};

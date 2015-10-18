@@ -336,6 +336,8 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		return "either zero or more than one Textures element found.";
 	}
 
+	this.texture_list = new MyTextures();
+
 	var tempListTextures = texture[0].getElementsByTagName('TEXTURE');
 
 	if (tempListTextures == null){
@@ -354,7 +356,9 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		var id = tempListTextures[k];
 
 		this.textures[k] = new MyTexture(id, path, factorS, factorT);
+		this.texture_list.addTexture(this.textures[k]);
 	}
+
 };
 
 MySceneGraph.prototype.parseMaterials= function(rootElement) {
@@ -371,6 +375,8 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 	for (var m = 0; m < tempListMaterials.length; m++){
 
 		var id = tempListMaterials[m].getElementsByTagName('id');
+
+		this.materials = new MyMaterials();
 		
 		this.id = new CGFappearance(this.scene);
 
@@ -403,6 +409,8 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 							 this.reader.getFloat(ambient[0], 'g'),
 							 this.reader.getFloat(ambient[0], 'b'),
 						     this.reader.getFloat(ambient[0], 'a'));
+
+		 this.materials.addMaterial(id);
 	}
 };
 

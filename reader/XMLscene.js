@@ -52,18 +52,19 @@ XMLscene.prototype.onGraphLoaded = function ()
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
 };
 
-// reads the materials
-XMLscene.prototype.readMaterials = function(){
+XMLscene.prototype.loadTextures = function(){
 
-	var material = new MyMaterial();
+	var textures = this.scene.texture_list.getTextures();
 
-	var materials = material.getMaterials();
+	for (var j = 0; j < textures.length; j++){
 
-	for (var l = 0; l < materials.length; l++){
+		var id = textures[j].getId();
+		var path = textures[j].getPath();
 
-		
-		
-	} 
+		this.id = new CGFappearance(this);
+		this.id.loadTexture(path);
+
+	}
 
 };
 
@@ -85,7 +86,7 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
-
+	//Draw objects
 	
 	this.setDefaultAppearance();
 	
