@@ -1,6 +1,7 @@
 function MyTree(root) {
 	this.root = root;
 	this.nodes = [];
+	this.leaves = [];
 
 };
 

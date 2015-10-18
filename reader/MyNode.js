@@ -4,6 +4,7 @@ function MyNode(id, mat, text, trans) {
      this.material = mat;
      this.text = text;
      this.transformation = trans;
+     this.isLeaf = false;
  };
 
 MyNode.prototype.constructor = MyNode;

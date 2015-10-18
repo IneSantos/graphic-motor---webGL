@@ -13,7 +13,6 @@ XMLscene.prototype.init = function (application) {
     this.initLights();
 
     this.tree = new MyTree();
-	this.leaves = [];
 
     //this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
     this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
@@ -96,15 +95,26 @@ XMLscene.prototype.display = function () {
     this.shader.unbind();
 };
 
-XMLscene.prototype.processNode = function () {
+XMLscene.prototype.displayNode = function (node) {
 
-	for(var i=0; i<this.tree.nodes.length ; i++){
-		for(var j=0; j < this.leaves.length; j++){	
-			if(this.leaves[j].id == this.tree.nodes[i].id){
-				this.leaves[j].display();				
-			}
+	var encontrouNode = false;
+	var encontrouLeaf = false;
+
+	if(node.isLeaf)
+		this.leaves.primitive.display();				
+	else {
+		this.pushMatrix(); // guarda a cena atual
+		this.multMatrix(node.transformation);
+		//adicionar ttextura 
+		//adicionar material
+		for(var i=0; i < node.descendants.length; i++){
+			//encontrar o node ou leave com esse id e depois chamar a funcao de novo
+
+		//	for(var j=0; j < )
+
 		}
-	}
+		this.popMatrix();
 
+	}
 
 };

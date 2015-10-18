@@ -443,7 +443,7 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 
 		
 		var l = new MyLeave(id, type, this.coordLeaves);
-		this.scene.leaves.push(l);
+		this.scene.tree.leaves.push(l);
 	
 	}
 };
@@ -454,7 +454,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 	var nodes = rootElement.getElementsByTagName('NODES');
 
-	var identidade = vec4.create();
+	var transMatrix = vec4.create();
 
 	if (nodes == null)
 		return "no nodes found.";
@@ -519,7 +519,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 				console.log("Translation : " + "x " + this.reader.getFloat(e, 'x') + " y " +  this.reader.getFloat(e, 'y') + " z " +  this.reader.getFloat(e, 'z'));
 				
-				mat4.translate(identidade, identidade, translation);
+				mat4.translate(transMatrix, transMatrix, translation);
 
 			}
 
@@ -531,7 +531,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 				console.log("Scale : " + "sx " + this.reader.getFloat(e, 'sx') + " sy " +  this.reader.getFloat(e, 'sy') + " sz " +  this.reader.getFloat(e, 'sz'));
 
-				mat4.scale(identidade, identidade, scale);
+				mat4.scale(transMatrix, transMatrix, scale);
 			}
 
 
@@ -542,25 +542,25 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 			if(axis == 'x'){
 				
-				mat4.rotateX(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+				mat4.rotateX(transMatrix, transMatrix, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
 
 			}
 			
 			if(axis == 'y'){
 
-				mat4.rotateY(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+				mat4.rotateY(transMatrix, transMatrix, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
 
 			}
 
 			if(axis == 'z'){
 
-				mat4.rotateZ(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+				mat4.rotateZ(transMatrix, transMatrix, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
 				
 			}
 			}
 		}
 
-		var mynode = new MyNode(node_id, material_id, texture_id, identidade);
+		var mynode = new MyNode(node_id, material_id, texture_id, transMatrix);
 		this.scene.tree.addNode(mynode);
 
 		
@@ -576,7 +576,13 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			var des_id = this.reader.getString(des_nodes[k], 'id');
 
 			console.log("Descendentes : " + des_id);
-
+			
+			for(var j=0; j < this.tree.leaves.length; j++){	
+				if(this.leaves[j].id == this.tree.nodes[i].id){
+					mynode.isLeaf = true;				
+				}
+			}
+					
 			mynode.addDescendant(des_id);		
 		}
     }
