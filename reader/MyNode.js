@@ -1,6 +1,6 @@
 function MyNode(id, mat, text, rot, trans, scale) {
      this.id = id;
-     this.descendants = new Array();
+     this.descendants = [];
      this.material = mat;
      this.text = text;
      this.rotation = rot;
@@ -14,6 +14,6 @@ MyNode.prototype.addDescendant = function(descendant_id){
 	this.descendants.push(descendant_id);
 };
 
-MyNode.prototype.getId(){
+MyNode.prototype.getId = function(){
 	return id;
 }

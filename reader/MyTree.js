@@ -1,6 +1,10 @@
 function MyTree() {
+<<<<<<< HEAD
+	this.nodes = [];
+=======
 	this.nodes = new Array();
 	this.leaves = new Array();
+>>>>>>> origin/master
 };
 
 MyTree.prototype.constructor = MyTree;

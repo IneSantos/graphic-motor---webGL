@@ -8,3 +8,4 @@ function RGBA(r,g,b,a) {
  };
 
 RGBA.prototype.constructor=RGBA;
+

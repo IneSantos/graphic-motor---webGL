@@ -3,9 +3,10 @@
  * @constructor
  */
 
-function MySphere(scene, slices, stacks) {
+function MySphere(scene,radius, slices, stacks) {
 	CGFobject.call(this,scene);
 
+	this.radius = radius;
 	this.slices = slices;
 	this.stacks = stacks;
 
@@ -45,8 +46,8 @@ MySphere.prototype.initBuffers = function () {
 				var phi = i*(Math.PI/2)/ this.stacks; 
 				var theta = j * (2*Math.PI)/this.slices;     
 
- 	    		var x = Math.sin(theta)*Math.cos(phi); //x = rsin(theta)cos(phi)  
-    	   		var y = Math.sin(theta)*Math.sin(phi); //y = rsin(theta)sin(phi)
+ 	    		var x = this.radius*Math.sin(theta)*Math.cos(phi); //x = rsin(theta)cos(phi)  
+    	   		var y = this.radius*Math.sin(theta)*Math.sin(phi); //y = rsin(theta)sin(phi)
        			var z =  Math.cos(theta); // z
 
 			//neste sistema de coordenadas x é z, y é x e z é y.

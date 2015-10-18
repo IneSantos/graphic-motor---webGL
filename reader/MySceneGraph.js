@@ -107,7 +107,7 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	}
 
 
-	var frustum = rootElement.getElementsByTagName('frustum');
+	var frustum = elems[0].getElementsByTagName('frustum');
 	
 	console.log("Frustum: " + frustum);
 	
@@ -116,11 +116,16 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	if (frustum.length != 1)
 		return "number of frustum planes wrong.";
 
-	var near = frustum[0].attributes.getNamedItem("near").value;
-	var far = frustum[0].attributes.getNamedItem("far").value;
+	var near = this.reader.getFloat(frustum[0], 'near');
+	var far = this.reader.getFloat(frustum[0], 'far');
+
+	this.scene.camera.near = near;
+	this.scene.camera.far = far;
+
+
 	
 	// TRANSLATION
-	var translation = rootElement.getElementsByTagName('translation');
+	var translation = elems[0].getElementsByTagName('translation');
 	if (translation == null)
 		return "translation element missing";
 	if (translation.length != 1)
@@ -134,11 +139,9 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	console.log(this.reader.getFloat(trnslt, 'x')+ ' '+ this.reader.getFloat(trnslt, 'y') + ' '+ this.reader.getFloat(trnslt, 'z'));
 	
 
-	//FALTA APLICAR 
-
 
 	// ROTATION
-	var rotList = rootElement.getElementsByTagName('rotation');
+	var rotList = elems[0].getElementsByTagName('rotation');
 	if (rotList == null || rotList.length == 0)
 		return "rotation element missing.";
 	if (rotList.length != 3)
@@ -166,7 +169,7 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	//FALTA APLICAR 
 
 	// SCALE
-	var scale = rootElement.getElementsByTagName('scale');
+	var scale = elems[0].getElementsByTagName('scale');
 	if (scale == null)
 		return "scale element missing.";
 	if (scale.length != 1)
@@ -180,7 +183,7 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	//FALTA APLICAR 
 
 	// REFERENCE
-	var reference = rootElement.getElementsByTagName('reference');
+	var reference = elems[0].getElementsByTagName('reference');
 	if (reference == null)
 		return "reference element missing.";
 	if (reference.length != 1)
@@ -188,6 +191,8 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 
 	var rf = reference[0];
 	this.reference_length = this.reader.getFloat(rf, 'length');
+
+	this.scene.axis.reference = this.reference_length;
 
 }
 
@@ -213,7 +218,9 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 								this.reader.getFloat(amb[0], 'g'),
 								this.reader.getFloat(amb[0], 'b'),
 								this.reader.getFloat(amb[0], 'a'));
-	
+
+	this.scene.setGlobalAmbientLight(this.ambientRGBA.r, this.ambientRGBA.g, this.ambientRGBA.b, this.ambientRGBA.a);
+
 
 	var b = rootElement.getElementsByTagName('background');
 	if (b == null)
@@ -225,6 +232,8 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 								   this.reader.getFloat(b[0], 'g'),
 								   this.reader.getFloat(b[0], 'b'),
 								   this.reader.getFloat(b[0], 'a'));
+
+	this.scene.gl.clearColor(this.backgroundRGBA.r, this.backgroundRGBA.g, this.backgroundRGBA.b, this.backgroundRGBA.a);
 
 
 }
@@ -241,12 +250,13 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		return "either zero or more than one 'LIGHTS' element found.";
 
 	
-	var tempListLight =rootElement.getElementsByTagName('LIGHT');
+	var tempListLight =light[0].getElementsByTagName('LIGHT');
 
 	if (tempListLight == null) 
 		return "list element is missing.";
 	
-	this.lights = [];
+	//this.lights = [];
+
 
 	// iterate over every element
 	for(var j=0; j < tempListLight.length; j++){
@@ -263,7 +273,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 				var specular = tempListLight[j].getElementsByTagName('specular');
 
 
-			this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
+		//	this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
 
 			if(enable == null)
 				return "enable element missing.";
@@ -272,8 +282,8 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 				return "elements missing in enable element." + enable.length;
 
 			if(this.reader.getInteger(enable[0], 'value') == 1)
-					 this.lights[j].enable();
-				else this.lights[j].disable();
+					 this.scene.lights[j].enable();
+				else this.scene.lights[j].disable();
 
 			if(position == null)
 				return "position element missing.";
@@ -286,7 +296,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		return "One or more elements null in position."
 
 
-			this.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
+			this.scene.lights[j].setPosition(this.reader.getFloat(position[0], 'x'),
 									   this.reader.getFloat(position[0], 'y'),
 									   this.reader.getFloat(position[0], 'z'), 
 									   this.reader.getFloat(position[0], 'w'));
@@ -294,7 +304,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 	if(this.reader.getFloat(ambient[0], 'r')  == null  || this.reader.getFloat(ambient[0], 'g') == null || this.reader.getFloat(ambient[0], 'b') == null|| this.reader.getFloat(ambient[0], 'a') == null )
 		return "One or more elements null in ambient property. "
 
-			this.lights[j].setAmbient(this.reader.getFloat(ambient[0], 'r'),
+			this.scene.lights[j].setAmbient(this.reader.getFloat(ambient[0], 'r'),
 									  this.reader.getFloat(ambient[0], 'g'),
 									  this.reader.getFloat(ambient[0], 'b'), 
 									  this.reader.getFloat(ambient[0], 'a'));
@@ -302,7 +312,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 	if(this.reader.getFloat(diffuse[0], 'r')  == null  || this.reader.getFloat(diffuse[0], 'g') == null || this.reader.getFloat(diffuse[0], 'b') == null|| this.reader.getFloat(diffuse[0], 'a') == null )
 		return "One or more elements null in diffuse property. "
 
-		   	this.lights[j].setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
+		   	this.scene.lights[j].setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
 									  this.reader.getFloat(diffuse[0], 'g'),
 									  this.reader.getFloat(diffuse[0], 'b'), 
 									  this.reader.getFloat(diffuse[0], 'a'));
@@ -310,12 +320,12 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 	if(this.reader.getFloat(specular[0], 'r')  == null  || this.reader.getFloat(specular[0], 'g') == null || this.reader.getFloat(specular[0], 'b') == null|| this.reader.getFloat(specular[0], 'a') == null )
 		return "One or more elements null in specular property. "
 
-			this.lights[j].setSpecular(this.reader.getFloat(specular[0], 'r'),
+			this.scene.lights[j].setSpecular(this.reader.getFloat(specular[0], 'r'),
 									  this.reader.getFloat(specular[0], 'g'),
 									  this.reader.getFloat(specular[0], 'b'), 
 									  this.reader.getFloat(specular[0], 'a'));
 
-			this.lights[j].setVisible(true); 
+			this.scene.lights[j].setVisible(true); 
 	
 		}
 };
@@ -418,6 +428,8 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		return "Leaf element is missing.";
 
 	console.log("Leaf Length: " + leaf.length);
+
+	this.leaves = [];
 	
 	for(var i = 0; i<leaf.length ; i++){
 		
@@ -436,8 +448,12 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		
 		var leaf = new MyLeave(id); // adicionei isto para usar a estrutura
 
-		var coordAux = [];
-			coordAux = args.split(/\s+/g);  // FEITO COM O DEUS!!! 
+		this.coordLeaves = [];
+			coordLeaves = args.split(/\s+/g);  // FEITO COM O DEUS!!! 
+
+		
+		var l = new MyLeave(id, type, this.coordLeaves);
+		this.leaves.push(l);
 	
 	}
 
@@ -567,6 +583,13 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			var des_id = this.reader.getString(des_nodes[k], 'id');
 
 			console.log("Descendentes : " + des_id);
+
+			for(var j = 0; j< this.leaves.length ; j++){
+				if(this.leaves.id == des_id){
+					this.leaves[j].display(this.scene);
+				}
+				
+			}
 			
 			n.addDescendant(des_id);	
 		}
@@ -579,9 +602,6 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 
 	}
-
-	return tree;
-
 };
 
 

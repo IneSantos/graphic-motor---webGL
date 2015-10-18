@@ -12,8 +12,9 @@ XMLscene.prototype.init = function (application) {
 
     this.initLights();
 
-    this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
-    //this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,-0.5,0.5,0);
+    //this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
+    this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,-0.5,0.5,0);
+    //this.spe = new MySphere(this, 0.5,50,50);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -28,11 +29,11 @@ XMLscene.prototype.init = function (application) {
 XMLscene.prototype.initLights = function () {
 
     this.shader.bind();
-
+/*
 	this.lights[0].setPosition(0, 1, 0, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
-
+*/
 
     this.shader.unbind();
 };
@@ -53,8 +54,8 @@ XMLscene.prototype.setDefaultAppearance = function () {
 XMLscene.prototype.onGraphLoaded = function () 
 {
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-	this.lights[0].setVisible(true);
-    this.lights[0].enable();
+	/*this.lights[0].setVisible(true);
+    this.lights[0].enable();*/
 };
 
 XMLscene.prototype.display = function () {
@@ -75,8 +76,11 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
+	/*
 	this.cyl.display();
-	//this.tri.display();
+	this.spe.display();*/
+	this.tri.display();
+	
 
 	this.setDefaultAppearance();
 	
@@ -87,9 +91,11 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.lights[0].update();
+		for(var i= 0; i< this.lights.length ; i++){
+			this.lights[i].update();
+		}
 	};	
-
+	console.log(this.tri);
     this.shader.unbind();
 };
 
