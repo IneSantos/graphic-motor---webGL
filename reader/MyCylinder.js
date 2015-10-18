@@ -3,8 +3,8 @@
  * @constructor
  */
  function MyCylinder(scene,height, bottom_radius, top_radius, stacks, slices) {
-  CGFobject.call(this,scene);
-  
+  CGFobject.call(this,scene); 
+  console.log("My Cylinder parametros: " + height + " " + bottom_radius + " " + top_radius + " " + stacks+ " "+ slices);
   this.slices=slices;
   this.stacks=stacks;
   this.height = height;
@@ -46,10 +46,7 @@ MyCylinder.prototype.initBuffers = function() {
        this.indices.push(1+(indice*2), 3+(indice*2), 2+(indice*2));
        indice++;
      }
- /*
-              this.normals.push(Math.cos(agrad*k), Math.sin(agrad*k), 0);
-              this.normals.push(Math.cos(agrad*(k+1)), Math.sin(agrad*(k+1)), 0);
-              */
+ 
               if(Math.abs(this.bottom_radius - this.top_radius) < 0.0001){
                 this.normals.push(Math.cos(k*agrad), Math.sin(k*agrad), 0);
                 this.normals.push(Math.cos((k+1)*agrad), Math.sin((k+1)*agrad), 0);

@@ -1,18 +1,22 @@
-function MyLeave(id, type, coords) {
+function MyLeave(scene,id, type, coords) {
      this.id = id;
      this.type = type; 
+     this.coords = coords;
+     this.isLeaf = true;
+     this.primitive={};
      
-     if(this.type == "rect")
-         this.primitive = MyRectangle(scene, 0,1,0,1, this.coords[0], this.coords[1], this.coords[2], this.coords[3]);
+     if(this.type == "rectangle")
+         this.primitive = new MyRectangle(scene,0,1,0,1, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]));
         
-        else if(this.type == "cyl")
-          this.primitive = MyCylinder(scene,this.coords[0], this.coords[1], this.coords[2], this.coords[3], this.coords[4]);
+        else if(this.type == "cylinder")
+          this.primitive = new MyCylinder(scene, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]), parseFloat(this.coords[4]));
+    
      
         else if(this.type == "sphere")
-           this.primitive = MySphere(scene,this.coords[0], this.coords[1], this.coords[2]);
-           
+          this.primitive = new MySphere(scene,parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]));
+
         else if(this.type == "triangle")
-            this.primitive = MyTriangle(scene, this.coords[0], this.coords[1], this.coords[2], this.coords[3], this.coords[4],this.coords[5], this.coords[6], this.coords[7], this.coords[8]);
+          this.primitive = new MyTriangle(scene, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]), parseFloat(this.coords[4]), parseFloat(this.coords[5]), parseFloat(this.coords[6]), parseFloat(this.coords[7]), parseFloat(this.coords[8]));
            
     };
 

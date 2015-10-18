@@ -14,8 +14,8 @@ XMLscene.prototype.init = function (application) {
 
     this.tree = new MyTree();
 
-    //this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
-    this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
+    //this.cyl = new MyCylinder(this,1,0.5,0,9,50);
+    //this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
     //this.spe = new MySphere(this, 0.5,50,50);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -50,11 +50,10 @@ XMLscene.prototype.setDefaultAppearance = function () {
 XMLscene.prototype.onGraphLoaded = function () 
 {
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-	
 };
 
 // reads the materials
-MyXMLscene.prototype.readMaterials = function(){
+XMLscene.prototype.readMaterials = function(){
 
 	var material = new MyMaterial();
 
@@ -87,10 +86,7 @@ XMLscene.prototype.display = function () {
 	this.axis.display();
 
 
-	//Draw objects
 	
-
-
 	this.setDefaultAppearance();
 	
 	// ---- END Background, camera and axis setup
@@ -98,35 +94,58 @@ XMLscene.prototype.display = function () {
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
+		
 
 	if (this.graph.loadedOk)
 	{
 		for(var i= 0; i< this.lights.length ; i++){
 			this.lights[i].update();
 		}
+
+		//Draw objects
+
+	this.displayNode(this.tree.root);
+	//this.cyl.display();
+
 	};	
-	this.tri.display();
-	console.log(this.tri);
     this.shader.unbind();
 };
 
-XMLscene.prototype.displayNode = function (node) {
+XMLscene.prototype.displayNode = function (nodeID) {
+	
 
-	var encontrouNode = false;
-	var encontrouLeaf = false;
+	var node = null;
+
+	//encontrar o node ou leave com esse id e depois chamar a funcao de novo
+
+	for(var j=0; j < this.tree.nodes.length; j++){
+		if(this.tree.nodes[j].id == nodeID){
+			node = this.tree.nodes[j];
+		}
+	}
+
+	for(var k=0; k < this.tree.leaves.length; k++){
+		if(this.tree.leaves[k].id == nodeID){
+			node = this.tree.leaves[k];
+		}
+	}
+
+	if(node === null){
+		return "ERRO!!";
+
+	}
 
 	if(node.isLeaf)
-		this.leaves.primitive.display();				
+		node.primitive.display();	
+				
 	else {
+		
 		this.pushMatrix(); // guarda a cena atual
 		this.multMatrix(node.transformation);
-		//adicionar ttextura 
+		//adicionar textura 
 		//adicionar material
-		for(var i=0; i < node.descendants.length; i++){
-			//encontrar o node ou leave com esse id e depois chamar a funcao de novo
-
-		//	for(var j=0; j < )
-
+		for(var i=0; i < node.descendants.length; i++){				
+				this.displayNode(node.descendants[i]);				
 		}
 		this.popMatrix();
 

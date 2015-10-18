@@ -81,7 +81,7 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
-
+		//console.warn("CENAS!!!!");
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -117,8 +117,8 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	var near = this.reader.getFloat(frustum[0], 'near');
 	var far = this.reader.getFloat(frustum[0], 'far');
 
-	this.scene.camera.near = near;
-	this.scene.camera.far = far;
+	//this.scene.camera.near = near;
+	//this.scene.camera.far = far;
 
 
 	
@@ -163,8 +163,6 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[2], 'angle'), 
 									 0,0,1);
 
-
-	//FALTA APLICAR 
 
 	// SCALE
 	var scale = elems[0].getElementsByTagName('scale');
@@ -438,11 +436,11 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		if(args == null)
 			return "args element null.";
 
-		this.coordLeaves = [];
+		var coordLeaves = [];
 			coordLeaves = args.split(/\s+/g);  // FEITO COM O DEUS!!! 
 
 		
-		var l = new MyLeave(id, type, this.coordLeaves);
+		var l = new MyLeave(this.scene,id, type, coordLeaves);
 		this.scene.tree.leaves.push(l);
 	
 	}
@@ -454,7 +452,7 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 	var nodes = rootElement.getElementsByTagName('NODES');
 
-	var transMatrix = vec4.create();
+	
 
 	if (nodes == null)
 		return "no nodes found.";
@@ -505,7 +503,8 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			console.log("Texture " + texture_id);
 
 		var nnodes=node[i].children.length;
-
+		var transMatrix = mat4.create();
+		mat4.identity(transMatrix);
 		for (var m=0; m < nnodes; m++)
 		{
 			var e=node[i].children[m];
@@ -576,12 +575,6 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 			var des_id = this.reader.getString(des_nodes[k], 'id');
 
 			console.log("Descendentes : " + des_id);
-			
-			for(var j=0; j < this.tree.leaves.length; j++){	
-				if(this.leaves[j].id == this.tree.nodes[i].id){
-					mynode.isLeaf = true;				
-				}
-			}
 					
 			mynode.addDescendant(des_id);		
 		}

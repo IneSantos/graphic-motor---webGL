@@ -9,6 +9,13 @@
     this.maxS = maxS||1;
     this.minT = minT||0;
     this.maxT = maxT||1;
+
+    this.lTopX = lTopX;
+    this.lTopY = lTopY;
+    this.rBottomX = rBottomX;
+    this.rBottomY = rBottomY;
+
+
     
  	this.initBuffers();
  };
@@ -18,10 +25,10 @@
 
  MyRectangle.prototype.initBuffers = function() {
  	this.vertices = [
- 	lTopX, rBottomY, 0,
- 	rBottomX, rBottomY, 0,
- 	lTopX, lTopY, 0,
- 	rBottomX, lTopY, 0
+ 	this.lTopX, this.rBottomY, 0,
+ 	this.rBottomX, this.rBottomY, 0,
+ 	this.lTopX, this.lTopY, 0,
+ 	this.rBottomX, this.lTopY, 0
  	];
 
  	this.indices = [
@@ -29,7 +36,7 @@
  	3, 2, 1
  	];
 
- 	this.primitiveType = this.scene.gl.TRIANGLES;
+ 	
      
     this.normals = [
       0,0,1,
@@ -46,6 +53,6 @@
         this.maxS,this.minT,
         ];
 
-
+    this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
