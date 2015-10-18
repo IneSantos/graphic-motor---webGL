@@ -373,6 +373,8 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 	for (var m = 0; m < tempListMaterials.length; m++){
 
 		var id = tempListMaterials[m].getElementsByTagName('id');
+
+		this.materials = new Materials();
 		
 		this.id = new CGFappearance(this.scene);
 
@@ -405,6 +407,8 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 							 this.reader.getFloat(ambient[0], 'g'),
 							 this.reader.getFloat(ambient[0], 'b'),
 						     this.reader.getFloat(ambient[0], 'a'));
+
+		 this.materials.addMaterial(id);
 	}
 };
 

@@ -10,8 +10,26 @@ function MyMaterial(id, shininess, specular, diffuse, ambient, emission){
 
 MyMaterial.prototype.constructor = MyMaterial;
 
-MyMaterial.prototype.addMaterial = function(material){
+MyMaterial.prototype.getId = function(){
+	return id;
+};
 
+MyMaterial.prototype.getShininess = function(){
+	return shininess;
+};
 
+MyMaterial.prototype.getSpecular = function(){
+	return specular;
+};
 
+MyMaterial.prototype.getDiffuse = function(){
+	return diffuse;
+};
+
+MyMaterial.prototype.getAmbient = function(){
+	return ambient;
+};
+
+MyMaterial.prototype.getEmission = function(){
+	return emission;
 };

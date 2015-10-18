@@ -53,21 +53,6 @@ XMLscene.prototype.onGraphLoaded = function ()
 	
 };
 
-// reads the materials
-MyXMLscene.prototype.readMaterials = function(){
-
-	var material = new MyMaterial();
-
-	var materials = material.getMaterials();
-
-	for (var l = 0; l < materials.length; l++){
-
-		
-		
-	} 
-
-};
-
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
     this.shader.bind();
