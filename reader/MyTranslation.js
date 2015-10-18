@@ -5,9 +5,3 @@ function MyTranslation(x,y,z) {
     this.z =z;
 
  };
-
-MyTranslation.prototype.apply = function(scene) {
-    
-    scene.translate(this.x,this.y,this.z);
-
-};

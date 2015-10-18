@@ -12,6 +12,9 @@ XMLscene.prototype.init = function (application) {
 
     this.initLights();
 
+    this.tree = new MyTree();
+	this.leaves = [];
+
     //this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
     this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,-0.5,0.5,0);
     //this.spe = new MySphere(this, 0.5,50,50);
@@ -29,12 +32,6 @@ XMLscene.prototype.init = function (application) {
 XMLscene.prototype.initLights = function () {
 
     this.shader.bind();
-/*
-	this.lights[0].setPosition(0, 1, 0, 1);
-    this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-    this.lights[0].update();
-*/
-
     this.shader.unbind();
 };
 
@@ -54,8 +51,7 @@ XMLscene.prototype.setDefaultAppearance = function () {
 XMLscene.prototype.onGraphLoaded = function () 
 {
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-	/*this.lights[0].setVisible(true);
-    this.lights[0].enable();*/
+	
 };
 
 XMLscene.prototype.display = function () {
@@ -76,11 +72,16 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
-	/*
-	this.cyl.display();
-	this.spe.display();*/
-	this.tri.display();
-	
+
+	//Draw objects
+	for(var i=0; i<this.tree.nodes.length ; i++){
+		for(var j=0; j < this.tree.nodes[i].nodes.length; j++){	
+			if(this.leaves.id == this.tree[j].id){
+				//falta acabar;
+			}
+		}
+	}
+
 
 	this.setDefaultAppearance();
 	
@@ -89,12 +90,14 @@ XMLscene.prototype.display = function () {
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
+
 	if (this.graph.loadedOk)
 	{
 		for(var i= 0; i< this.lights.length ; i++){
 			this.lights[i].update();
 		}
 	};	
+	this.tri.display();
 	console.log(this.tri);
     this.shader.unbind();
 };

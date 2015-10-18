@@ -94,8 +94,6 @@ MySceneGraph.prototype.onXMLReady=function()
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
 MySceneGraph.prototype.parseInitials= function(rootElement) {
-
-	var tree = new MyTree(); 
 	
 	var elems =  rootElement.getElementsByTagName('INITIALS');
 	if (elems == null) {
@@ -180,7 +178,6 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 									 this.reader.getFloat(scale[0], 'sy'),
 									 this.reader.getFloat(scale[0], 'sz'));
 	
-	//FALTA APLICAR 
 
 	// REFERENCE
 	var reference = elems[0].getElementsByTagName('reference');
@@ -255,9 +252,6 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 	if (tempListLight == null) 
 		return "list element is missing.";
 	
-	//this.lights = [];
-
-
 	// iterate over every element
 	for(var j=0; j < tempListLight.length; j++){
 
@@ -428,8 +422,6 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		return "Leaf element is missing.";
 
 	console.log("Leaf Length: " + leaf.length);
-
-	this.leaves = [];
 	
 	for(var i = 0; i<leaf.length ; i++){
 		
@@ -445,27 +437,24 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 
 		if(args == null)
 			return "args element null.";
-		
-		var leaf = new MyLeave(id); // adicionei isto para usar a estrutura
 
 		this.coordLeaves = [];
 			coordLeaves = args.split(/\s+/g);  // FEITO COM O DEUS!!! 
 
 		
 		var l = new MyLeave(id, type, this.coordLeaves);
-		this.leaves.push(l);
+		this.scene.leaves.push(l);
 	
 	}
-
-	tree.addLeaf(leaf);  // e para guardar as folhas
-
-	return tree;
-
 };
 
 MySceneGraph.prototype.parseNodes= function(rootElement) {
 
+	
+
 	var nodes = rootElement.getElementsByTagName('NODES');
+
+	var identidade = vec4.create();
 
 	if (nodes == null)
 		return "no nodes found.";
@@ -482,7 +471,8 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 		return "zero or more root element found. " + root.length;
 
 	var root_id = this.reader.getString(root[0], 'id');
-
+	
+	this.scene.tree.root = root_id;
 	console.log("Root id: " + root_id);
 
 	var node = nodes[0].getElementsByTagName('NODE');
@@ -514,65 +504,68 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 			console.log("Texture " + texture_id);
 
-		var trans = node[i].getElementsByTagName('TRANSLATION');
+		var nnodes=node[i].children.length;
 
-		if(trans != null){			
+		for (var m=0; m < nnodes; m++)
+		{
+			var e=node[i].children[m];
+			var nCrianca = e.nodeName;
 
-			for(var k = 0 ; k < trans.length; k++){
-				var translation = new MyTranslation(this.reader.getFloat(trans[k], 'x'), 
-											  this.reader.getFloat(trans[k], 'y'),  
-											  this.reader.getFloat(trans[k], 'z'));
+			if(nCrianca == 'TRANSLATION'){
 
-				console.log("Translation : " + "x " + this.reader.getFloat(trans[k], 'x') + " y " +  this.reader.getFloat(trans[k], 'y') + " z " +  this.reader.getFloat(trans[k], 'z'));
-			}
-		}
+				var translation = vec3.fromValues(this.reader.getFloat(e, 'x'), 
+											  this.reader.getFloat(e, 'y'),  
+											  this.reader.getFloat(e, 'z'));
 
-		
-		var rot = node[i].getElementsByTagName('ROTATION');
-
-		if(rot != null){		
-			
-			for(var k = 0 ; k < rot.length; k++){
-
-			 var axis = this.reader.getString(rot[k], 'axis');
-
-			if(axis == 'x')
-			 	var rotX = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
-									 1,0,0);
-			
-			if(axis == 'y')
-			 	var rotY = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
-									 0,1,0);
-
-			if(axis == 'z')
-			 	var rotZ = new MyRotation(this.reader.getFloat(rot[k], 'angle'), 
-									 0,0,1);
+				console.log("Translation : " + "x " + this.reader.getFloat(e, 'x') + " y " +  this.reader.getFloat(e, 'y') + " z " +  this.reader.getFloat(e, 'z'));
 				
-	console.log("Rotation : " + "axis " + this.reader.getString(rot[k], 'axis') + " angle " + this.reader.getFloat(rot[k], 'angle'));
-
-
+				mat4.translate(identidade, identidade, translation);
 
 			}
-		}
-	
-		var scl = node[i].getElementsByTagName('SCALE');
 
-		if(scl != null){	
+			if(nCrianca == 'SCALE'){
 
-		 for(var k = 0 ; k < scl.length; k++){		
-		
-			var scale = new MyScale(this.reader.getFloat(scl[k], 'sx'), 
-									this.reader.getFloat(scl[k], 'sy'),
-									this.reader.getFloat(scl[k], 'sz'));
+				var scale = vec3.fromValues(this.reader.getFloat(e, 'sx'), 
+										this.reader.getFloat(e, 'sy'),
+										this.reader.getFloat(e, 'sz'));
 
-			console.log("Scale : " + "sx " + this.reader.getFloat(scl[k], 'sx') + " sy " +  this.reader.getFloat(scl[k], 'sy') + " sz " +  this.reader.getFloat(scl[k], 'sz'));
+				console.log("Scale : " + "sx " + this.reader.getFloat(e, 'sx') + " sy " +  this.reader.getFloat(e, 'sy') + " sz " +  this.reader.getFloat(e, 'sz'));
 
+				mat4.scale(identidade, identidade, scale);
+			}
+
+
+
+		if(nCrianca == 'ROTATION'){	
+
+			 var axis = this.reader.getString(e, 'axis');
+
+			if(axis == 'x'){
+				
+				mat4.rotateX(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+
+			}
+			
+			if(axis == 'y'){
+
+				mat4.rotateY(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+
+			}
+
+			if(axis == 'z'){
+
+				mat4.rotateZ(identidade, identidade, (this.reader.getFloat(e, 'angle')*Math.PI)/180);
+				
+			}
 			}
 		}
 
-		var n = new MyNode(node_id, material_id, texture_id, rot, translation, scl);
+		var mynode = new MyNode(node_id, material_id, texture_id, identidade);
+		this.scene.tree.addNode(mynode);
+
 		
 		var des = node[i].getElementsByTagName('DESCENDANTS');
+		var encontrou = false;
 
 		if(des != null && des.length != 0){
 
@@ -584,28 +577,12 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 			console.log("Descendentes : " + des_id);
 
-			for(var j = 0; j< this.leaves.length ; j++){
-				if(this.leaves.id == des_id){
-					this.leaves[j].display(this.scene);
-				}
-				
-			}
-			
-			n.addDescendant(des_id);	
+			mynode.addDescendant(des_id);		
 		}
+    }
 
-		tree.addNode(n);
-
-		console.log("SAIU DO ULTIMO FOR!!!");
-		
-		}
-
-
-	}
+  }
 };
-
-
-
 
 
 /*
