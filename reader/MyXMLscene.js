@@ -53,10 +53,39 @@ MyXMLscene.prototype.onGraphLoaded = function ()
     this.lights[0].enable();
 };
 
+MyXMLscene.prototype.readLeaves = function(){
+
+	var leaves = parseLeaves().getLeaves(); // falta o argumento
+
+	for (var k = 0; k < leaves.length; k++){
+
+		var id = leaves[k].getId();
+
+		// cria os objetos das primitivas
+
+		if (id == 'rect')
+			this.k = new MyRectangle();
+
+		else if (id == 'cyl')
+			// this.k = MyCone() ????????? xDDDD
+
+		else if (id == 'cylinder')
+			this.k = new MyCylinder();
+
+		else if (id == 'sph')
+			this.k = new MySphere();
+
+		else if (id == 'tri')
+			this.k = new MyTriangle();
+
+	}
+
+};
+
 // reads the xml tree with the objects of the scene
 MyXMLscene.prototype.readObjects = function(){
 
-	var objects = parseNodes(); // falta passar o argumento aqui!! mas não sei qual é
+	var objects = parseNodes().getNodes(); // falta passar o argumento aqui!! mas não sei qual é
 
 	for (var i = 0; i < objects.length; i++){
 
@@ -105,4 +134,5 @@ MyXMLscene.prototype.display = function () {
 
     this.shader.unbind();
 };
+
 

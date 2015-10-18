@@ -94,6 +94,8 @@ MySceneGraph.prototype.onXMLReady=function()
  * Example of method that parses elements of one block and stores information in a specific data structure
  */
 MySceneGraph.prototype.parseInitials= function(rootElement) {
+
+	var tree = new MyTree(); 
 	
 	var elems =  rootElement.getElementsByTagName('INITIALS');
 	if (elems == null) {
@@ -418,12 +420,10 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 	console.log("Leaf Length: " + leaf.length);
 	
 	for(var i = 0; i<leaf.length ; i++){
-
 		
 		var id = this.reader.getString(leaf[i], 'id',true);
 		var type = this.reader.getString(leaf[i], 'type',true);
 		var args = this.reader.getString(leaf[i], 'args',true);
-
 
 		if(id == null)
 			return "id element null.";
@@ -431,21 +431,23 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 		if(type == null)
 			return "type element null.";
 
-
 		if(args == null)
 			return "args element null.";
 		
+		var leaf = new MyLeave(id); // adicionei isto para usar a estrutura
 
 		var coordAux = [];
 			coordAux = args.split(/\s+/g);  // FEITO COM O DEUS!!! 
 	
-			
 	}
+
+	tree.addLeaf(leaf);  // e para guardar as folhas
+
+	return tree;
+
 };
 
 MySceneGraph.prototype.parseNodes= function(rootElement) {
-
-	var tree = new MyTree(); 
 
 	var nodes = rootElement.getElementsByTagName('NODES');
 
