@@ -16,7 +16,7 @@ XMLscene.prototype.init = function (application) {
 	this.leaves = [];
 
     //this.cyl = new MyCylinder(this,1,0.85,0.5,9,50);
-    this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,-0.5,0.5,0);
+    this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
     //this.spe = new MySphere(this, 0.5,50,50);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -74,13 +74,7 @@ XMLscene.prototype.display = function () {
 
 
 	//Draw objects
-	for(var i=0; i<this.tree.nodes.length ; i++){
-		for(var j=0; j < this.tree.nodes[i].length; j++){	
-			if(this.leaves.id == this.tree[j].id){
-				//falta acabar;
-			}
-		}
-	}
+	
 
 
 	this.setDefaultAppearance();
@@ -102,3 +96,15 @@ XMLscene.prototype.display = function () {
     this.shader.unbind();
 };
 
+XMLscene.prototype.processNode = function () {
+
+	for(var i=0; i<this.tree.nodes.length ; i++){
+		for(var j=0; j < this.leaves.length; j++){	
+			if(this.leaves[j].id == this.tree.nodes[i].id){
+				this.leaves[j].display();				
+			}
+		}
+	}
+
+
+};
