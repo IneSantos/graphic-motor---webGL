@@ -75,7 +75,7 @@ XMLscene.prototype.display = function () {
 
 	//Draw objects
 	for(var i=0; i<this.tree.nodes.length ; i++){
-		for(var j=0; j < this.tree.nodes[i].nodes.length; j++){	
+		for(var j=0; j < this.tree.nodes[i].length; j++){	
 			if(this.leaves.id == this.tree[j].id){
 				//falta acabar;
 			}
