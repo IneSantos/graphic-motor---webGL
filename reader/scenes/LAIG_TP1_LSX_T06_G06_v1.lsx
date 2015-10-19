@@ -26,9 +26,8 @@
      <!-- ambient lightning and background color (def black) -->
 
 <ILLUMINATION>
-    <ambient r="0" g="0" b="0" a="0" />            <!-- global ambient -->
-    <doubleside value="0" />                          <!-- double or single side illum. -->
-    <background r="0" g="0" b="0" a="0" />            <!-- background color -->
+    <ambient r="0.8" g="0.8" b="0.8" a="1" />            <!-- global ambient -->
+    <background r="0" g="0" b="0" a="1" />            <!-- background color -->
 </ILLUMINATION>
 
  <!-- INITIALIZE THE LIGHTS -->
@@ -37,7 +36,7 @@
 <LIGHTS>
     <LIGHT id="light0">                                    <!-- light identifier -->
         <enable value="1" />                         <!-- enable/disable -->
-        <position x="4.0" y="6.0" z="1.0" w="1.0" />       <!-- light position -->
+        <position x="8.0" y="6.0" z="13.0" w="1.0" />       <!-- light position -->
         <ambient r="0" g="0" b="0" a="1.0" />        <!-- ambient component -->
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- diffuse component -->
         <specular r="1.0" g="1.0" b="0" a="1.0" />       <!-- specular component -->
@@ -45,7 +44,7 @@
 
      <LIGHT id="light1">                                    <!-- light identifier -->
         <enable value="0" />                         <!-- enable/disable -->
-        <position x="10.5" y="6.0" z="1.0" w="1.0" />       <!-- light position -->
+        <position x="12.5" y="6.0" z="13.0" w="1.0" />       <!-- light position -->
         <ambient r="0" g="0" b="0" a="1.0" />        <!-- ambient component -->
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- diffuse component -->
         <specular r="0.0" g="0.0" b="0" a="0.0" />       <!-- specular component -->
@@ -53,7 +52,7 @@
 
      <LIGHT id="light2">                                    <!-- light identifier -->
         <enable value="1" />                         <!-- enable/disable -->
-        <position x="10.5" y="6.0" z="5.0" w="1.0" />       <!-- light position -->
+        <position x="12.5" y="6.0" z="8.0" w="1.0" />       <!-- light position -->
         <ambient r="0" g="0" b="0" a="1.0" />        <!-- ambient component -->
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- diffuse component -->
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />       <!-- specular component -->
@@ -61,7 +60,7 @@
 
      <LIGHT id="light3">                                    <!-- light identifier -->
         <enable value="1" />                         <!-- enable/disable -->
-        <position x="4.0" y="6.0" z="5.0" w="1.0" />       <!-- light position -->
+        <position x="8.0" y="6.0" z="8.0" w="1.0" />       <!-- light position -->
         <ambient r="0" g="0" b="0" a="1.0" />        <!-- ambient component -->
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- diffuse component -->
         <specular r="0.0" g="0.0" b="0" a="0.0" />       <!-- specular component -->
@@ -74,7 +73,7 @@
 
 <TEXTURES>
 
-    <TEXTURE id="wallAppearance">
+  <TEXTURE id="wallAppearance">
         <file path="texture/wall.jpg" />                             <!-- path to file -->
         <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
     </TEXTURE>
@@ -162,7 +161,7 @@
     <MATERIAL id="blackMaterial">                                  
         <shininess value="120" />
         <specular r="0" g="0" b="0" a="1" />        <!-- specular reflection -->
-        <diffuse r="0.8" g="0.8" b="0.8" a="1" />         <!-- diffuse reflection -->
+        <diffuse r="0" g="0" b="0" a="1" />         <!-- diffuse reflection -->
         <ambient r="0.3" g="0.3" b="0.3" a="1" />         <!-- ambient reflection -->
         <emission r="0" g="0" b="0" a="1" />        <!-- emission component -->
      </MATERIAL> 
@@ -183,9 +182,9 @@
 <LEAVES>
     <LEAF id="rect" type="rectangle" args="-0.5 0.5 0.5 -0.5" />      <!-- 2D coordinates for left-top and right-bottom vertices. -->
     <LEAF id="cyl" type="cylinder" args="1 0.5 0 9 50" />    <!-- height, bottom radius, top radius, sections along height, parts per section -->
-    <LEAF id="cylinder" type="cylinder" args="1 0.5 .5 9 50" />
+    <LEAF id="cylinder" type="cylinder" args="1 0.5 0.5 9 50" />
     <LEAF id="sph" type="sphere" args="0.5 50 50" />            <!-- radius, parts along radius, parts per section -->
-    <LEAF id="tri" type="triangle" args="-0.5 -0.5 0  0.5 -0.5 0  -0.5 0.5 0" />   <!-- coordinates of each vertex -->
+    <LEAF id="tri" type="triangle" args="-0.5 -0.5 0  0.5 -0.5 0  0 0.5 0" />   <!-- coordinates of each vertex -->
 </LEAVES>
 
 <!-- INITIALIZE THE NODES -->
@@ -284,7 +283,7 @@
     </NODE>
 
     <NODE id="perna">   
-        <MATERIAL id="null" />    
+        <MATERIAL id="materialA" />    
         <TEXTURE id="null" /> 
         <SCALE sx="0.3" sy="2.5" sz="0.3" />
         <DESCENDANTS>
@@ -332,7 +331,7 @@
         <SCALE sx="1" sy="1" sz="0.05" />
         <DESCENDANTS>
             <DESCENDANT id="cyl" /> 
-            </DESCENDANTS>
+        </DESCENDANTS>
     </NODE>
 
     <NODE id="prato2">  
@@ -507,7 +506,7 @@
     </NODE>
 
     <NODE id="cadperna">   
-        <MATERIAL id="null" />    
+        <MATERIAL id="materialA" />    
         <TEXTURE id="null" />
         <TRANSLATION x="0" y="-.25" z="0" />
         <SCALE sx="0.125" sy="1" sz="0.125" />

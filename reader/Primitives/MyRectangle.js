@@ -18,7 +18,7 @@
     this.maxS = 1;
     this.minT = 0;
     this.maxT = 1;
-
+    
     this.lTopX = lTopX;
     this.lTopY = lTopY;
     this.rBottomX = rBottomX;

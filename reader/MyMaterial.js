@@ -58,7 +58,6 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
 console.log("Emission : " + r + " , "+ g + " , "+ b  +" , " + a);
 	this.setEmission(r,g,b,a);
-	
 
 };
 
