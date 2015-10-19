@@ -120,6 +120,9 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	//this.scene.camera.near = near;
 	//this.scene.camera.far = far;
 
+	//this.scene.this.scene.matrixInitial = mat4.create();
+		mat4.identity(this.scene.matrixInitial);
+
 
 	
 	// TRANSLATION
@@ -130,14 +133,19 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 		return "number of translation elements wrong. Number was " + translation.length;
 
 	var trnslt = translation[0];
-	this.initialTrans = new MyTranslation(this.reader.getFloat(trnslt, 'x'), 
-										  this.reader.getFloat(trnslt, 'y'),  
+
+	var initialTrans = vec3.fromValues(this.reader.getFloat(trnslt, 'x'), 
+										  this.reader.getFloat(trnslt, 'y'), 
 										  this.reader.getFloat(trnslt, 'z'));
 
-	console.log(this.reader.getFloat(trnslt, 'x')+ ' '+ this.reader.getFloat(trnslt, 'y') + ' '+ this.reader.getFloat(trnslt, 'z'));
-	
+	console.log(this.reader.getFloat(trnslt, 'x') + ' ' + this.reader.getFloat(trnslt, 'y') + ' ' + this.reader.getFloat(trnslt, 'z'));
 
-
+	/*this.scene.translate(this.reader.getFloat(trnslt, 'x'), 
+                         this.reader.getFloat(trnslt, 'y'),  
+                         this.reader.getFloat(trnslt, 'z'));*/
+                    
+	mat4.translate(this.scene.matrixInitial, this.scene.matrixInitial, initialTrans);
+	 
 	// ROTATION
 	var rotList = elems[0].getElementsByTagName('rotation');
 	if (rotList == null || rotList.length == 0)
@@ -148,20 +156,36 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	if(this.reader.getString(rotList[0], 'axis') != "x")
 		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[0], 'axis') + " it must be x";
 
-	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[0], 'angle'), 
-									 1,0,0);
+	/*this.initialRotX = new MyRotation(this.reader.getFloat(rotList[0], 'angle'), 
+									 1,0,0);*/
+
+	/*this.scene.rotate((this.reader.getFloat(rotList[0], 'angle')*Math.PI)/180,
+              1, 0, 0);*/
+    
+    mat4.rotateX(this.scene.matrixInitial, this.scene.matrixInitial, (this.reader.getFloat(rotList[0], 'angle')*Math.PI)/180);
+
+	console.log("Rotation em X de: " + (this.reader.getFloat(rotList[0], 'angle')));
+	
 
 	if(this.reader.getString(rotList[1], 'axis') != "y")
 		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[1], 'axis') + " it must be y";
 
-	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[1], 'angle'), 
-									 0,1,0);
+	/*this.initialRotX = new MyRotation(this.reader.getFloat(rotList[1], 'angle'), 
+									 0,1,0);*/
+	/*this.scene.rotate((this.reader.getFloat(rotList[1], 'angle')*Math.PI)/180,
+             0, 1, 0);*/
 	
+	mat4.rotateY(this.scene.matrixInitial, this.scene.matrixInitial, (this.reader.getFloat(rotList[1], 'angle')*Math.PI)/180);
+
 	if(this.reader.getString(rotList[2], 'axis') != "z")
 		return "wrong Axis reference. The reference was " + this.reader.getString(rotList[2], 'axis') + " it must be z";
 
-	this.initialRotX = new MyRotation(this.reader.getFloat(rotList[2], 'angle'), 
-									 0,0,1);
+	/*this.initialRotX = new MyRotation(this.reader.getFloat(rotList[2], 'angle'), 
+									 0,0,1);*/
+	/*this.scene.rotate((this.reader.getFloat(rotList[2], 'angle')*Math.PI)/180,
+             0, 0, 1);*/
+
+     mat4.rotateZ(this.scene.matrixInitial, this.scene.matrixInitial, (this.reader.getFloat(rotList[2], 'angle')*Math.PI)/180);
 
 
 	// SCALE
@@ -172,10 +196,19 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 		return "number of scale elements wrong. Number was " + scale.length;
 
 
-	this.initialScale = new MyScale(this.reader.getFloat(scale[0], 'sx'), 
+	var initialScale = vec3.fromValues(this.reader.getFloat(scale[0], 'sx'), 
 									 this.reader.getFloat(scale[0], 'sy'),
 									 this.reader.getFloat(scale[0], 'sz'));
+
+	/*this.scene.scale(this.reader.getFloat(scale[0], 'sx'),
+					 this.reader.getFloat(scale[0], 'sy'),
+					 this.reader.getFloat(scale[0], 'sz'));*/
+
+	console.log("SCALE :  sx " + this.reader.getFloat(scale[0], 'sx') + " sy " + this.reader.getFloat(scale[0], 'sy')+ " sz "+
+					 this.reader.getFloat(scale[0], 'sz'));
 	
+
+	mat4.scale(this.scene.matrixInitial, this.scene.matrixInitial, initialScale);
 
 	// REFERENCE
 	var reference = elems[0].getElementsByTagName('reference');
@@ -183,12 +216,10 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 		return "reference element missing.";
 	if (reference.length != 1)
 		return "number of reference elements wrong. Number was " + reference.length;
-
-	var rf = reference[0];
-	this.reference_length = this.reader.getFloat(rf, 'length');
-
-	this.scene.axis.reference = this.reference_length;
-
+	
+	console.log("Axis Length before: " + this.scene.axis.length);
+	this.scene.axis.length = reference[0].attributes.getNamedItem("length").value;
+	console.log("Axis Length after: " + this.scene.axis.length);
 }
 
 MySceneGraph.prototype.parseIllumination= function(rootElement) {

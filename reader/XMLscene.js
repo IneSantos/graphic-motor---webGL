@@ -19,16 +19,18 @@ XMLscene.prototype.init = function (application) {
     this.textures = [];
 	this.stackTextures = [];
 
+	this.matrixInitial = mat4.create();
+
 	//this.lights = [];
 	this.onOff = [false,false,false,false,false,false,false,false];
 	this.luzesid = [];
-
+	
 
 	this.interface = new CGFinterface(this,application);
 	this.gui = new dat.GUI();
 
   	this.luzes=this.gui.addFolder("ON/OFF");
-		this.luzes.open();
+	this.luzes.open();
 
 	
     //this.cyl = new MyCylinder(this,1,0.5,0,9,50);
@@ -103,8 +105,7 @@ XMLscene.prototype.display = function () {
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
 
-	// Draw axis
-	this.axis.display();
+	
 
 	//Draw objects
 	
@@ -119,6 +120,8 @@ XMLscene.prototype.display = function () {
 	
 	if (this.graph.loadedOk)
 	{
+		this.multMatrix(this.matrixInitial);
+	
 		for(var i= 0; i< this.lights.length ; i++){
 
 			if(this.onOff[i]){
@@ -128,10 +131,12 @@ XMLscene.prototype.display = function () {
 			this.lights[i].update();
 		}
 
-		//Draw objects
-
+	//Draw objects
 	this.displayNode(this.tree.root);
 	//this.cyl.display();
+
+	// Draw axis
+	this.axis.display();
 
 	};	
     this.shader.unbind();
