@@ -39,11 +39,13 @@
        var nor = vec3.create(); 
        var vec = vec3.cross(nor,vectorA, vectorB);
        vec3.normalize(nor,nor);
-       
+
+             
      this.texCoords = [
-     0,0,
-     1,0,
-     1,1,];
+       0,0,
+       1,0,
+       1,1,
+       ];
         
         
       this.normals = [
@@ -52,4 +54,25 @@
       nor[0], nor[1], nor[2],
       ];
       this.initGLBuffers();
+ };
+
+  
+MyTriangle.prototype.updateTextCoords = function(s,t){
+
+    var a = Math.sqrt(Math.pow((this.topX-this.rightX),2) + Math.pow((this.topY-this.rightY),2) +  Math.pow((this.topZ-this.rightZ),2));
+    var b = Math.sqrt(Math.pow((this.topX-this.leftX),2) + Math.pow((this.topY-this.leftY),2) +  Math.pow((this.topZ-this.leftZ),2));
+    var c = Math.sqrt(Math.pow((this.leftX-this.rightX),2) + Math.pow((this.leftY-this.rightY),2) +  Math.pow((this.leftZ-this.rightZ),2));
+         
+    var alpha = Math.acos((-a*a+b*b+a*a)/(2*b*a));
+    var beta = Math.acos((a*a-b*b+a*a)/(2*a*a));
+    var omega = Math.acos((a*a+b*b-a*a)/(2*a*b));
+
+
+    this.texCoords = [
+	  0.0, 0.0,
+	  c / s, 0.0,
+	  (c - a * Math.cos(beta)) / s, a*Math.sin(beta)/t
+    ];
+
+    this.updateTexCoordsGLBuffers();
  };

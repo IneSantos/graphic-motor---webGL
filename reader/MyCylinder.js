@@ -28,12 +28,12 @@ MyCylinder.prototype.initBuffers = function() {
   var agrad = (ang*Math.PI)/180;
   var indice = 0;
   var variacao = (this.top_radius - this.bottom_radius)/(this.stacks);
-  
+  var deltah = this.height / this.stacks;
   for(var k = 0; k <= this.slices; ++k){
     for(var i =0 ; i <= this.stacks ; ++i){
         
-      this.vertices.push((variacao*i + this.bottom_radius)*Math.cos(agrad*k), (variacao*i + this.bottom_radius)*Math.sin(agrad*k), i/this.stacks);
-      this.vertices.push((variacao*i + this.bottom_radius)*Math.cos(agrad*(k+1)), (variacao*i + this.bottom_radius)*Math.sin(agrad*(k+1)), i/this.stacks);
+      this.vertices.push((variacao*i + this.bottom_radius)*Math.cos(agrad*k), (variacao*i + this.bottom_radius)*Math.sin(agrad*k), i*deltah);
+      this.vertices.push((variacao*i + this.bottom_radius)*Math.cos(agrad*(k+1)), (variacao*i + this.bottom_radius)*Math.sin(agrad*(k+1)), i*deltah);
 
       var max = this.height/(this.bottom_radius - this.top_radius);
       var maxheight;
@@ -85,3 +85,7 @@ MyCylinder.prototype.initBuffers = function() {
           this.primitiveType = this.scene.gl.TRIANGLES;
           this.initGLBuffers();
         };
+
+
+ 
+ MyCylinder.prototype.updateTextCoords = function(s,t){};

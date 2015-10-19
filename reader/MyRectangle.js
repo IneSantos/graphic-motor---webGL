@@ -56,3 +56,16 @@
     this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+
+ MyRectangle.prototype.updateTextCoords = function(s,t){
+      this.texCoords = [
+        this.minS/s,this.maxT/t,
+        this.maxS/s,this.maxT/t,
+        this.minS/s,this.minT/t,
+        this.maxS/s,this.minT/t,
+        ];
+
+
+   this.updateTexCoordsGLBuffers();
+ };

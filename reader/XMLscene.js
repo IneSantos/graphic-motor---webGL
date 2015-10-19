@@ -145,6 +145,7 @@ XMLscene.prototype.displayNode = function (nodeID) {
 	if(node.isLeaf){
 		var id_mat = this.stackMaterials[this.stackMaterials.length-1];
 		var id_text = this.stackTextures[this.stackTextures.length-1];
+		var s=1,t=1;
 		var j=0;
 
 		for(var i=0 ; i < this.materials.length; i++){
@@ -155,16 +156,20 @@ XMLscene.prototype.displayNode = function (nodeID) {
 
 		for(j = 0; j < this.textures.length; j++){
 			if(this.textures[j].id == id_text){
-				//console.warn(this.textures[j]);;;;;
 				this.textures[j].bind();
+				s=this.textures[j].amplif_factorS;
+				t=this.textures[j].amplif_factorT;
 				break;
 			}
 		}
-
-		node.primitive.display();	
-		if(id_text != "null" && id_text !="clear" && j < this.textures.length)
-			this.textures[j].unbind();
-
+		
+		node.primitive.updateTextCoords(s,t);
+		node.primitive.display();
+			
+		//if((id_text != "null" && id_text !="clear" && j < this.textures.length) || id_text !== undefined)
+			//this.textures[j].unbind();
+		if(this.activeTexture != null)
+			this.activeTexture.unbind();
 	}
 				
 	else {
