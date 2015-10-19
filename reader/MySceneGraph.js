@@ -234,7 +234,7 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 }
 
 MySceneGraph.prototype.parseLights= function(rootElement) {
-
+	this.scene.shader.bind();
 var light =  rootElement.getElementsByTagName('LIGHTS');
 	
 	if (light == null) 
@@ -317,9 +317,10 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 									  this.reader.getFloat(specular[0], 'b'), 
 									  this.reader.getFloat(specular[0], 'a'));
 
+
 			this.scene.lights[j].setVisible(true); 
-	
 		}
+		this.scene.shader.unbind();
 };
 
 MySceneGraph.prototype.parseTextures= function(rootElement) {
@@ -335,8 +336,6 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 	if (texture.length != 1){
 		return "either zero or more than one Textures element found.";
 	}
-
-	this.texture_list = new MyTextures();
 
 	var tempListTextures = texture[0].getElementsByTagName('TEXTURE');
 
@@ -355,8 +354,9 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		
 		var id = tempListTextures[k];
 
-		this.textures[k] = new MyTexture(id, path, factorS, factorT);
-		this.texture_list.addTexture(this.textures[k]);
+		 var texture = new MyTexture(id, path, factorS, factorT);
+
+		this.scene.textures.push(texture);
 	}
 
 };
@@ -374,16 +374,17 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 
 	for (var m = 0; m < tempListMaterials.length; m++){
 
-		var id = tempListMaterials[m].getElementsByTagName('id');
+		var id = this.reader.getString(tempListMaterials[m], 'id',true);
 
 		this.materials = new MyMaterials();
 		
-		this.id = new CGFappearance(this.scene);
+		//this.id = new CGFappearance(this.scene);
 
 		var shininess = tempListMaterials[m].getElementsByTagName('shininess');
 		var specular = tempListMaterials[m].getElementsByTagName('specular');
 		var diffuse = tempListMaterials[m].getElementsByTagName('diffuse');
 		var ambient = tempListMaterials[m].getElementsByTagName('ambient');
+		var emissison = tempListMaterials[m].getElementsByTagName('emission');
 
 
 		if(shininess == null)
@@ -391,26 +392,35 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 		
 		if(shininess.length != 1)
 			return "either zero or more than one shininess element found.";
-		
 
-		this.id.setShininess(this.reader.getFloat(shininess[0], 'value'));
+	var shininessValue = this.reader.getFloat(shininess[0], 'value');
 
-		this.id.setSpecular(this.reader.getFloat(specular[0], 'r'),
+	var specular =  new RGBA(this.reader.getFloat(specular[0], 'r'),
 							this.reader.getFloat(specular[0], 'g'),
 							this.reader.getFloat(specular[0], 'b'),
 							this.reader.getFloat(specular[0], 'a')); 
 
-		this.id.setDiffuse(this.reader.getFloat(diffuse[0], 'r'),
+	var diffuse =  new RGBA(this.reader.getFloat(diffuse[0], 'r'),
 						    this.reader.getFloat(diffuse[0], 'g'),
 						    this.reader.getFloat(diffuse[0], 'b'),
 						    this.reader.getFloat(diffuse[0], 'a'));
 
-		 this.id.setAmbient(this.reader.getFloat(ambient[0], 'r'),
+	var ambient =  new RGBA(this.reader.getFloat(ambient[0], 'r'),
 							 this.reader.getFloat(ambient[0], 'g'),
 							 this.reader.getFloat(ambient[0], 'b'),
 						     this.reader.getFloat(ambient[0], 'a'));
 
-		 this.materials.addMaterial(id);
+
+	var emission =  new RGBA(this.reader.getFloat(emissison[0], 'r'),
+							 this.reader.getFloat(emissison[0], 'g'),
+							 this.reader.getFloat(emissison[0], 'b'),
+						     this.reader.getFloat(emissison[0], 'a'));
+
+	var material = new MyMaterial (this.scene,id, shininessValue, specular, diffuse, ambient, emission);
+
+	this.scene.materials.push(material);
+
+
 	}
 };
 

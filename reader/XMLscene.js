@@ -14,6 +14,12 @@ XMLscene.prototype.init = function (application) {
 
     this.tree = new MyTree();
 
+	this.materials = [];
+	this.stackMaterials = [];
+    this.textures = [];
+	this.stackTextures = [];
+
+
     //this.cyl = new MyCylinder(this,1,0.5,0,9,50);
     //this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
     //this.spe = new MySphere(this, 0.5,50,50);
@@ -136,17 +142,84 @@ XMLscene.prototype.displayNode = function (nodeID) {
 
 	}
 
-	if(node.isLeaf)
+	if(node.isLeaf){
+		var id_mat =   this.stackMaterials[this.stackMaterials.length-1];
+
+		for(var i=0 ; i < this.materials.length; i++){
+			//console.log("->>>>>" + this.materials[i].id);
+			if(this.materials[i].id == id_mat){
+				//console.warn(this.materials[i].id);
+				this.materials[i].apply();
+			}
+		}
+		//console.warn("dsdkl" + id_mat );
 		node.primitive.display();	
+
+	}
 				
 	else {
 		
 		this.pushMatrix(); // guarda a cena atual
 		this.multMatrix(node.transformation);
 		//adicionar textura 
+		
+
+
 		//adicionar material
+		/*
+		for(var i=0 ; i < this.materials.length; i++){
+			if(this.materials[i].id == node.material){
+
+				var r = this.materials[i].ambient.r;
+				var g = this.materials[i].ambient.g;
+				var b = this.materials[i].ambient.b;
+				var a = this.materials[i].ambient.a;
+
+				this.scene.setAmbient(r,g,b,a);
+
+
+				r = this.materials[i].diffuse.r;
+				g = this.materials[i].diffuse.g;
+				b = this.materials[i].diffuse.b;
+				a = this.materials[i].diffuse.a;
+
+				this.scene.setDiffuse(r,g,b,a);
+
+				r = this.materials[i].specular.r;
+				g = this.materials[i].specular.g;
+				b = this.materials[i].specular.b;
+				a = this.materials[i].specular.a;
+
+				this.scene.setSpecular(r,g,b,a);
+
+
+				r = this.materials[i].emission.r;
+				g = this.materials[i].emission.g;
+				b = this.materials[i].emission.b;
+				a = this.materials[i].emission.a;
+
+				this.scene.setEmission(r,g,b,a);
+
+				this.scene.setShininess(this.materials[i].shininess);
+		
+			}
+		}*/
+
+		if(node.material != ""){
+			this.stackMaterials.push(node.material);
+		}
+
+
+
+
+
+		//adicionar objectos
 		for(var i=0; i < node.descendants.length; i++){				
 				this.displayNode(node.descendants[i]);				
+		}
+
+		if(node.material != ""){
+			this.stackMaterials.pop();
 		}
 		this.popMatrix();
 
