@@ -343,7 +343,6 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		return "list element is missing.";
 	}
 
-	this.textures = [];
 
 	for(var k = 0; k < tempListTextures.length; k++){
 
@@ -351,10 +350,8 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 		var path = this.reader.getString(tempListTextures[k].children[0],'path',true);
 		var factorS = this.reader.getFloat(tempListTextures[k].children[1],'s',true);
 		var factorT = this.reader.getFloat(tempListTextures[k].children[1],'t',true);
-		
-		var id = tempListTextures[k];
 
-		 var texture = new MyTexture(id, path, factorS, factorT);
+		var texture = new MyTexture(this.scene,id, path, factorS, factorT);
 
 		this.scene.textures.push(texture);
 	}
@@ -375,10 +372,7 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 	for (var m = 0; m < tempListMaterials.length; m++){
 
 		var id = this.reader.getString(tempListMaterials[m], 'id',true);
-
-		this.materials = new MyMaterials();
 		
-		//this.id = new CGFappearance(this.scene);
 
 		var shininess = tempListMaterials[m].getElementsByTagName('shininess');
 		var specular = tempListMaterials[m].getElementsByTagName('specular');

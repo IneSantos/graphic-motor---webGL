@@ -25,12 +25,12 @@ XMLscene.prototype.init = function (application) {
     //this.spe = new MySphere(this, 0.5,50,50);
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-
+	this.test = new CGFtexture(this, "texture/floor.jpg");
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
-
+	this.enableTextures(true);
 	this.axis=new CGFaxis(this);
 };
 
@@ -143,17 +143,27 @@ XMLscene.prototype.displayNode = function (nodeID) {
 	}
 
 	if(node.isLeaf){
-		var id_mat =   this.stackMaterials[this.stackMaterials.length-1];
+		var id_mat = this.stackMaterials[this.stackMaterials.length-1];
+		var id_text = this.stackTextures[this.stackTextures.length-1];
+		var j=0;
 
 		for(var i=0 ; i < this.materials.length; i++){
-			//console.log("->>>>>" + this.materials[i].id);
 			if(this.materials[i].id == id_mat){
-				//console.warn(this.materials[i].id);
 				this.materials[i].apply();
 			}
 		}
-		//console.warn("dsdkl" + id_mat );
+
+		for(j = 0; j < this.textures.length; j++){
+			if(this.textures[j].id == id_text){
+				//console.warn(this.textures[j]);;;;;
+				this.textures[j].bind();
+				break;
+			}
+		}
+
 		node.primitive.display();	
+		if(id_text != "null" && id_text !="clear" && j < this.textures.length)
+			this.textures[j].unbind();
 
 	}
 				
@@ -162,64 +172,25 @@ XMLscene.prototype.displayNode = function (nodeID) {
 		this.pushMatrix(); // guarda a cena atual
 		this.multMatrix(node.transformation);
 		//adicionar textura 
-		
-
-
-		//adicionar material
-		/*
-		for(var i=0 ; i < this.materials.length; i++){
-			if(this.materials[i].id == node.material){
-
-				var r = this.materials[i].ambient.r;
-				var g = this.materials[i].ambient.g;
-				var b = this.materials[i].ambient.b;
-				var a = this.materials[i].ambient.a;
-
-				this.scene.setAmbient(r,g,b,a);
-
-
-				r = this.materials[i].diffuse.r;
-				g = this.materials[i].diffuse.g;
-				b = this.materials[i].diffuse.b;
-				a = this.materials[i].diffuse.a;
-
-				this.scene.setDiffuse(r,g,b,a);
-
-				r = this.materials[i].specular.r;
-				g = this.materials[i].specular.g;
-				b = this.materials[i].specular.b;
-				a = this.materials[i].specular.a;
-
-				this.scene.setSpecular(r,g,b,a);
-
-
-				r = this.materials[i].emission.r;
-				g = this.materials[i].emission.g;
-				b = this.materials[i].emission.b;
-				a = this.materials[i].emission.a;
-
-				this.scene.setEmission(r,g,b,a);
-
-				this.scene.setShininess(this.materials[i].shininess);
-		
-			}
-		}*/
-
-		if(node.material != ""){
-			this.stackMaterials.push(node.material);
+		if(node.text != "null"){
+			this.stackTextures.push(node.text);
 		}
 
-
-
-
+		//adicionar material
+		if(node.material != "null"){
+			this.stackMaterials.push(node.material);
+		}
 
 		//adicionar objectos
 		for(var i=0; i < node.descendants.length; i++){				
 				this.displayNode(node.descendants[i]);				
 		}
 
-		if(node.material != ""){
+		if(node.material != "null"){
 			this.stackMaterials.pop();
+		}
+		if(node.text != "null"){
+			this.stackTextures.pop();
 		}
 		this.popMatrix();
 
