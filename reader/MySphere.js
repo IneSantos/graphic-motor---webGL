@@ -57,11 +57,11 @@ Radius dimension
  	    		/**
 				x = rsin(theta)cos(phi)  
 				*/
- 	    		var x = Math.sin(theta)*Math.cos(phi); 
+ 	    		var x = this.radius*Math.sin(theta)*Math.cos(phi); 
  	    		/**
  	    		y = rsin(theta)sin(phi) 
  	    		*/
-    	   		var y = Math.sin(theta)*Math.sin(phi); 
+    	   		var y = this.radius*Math.sin(theta)*Math.sin(phi); 
     	   		/**
     	   		z = cos(theta)
     	   		*/
@@ -94,7 +94,6 @@ draw the sphere
 		}
 	}
 
-       
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
 };
