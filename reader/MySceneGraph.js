@@ -234,7 +234,7 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 }
 
 MySceneGraph.prototype.parseLights= function(rootElement) {
-	this.scene.shader.bind();
+	//this.scene.shader.bind();
 var light =  rootElement.getElementsByTagName('LIGHTS');
 	
 	if (light == null) 
@@ -257,7 +257,8 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 
 		if(nnodes != 5)
 			return "light elements missing."
-
+				
+				var id = tempListLight[j].getAttribute('id');
 				var enable = tempListLight[j].getElementsByTagName('enable');
 				var position = tempListLight[j].getElementsByTagName('position');
 				var ambient = tempListLight[j].getElementsByTagName('ambient');
@@ -267,15 +268,28 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 
 		//	this.lights[j] =  new CGFlight(this.scene, tempListLight[j].getElementsByTagName('id'));
 
+			if(id == null)
+				return "id element missing.";
+
+			/*if(id.length != 1)
+				return "elements missing in id element." + id.length;*/
+			
+			//console.warn(id);
+			this.scene.luzesid.push(id);
+		
 			if(enable == null)
 				return "enable element missing.";
 
 			if(enable.length != 1)
 				return "elements missing in enable element." + enable.length;
 
-			if(this.reader.getInteger(enable[0], 'value') == 1)
-					 this.scene.lights[j].enable();
-				else this.scene.lights[j].disable();
+			if(this.reader.getInteger(enable[0], 'value') == 1){
+					 //this.scene.lights[j].enable();
+					 this.scene.onOff[j] = true;
+			}
+				else{ //this.scene.lights[j].disable();
+				 this.scene.onOff[j] = false;
+				}
 
 			if(position == null)
 				return "position element missing.";
@@ -320,7 +334,7 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 
 			this.scene.lights[j].setVisible(true); 
 		}
-		this.scene.shader.unbind();
+		//this.scene.shader.unbind();
 };
 
 MySceneGraph.prototype.parseTextures= function(rootElement) {

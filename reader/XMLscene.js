@@ -19,7 +19,18 @@ XMLscene.prototype.init = function (application) {
     this.textures = [];
 	this.stackTextures = [];
 
+	//this.lights = [];
+	this.onOff = [false,false,false,false,false,false,false,false];
+	this.luzesid = [];
 
+
+	this.interface = new CGFinterface.prototype.init(this,application);
+	this.gui = new dat.GUI();
+
+  	this.luzes=this.gui.addFolder("ON/OFF");
+		this.luzes.open();
+
+	
     //this.cyl = new MyCylinder(this,1,0.5,0,9,50);
     //this.tri = new MyTriangle(this,-0.5,-0.5,0,0.5,-0.5,0,0,0.5,0);
     //this.spe = new MySphere(this, 0.5,50,50);
@@ -55,6 +66,9 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function () 
 {
+	for(var j=0; j < this.luzesid.length; j++){
+		this.luzes.add(this.onOff, j,this.onOff[j]).name(this.luzesid[j]);
+	}
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
 };
 
@@ -102,10 +116,15 @@ XMLscene.prototype.display = function () {
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
 		
-
+	
 	if (this.graph.loadedOk)
 	{
 		for(var i= 0; i< this.lights.length ; i++){
+
+			if(this.onOff[i]){
+				this.lights[i].enable();
+			}else 
+				this.lights[i].disable();
 			this.lights[i].update();
 		}
 
