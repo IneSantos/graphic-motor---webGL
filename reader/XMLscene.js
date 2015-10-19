@@ -24,7 +24,7 @@ XMLscene.prototype.init = function (application) {
 	this.luzesid = [];
 
 
-	this.interface = new CGFinterface.prototype.init(this,application);
+	this.interface = new CGFinterface(this,application);
 	this.gui = new dat.GUI();
 
   	this.luzes=this.gui.addFolder("ON/OFF");
