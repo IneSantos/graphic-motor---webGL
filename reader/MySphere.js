@@ -16,14 +16,18 @@ function MySphere(scene,radius, slices, stacks) {
 MySphere.prototype = Object.create(CGFobject.prototype);
 MySphere.prototype.constructor=MySphere;
 
- 
 MySphere.prototype.initBuffers = function () {
  
- //Initial coordinates
+ /**
+ Initial coordinates
+ */
      var x_init = 0;
      var y_init = 0;
      var z_init = 0;
 
+/**
+Radius dimension
+*/
     r = 1;
   
      this.vertices = [];
@@ -31,40 +35,62 @@ MySphere.prototype.initBuffers = function () {
      this.normals = [];
    	 this.texCoords = [];
        
+    /**
+    for the texture coordinates
+    */
     var stepS = 0;
 	var stepT = 1;
      
-        for(var i=0; i<=this.stacks; i++){
+        for(var i=0; i <= this.stacks; i++){
       		 
-          for(var j=0; j<=this.slices; j++){ 
+          for(var j=0; j <= this.slices; j++){ 
 
-				var teta = i * (Math.PI)/ this.stacks; // teta angle
-				var pi = j * (2*Math.PI)/ this.slices;     // pi angle
+          		/**
+          		teta angle
+          		*/
+				var theta = i * (Math.PI)/ this.stacks; 
+				/**
+				phi angle
+				*/
+				var phi = j * (2*Math.PI)/ this.slices; 
 
- 	    		var z = this.radius*Math.sin(teta)*Math.cos(pi); 
-    	   		var x = this.radius*Math.sin(teta)*Math.sin(pi); 
-       			var y =  Math.cos(teta); 
+ 	    		/**
+				x = rsin(theta)cos(phi)  
+				*/
+ 	    		var x = Math.sin(theta)*Math.cos(phi); 
+ 	    		/**
+ 	    		y = rsin(theta)sin(phi) 
+ 	    		*/
+    	   		var y = Math.sin(theta)*Math.sin(phi); 
+    	   		/**
+    	   		z = cos(theta)
+    	   		*/
+       			var z =  Math.cos(theta); 
 
-            	this.vertices.push(z,x,y);
-            	this.normals.push(z,x,y);
+       			/**
+       			push the vertices and the normals
+       			*/
+            	this.vertices.push(x,y,z);
+            	this.normals.push(x,y,z);
 
-				stepT = i/this.stacks;
-				stepS = j/this.slices;
-
-				this.texCoords.push(stepS, stepT);
+            	/**
+            	texture coordinates
+            	*/
+				this.texCoords.push(j/this.slices, i/this.stacks);
 				
 	        }
-	      //stepS = 0;
 	      
         }	
 
 
-for (var stack = 0; stack < this.stacks; stack++)
-	{
+/**
+draw the sphere
+*/
+	for (var stack = 0; stack < this.stacks; stack++){
 		for (var slice = 0; slice < this.slices; slice++)
 		{
-				this.indices.push(stack * (this.slices + 1)+slice, (stack + 1) * (this.slices + 1)+slice, (stack + 1) * (this.slices+1) + slice+1);
-				this.indices.push(stack * (this.slices + 1)+slice, (stack + 1) * (this.slices + 1)+slice+1, stack * (this.slices+1) + 1+slice);
+			this.indices.push(slice + (stack * (this.slices + 1)), slice + ((stack + 1) * (this.slices)), slice + 1 + (stack * (this.slices + 1)));
+			this.indices.push(slice + (stack * (this.slices + 1)), slice + 1 + ((stack + 1) * (this.slices)), slice + 1 + (stack * (this.slices + 1)));
 		}
 	}
 
