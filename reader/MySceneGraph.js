@@ -1,4 +1,9 @@
-
+/**
+ * MySceneGraph
+ * @constructor
+ * @param filename - name of the file to read
+ * @param scene - the scene
+ */
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 	
@@ -19,10 +24,9 @@ function MySceneGraph(filename, scene) {
 
 }
 
-
-
 /*
  * Callback to be executed after successful reading
+ * @constructor
  */
 MySceneGraph.prototype.onXMLReady=function() 
 {
@@ -81,7 +85,6 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
-		//console.warn("CENAS!!!!");
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -91,7 +94,8 @@ MySceneGraph.prototype.onXMLReady=function()
 
 
 /*
- * Example of method that parses elements of one block and stores information in a specific data structure
+ * Method that parses elements of one block and stores information in a specific data structure
+ * @constructor
  */
 MySceneGraph.prototype.parseInitials= function(rootElement) {
 	
@@ -222,6 +226,10 @@ MySceneGraph.prototype.parseInitials= function(rootElement) {
 	console.log("Axis Length after: " + this.scene.axis.length);
 }
 
+/**
+* Method that reads the illumination aspects
+* @constructor
+*/
 MySceneGraph.prototype.parseIllumination= function(rootElement) {
 
 	// ILLUMINATION
@@ -260,10 +268,12 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 								   this.reader.getFloat(b[0], 'a'));
 
 	this.scene.gl.clearColor(this.backgroundRGBA.r, this.backgroundRGBA.g, this.backgroundRGBA.b, this.backgroundRGBA.a);
-
-
 }
 
+/**
+* Method that reads the lights
+* @constructor
+*/
 MySceneGraph.prototype.parseLights= function(rootElement) {
 	//this.scene.shader.bind();
 var light =  rootElement.getElementsByTagName('LIGHTS');
@@ -368,6 +378,10 @@ var light =  rootElement.getElementsByTagName('LIGHTS');
 		//this.scene.shader.unbind();
 };
 
+/**
+* Method that reads the textures
+* @constructor
+*/
 MySceneGraph.prototype.parseTextures= function(rootElement) {
 		
 	//TEXTURES
@@ -403,6 +417,10 @@ MySceneGraph.prototype.parseTextures= function(rootElement) {
 
 };
 
+/**
+* Method that reads the materials
+* @constructor
+*/
 MySceneGraph.prototype.parseMaterials= function(rootElement) {
 
 	var material = rootElement.getElementsByTagName('MATERIALS');
@@ -463,6 +481,10 @@ MySceneGraph.prototype.parseMaterials= function(rootElement) {
 	}
 };
 
+/**
+* Method that reads the leaves of the tree
+* @constructor
+*/
 MySceneGraph.prototype.parseLeaves= function(rootElement) {
 	var leaves = rootElement.getElementsByTagName('LEAVES');
 	
@@ -503,13 +525,13 @@ MySceneGraph.prototype.parseLeaves= function(rootElement) {
 	}
 };
 
+/**
+* Method that reads the nodes of the tree
+* @constructor
+*/
 MySceneGraph.prototype.parseNodes= function(rootElement) {
 
-	
-
 	var nodes = rootElement.getElementsByTagName('NODES');
-
-	
 
 	if (nodes == null)
 		return "no nodes found.";
@@ -643,8 +665,8 @@ MySceneGraph.prototype.parseNodes= function(rootElement) {
 
 /*
  * Callback to be executed on any read error
+ * @constructor
  */
- 
 MySceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+ message);	
 	this.loadedOk=false;

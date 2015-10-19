@@ -1,3 +1,8 @@
+/**
+* MyLight Constructor
+* saves the information about the lights read from the XML
+* @constructor
+*/
 function MyLight() {
      this.id;
      this.enable;

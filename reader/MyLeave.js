@@ -1,3 +1,12 @@
+/**
+* MyLeave constructor
+* tests whether the primitives are a rectangle, triangle, etc...
+* @constructor
+* @param scene - the scene
+* @param id - the id of the leave
+* @param type - the type of the leave
+* @param coords - the coordinates of the leave
+*/
 function MyLeave(scene,id, type, coords) {
      this.id = id;
      this.type = type; 

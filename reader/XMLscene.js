@@ -1,3 +1,7 @@
+/**
+* Method that calls the scene
+* @constructor
+*/
 function XMLscene() {
     CGFscene.call(this);
 }
@@ -5,6 +9,10 @@ function XMLscene() {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+/**
+* Method that initiates the scene
+* @constructor
+*/
 XMLscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
@@ -47,16 +55,28 @@ XMLscene.prototype.init = function (application) {
 	this.axis=new CGFaxis(this);
 };
 
+/**
+* Method that initiates the lights
+* @constructor
+*/
 XMLscene.prototype.initLights = function () {
 
     this.shader.bind();
     this.shader.unbind();
 };
 
+/**
+* Method that initiates the cameras
+* @constructor
+*/
 XMLscene.prototype.initCameras = function () {
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 };
 
+/**
+* Method that sets the default appearance
+* @constructor
+*/
 XMLscene.prototype.setDefaultAppearance = function () {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -64,8 +84,11 @@ XMLscene.prototype.setDefaultAppearance = function () {
     this.setShininess(10.0);	
 };
 
-// Handler called when the graph is finally loaded. 
-// As loading is asynchronous, this may be called already after the application has started the run loop
+/**
+* Handler called when the graph is finally loaded. 
+* As loading is asynchronous, this may be called already after the application has started the run loop
+* @constructor
+*/
 XMLscene.prototype.onGraphLoaded = function () 
 {
 	for(var j=0; j < this.luzesid.length; j++){
@@ -74,6 +97,10 @@ XMLscene.prototype.onGraphLoaded = function ()
 	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
 };
 
+/**
+* Method that loads the textures
+* @constructor
+*/
 XMLscene.prototype.loadTextures = function(){
 
 	var textures = this.scene.texture_list.getTextures();
@@ -90,6 +117,10 @@ XMLscene.prototype.loadTextures = function(){
 
 };
 
+/**
+* Method that displays the scene
+* @constructor
+*/
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
     this.shader.bind();
@@ -142,6 +173,11 @@ XMLscene.prototype.display = function () {
     this.shader.unbind();
 };
 
+/**
+* Method that displays the nodes
+* @constructor
+* @param nodeID - the id of the node to be displayed
+*/
 XMLscene.prototype.displayNode = function (nodeID) {
 	
 

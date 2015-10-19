@@ -1,6 +1,12 @@
 /**
  * MyCylinder
  * @constructor
+ * @param scene - the scene
+ * @param height - the height of the cylinder
+ * @param bottom_radius - the radius of the base on the bottom
+ * @param top_radius - the radius of the base on the top
+ * @param stacks - the number of stacks
+ * @param slices - the number of slices
  */
  function MyCylinder(scene,height, bottom_radius, top_radius, stacks, slices) {
   CGFobject.call(this,scene); 
@@ -17,6 +23,10 @@
 MyCylinder.prototype = Object.create(CGFobject.prototype);
 MyCylinder.prototype.constructor = MyCylinder;
 
+/**
+* Draw the cylinder
+* @constructor
+*/
 MyCylinder.prototype.initBuffers = function() {
  
   this.vertices = [];
@@ -87,5 +97,8 @@ MyCylinder.prototype.initBuffers = function() {
         };
 
 
- 
+ /**
+ * To update the texture coordinates
+ * @constructor
+ */
  MyCylinder.prototype.updateTextCoords = function(s,t){};

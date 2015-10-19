@@ -1,6 +1,16 @@
 /**
  * MyTriangle
  * @constructor
+ * @param scene
+ * @param letfX
+ * @param leftY 
+ * @param leftZ
+ * @param rightX
+ * @param rightY
+ * @param rightZ
+ * @param topX
+ * @param topY
+ * @param topZ
  */
  function MyTriangle(scene, leftX, leftY, leftZ, rightX, rightY, rightZ, topX, topY, topZ) {
         CGFobject.call(this,scene);
@@ -21,6 +31,10 @@
  MyTriangle.prototype = Object.create(CGFobject.prototype);
  MyTriangle.prototype.constructor = MyTriangle;
  
+ /**
+ * Method that draws the triangle
+ * @constructor
+ */
  MyTriangle.prototype.initBuffers = function() {
        
         this.vertices = [
@@ -56,7 +70,10 @@
       this.initGLBuffers();
  };
 
-  
+/**
+* Method that updates the texture coordinates
+* @constructor
+*/
 MyTriangle.prototype.updateTextCoords = function(s,t){
 
     var a = Math.sqrt(Math.pow((this.topX-this.rightX),2) + Math.pow((this.topY-this.rightY),2) +  Math.pow((this.topZ-this.rightZ),2));

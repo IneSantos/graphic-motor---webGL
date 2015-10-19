@@ -1,4 +1,14 @@
-
+/**
+ * MyMaterial constructor
+ * @constructor
+ * @param scene - the scene
+ * @param id - the id of the material
+ * @param shininess - the shininess of the material
+ * @param specular - the specular component of the material
+ * @param diffuse - the diffuse component of the material
+ * @param ambient - the ambient component of the material
+ * @param emission - the emission component of the material
+ */
 function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
  	CGFappearance.call(this,scene);
@@ -12,7 +22,8 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
 	this.setShininess(this.shininess);
 
-	var r = this.ambient.r;
+    /** divides the rgba components of the ambient */
+ 	var r = this.ambient.r;
 	var g = this.ambient.g;
 	var b = this.ambient.b;
 	var a = this.ambient.a;
@@ -21,6 +32,7 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
 	this.setAmbient(r,g,b,a);
 
+	/** divides the rgba components of the diffuse */
 	r = this.diffuse.r;
 	g = this.diffuse.g;
 	b = this.diffuse.b;
@@ -29,6 +41,7 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
 	this.setDiffuse(r,g,b,a);
 	
+	/** divides the rgba components of the specular */
 	r = this.specular.r;
 	g = this.specular.g;
 	b = this.specular.b;
@@ -37,7 +50,7 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 	console.log("Specular : " + r + " , "+ g + " , "+ b  +" , " + a);
 	this.setSpecular(r,g,b,a);
 
-
+	/** divides the rgba components of the emission */
 	r = this.emission.r;
 	g = this.emission.g;
 	b = this.emission.b;
@@ -45,8 +58,6 @@ function MyMaterial(scene,id, shininess, specular, diffuse, ambient, emission){
 
 console.log("Emission : " + r + " , "+ g + " , "+ b  +" , " + a);
 	this.setEmission(r,g,b,a);
-	
-
 };
 
 

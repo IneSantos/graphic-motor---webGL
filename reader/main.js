@@ -1,4 +1,3 @@
-//From https://github.com/EvanHahn/ScriptInclude
 include=function(){function f(){var a=this.readyState;(!a||/ded|te/.test(a))&&(c--,!c&&e&&d())}var a=arguments,b=document,c=a.length,d=a[c-1],e=d.call;e&&c--;for(var g,h=0;c>h;h++)g=b.createElement("script"),g.src=arguments[h],g.async=!0,g.onload=g.onerror=g.onreadystatechange=f,(b.head||b.getElementsByTagName("head")[0]).appendChild(g)};
 serialInclude=function(a){var b=console,c=serialInclude.l;if(a.length>0)c.splice(0,0,a);else b.log("Done!");if(c.length>0){if(c[0].length>1){var d=c[0].splice(0,1);b.log("Loading "+d+"...");include(d,function(){serialInclude([]);});}else{var e=c[0][0];c.splice(0,1);e.call();};}else b.log("Finished.");};serialInclude.l=new Array();
 
@@ -17,9 +16,13 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
  'MyTriangle.js', 'MyTree.js', 'MySphere.js', ' MyRectangle.js', 'MyMaterial.js',
  
 
-main=function()
-{
-	// Standard application, scene and interface setup
+/**
+* Main function
+* From https://github.com/EvanHahn/ScriptInclude
+* @constructor
+*/
+main=function(){
+	/** Standard application, scene and interface setup */
     var app = new CGFapplication(document.body);
     var myScene = new XMLscene();
     var myInterface = new CGFinterface();
@@ -31,17 +34,17 @@ main=function()
 
     myInterface.setActiveCamera(myScene.camera);
 
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
+	/** get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml */
+	/** or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) */
 	
 	var filename=getUrlVars()['file'] || "LAIG_TP1_LSX_T06_G06_v1.lsx";
 
-	// create and load graph, and associate it to scene. 
-	// Check console for loading errors
+	/** create and load graph, and associate it to scene. */
+	/** Check console for loading errors. */
 	var myGraph = new MySceneGraph(filename, myScene);
 	
-	// start
+	/** start */
     app.run();
-}
+    }
 
 ]);

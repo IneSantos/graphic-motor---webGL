@@ -2,7 +2,6 @@
  * MySphere
  * @constructor
  */
-
 function MySphere(scene,radius, slices, stacks) {
 	CGFobject.call(this,scene);
 
@@ -16,18 +15,18 @@ function MySphere(scene,radius, slices, stacks) {
 MySphere.prototype = Object.create(CGFobject.prototype);
 MySphere.prototype.constructor=MySphere;
 
+/**
+* Create the sphere
+* @constructor
+*/
 MySphere.prototype.initBuffers = function () {
  
- /**
- Initial coordinates
- */
+ /** Initial coordinates */
      var x_init = 0;
      var y_init = 0;
      var z_init = 0;
 
-/**
-Radius dimension
-*/
+/** Radius dimension */
     r = 1;
   
      this.vertices = [];
@@ -35,9 +34,7 @@ Radius dimension
      this.normals = [];
    	 this.texCoords = [];
        
-    /**
-    for the texture coordinates
-    */
+/** for the texture coordinates */
     var stepS = 0;
 	var stepT = 1;
      
@@ -45,37 +42,23 @@ Radius dimension
       		 
           for(var j=0; j <= this.slices; j++){ 
 
-          		/**
-          		teta angle
-          		*/
+          		/** teta angle */
 				var theta = i * (Math.PI)/ this.stacks; 
-				/**
-				phi angle
-				*/
+				/** phi angle */
 				var phi = j * (2*Math.PI)/ this.slices; 
 
- 	    		/**
-				x = rsin(theta)cos(phi)  
-				*/
+ 	    		/** x = rsin(theta)cos(phi) */
  	    		var x = this.radius*Math.sin(theta)*Math.cos(phi); 
- 	    		/**
- 	    		y = rsin(theta)sin(phi) 
- 	    		*/
+ 	    		/** y = rsin(theta)sin(phi) */
     	   		var y = this.radius*Math.sin(theta)*Math.sin(phi); 
-    	   		/**
-    	   		z = cos(theta)
-    	   		*/
+    	   		/** z = cos(theta) */
        			var z =  Math.cos(theta); 
 
-       			/**
-       			push the vertices and the normals
-       			*/
+       			/** push the vertices and the normals */
             	this.vertices.push(x,y,z);
             	this.normals.push(x,y,z);
 
-            	/**
-            	texture coordinates
-            	*/
+            	/** texture coordinates */
 				this.texCoords.push(j/this.slices, i/this.stacks);
 				
 	        }
@@ -83,9 +66,7 @@ Radius dimension
         }	
 
 
-/**
-draw the sphere
-*/
+/** draw the sphere */
 	for (var stack = 0; stack < this.stacks; stack++){
 		for (var slice = 0; slice < this.slices; slice++)
 		{
@@ -99,5 +80,8 @@ draw the sphere
 };
 
 
-
+/**
+* Updates texture coordinates
+* @constructor
+*/
  MySphere.prototype.updateTextCoords = function(s,t){};
