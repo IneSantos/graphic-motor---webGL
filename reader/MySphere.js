@@ -19,18 +19,12 @@ MySphere.prototype.constructor=MySphere;
  
 MySphere.prototype.initBuffers = function () {
  
- //Coordenadas iniciais
-     var x0 = 0;
-     var y0 = 0;
-     var z0 = 0;
-
- //Dimensao do Raio
+ //Initial coordinates
+     var x_init = 0;
+     var y_init = 0;
+     var z_init = 0;
 
     r = 1;
-
-
-//Angulos Theta e Phi
-
   
      this.vertices = [];
      this.indices = [];
@@ -43,23 +37,21 @@ MySphere.prototype.initBuffers = function () {
         for(var i=0; i<=this.stacks; i++){
       		 
           for(var j=0; j<=this.slices; j++){ 
-				var theta = i*(Math.PI)/ this.stacks; 
-				var phi = j * (2*Math.PI)/this.slices;     
 
- 	    		var x = this.radius*Math.sin(theta)*Math.cos(phi); //x = rsin(theta)cos(phi)  
-    	   		var y = this.radius*Math.sin(theta)*Math.sin(phi); //y = rsin(theta)sin(phi)
-       			var z =  Math.cos(theta); // z
+				var teta = i * (Math.PI)/ this.stacks; // teta angle
+				var pi = j * (2*Math.PI)/ this.slices;     // pi angle
 
-			//neste sistema de coordenadas x é z, y é x e z é y.
-            	this.vertices.push(x,y,z);
-            	this.normals.push(x,y,z);
+ 	    		var z = this.radius*Math.sin(teta)*Math.cos(pi); 
+    	   		var x = this.radius*Math.sin(teta)*Math.sin(pi); 
+       			var y =  Math.cos(teta); 
 
-				stepT= i/this.stacks;
-				stepS=j/this.slices;
+            	this.vertices.push(z,x,y);
+            	this.normals.push(z,x,y);
 
+				stepT = i/this.stacks;
+				stepS = j/this.slices;
 
 				this.texCoords.push(stepS, stepT);
-				
 				
 	        }
 	      //stepS = 0;
@@ -77,7 +69,7 @@ for (var stack = 0; stack < this.stacks; stack++)
 	}
 
        
-        this.primitiveType=this.scene.gl.TRIANGLES;
+        this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
 };
 
