@@ -97,7 +97,7 @@ MyCylinder.prototype.initBuffers = function() {
         };
 
 
- /**
+  /**
  * To update the texture coordinates
  * @constructor
  */

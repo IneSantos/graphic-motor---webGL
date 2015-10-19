@@ -19,6 +19,7 @@ function MyTexture(scene,id,file_path,amplif_factorS,amplif_factorT) {
      this.amplif_factorT=amplif_factorT;
  };
 
+//MyTexture.prototype = Object.create(CGFtexture.prototype);
 MyTexture.prototype.constructor = MyTexture;
 
 /**

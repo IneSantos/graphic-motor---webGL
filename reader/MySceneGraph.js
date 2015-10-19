@@ -24,6 +24,7 @@ function MySceneGraph(filename, scene) {
 
 }
 
+
 /*
  * Callback to be executed after successful reading
  * @constructor
@@ -85,6 +86,7 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
+		//console.warn("CENAS!!!!");
 	this.loadedOk=true;
 	
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -268,6 +270,8 @@ MySceneGraph.prototype.parseIllumination= function(rootElement) {
 								   this.reader.getFloat(b[0], 'a'));
 
 	this.scene.gl.clearColor(this.backgroundRGBA.r, this.backgroundRGBA.g, this.backgroundRGBA.b, this.backgroundRGBA.a);
+
+
 }
 
 /**

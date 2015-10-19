@@ -15,7 +15,6 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
  'RGBA.js', 'MyTexture.js', 'MyNode.js', 'MyLeave.js', 'MyCylinder.js', 
  'MyTriangle.js', 'MyTree.js', 'MySphere.js', ' MyRectangle.js', 'MyMaterial.js',
  
-
 /**
 * Main function
 * From https://github.com/EvanHahn/ScriptInclude
@@ -37,6 +36,7 @@ main=function(){
 	/** get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml */
 	/** or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) */
 	
+	
 	var filename=getUrlVars()['file'] || "LAIG_TP1_LSX_T06_G06_v1.lsx";
 
 	/** create and load graph, and associate it to scene. */
@@ -45,6 +45,6 @@ main=function(){
 	
 	/** start */
     app.run();
-    }
+}
 
 ]);

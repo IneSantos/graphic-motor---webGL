@@ -11,6 +11,7 @@ function MyRotation(ang,x,y,z) {
     this.x = x;
     this.y =y;
     this.z =z;
+
  };
 
 MyRotation.prototype.constructor = MyRotation;
@@ -20,5 +21,7 @@ MyRotation.prototype.constructor = MyRotation;
 * @constructor
 */
 MyRotation.prototype.apply = function(scene) {
+    
     scene.rotate((this.ang*Math.PI)/180,this.x,this.y,this.z);
+
 };

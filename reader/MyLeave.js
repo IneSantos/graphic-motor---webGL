@@ -15,7 +15,7 @@ function MyLeave(scene,id, type, coords) {
      this.primitive={};
      
      if(this.type == "rectangle")
-         this.primitive = new MyRectangle(scene,0,1,0,1, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]));
+         this.primitive = new MyRectangle(scene, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]));
         
         else if(this.type == "cylinder")
           this.primitive = new MyCylinder(scene, parseFloat(this.coords[0]), parseFloat(this.coords[1]), parseFloat(this.coords[2]), parseFloat(this.coords[3]), parseFloat(this.coords[4]));
