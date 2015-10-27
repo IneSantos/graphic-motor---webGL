@@ -1,5 +1,5 @@
 # LAIG-trabalho1
-Graphic motor. Reads from a .lsx file which is written in xml and presents the scene in javascript.
+Graphic motor. Reads from a .lsx file (Language of Scenes in XML) and presents the scene in javascript.
 
 Filipa Ramos
 
